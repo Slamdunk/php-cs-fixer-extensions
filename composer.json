@@ -1,0 +1,32 @@
+{
+    "name": "slam/php-cs-fixer",
+    "type": "application",
+    "description": "Slam extension of friendsofphp/php-cs-fixer",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Filippo Tessarotto",
+            "email": "zoeslam@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "friendsofphp/php-cs-fixer": "^2.2"
+    },
+    "require-dev": {
+        "gecko-packages/gecko-php-unit": "^2.0",
+        "phpunit/phpunit": "^5.7",
+        "slam/php-debug-r": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SlamCsFixer\\": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SlamCsFixer\\Tests\\": "tests/"
+        }
+    }
+}

@@ -1,0 +1,10 @@
+<phpunit
+    bootstrap="./vendor/autoload.php"
+    backupGlobals="false"
+    colors="true"
+    verbose="true">
+
+    <testsuite name="SlamCsFixer">
+        <directory>./tests</directory>
+    </testsuite>
+</phpunit>
