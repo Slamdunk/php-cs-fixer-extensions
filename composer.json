@@ -1,5 +1,5 @@
 {
-    "name": "slam/php-cs-fixer",
+    "name": "slam/php-cs-fixer-extensions",
     "type": "application",
     "description": "Slam extension of friendsofphp/php-cs-fixer",
     "license": "MIT",
