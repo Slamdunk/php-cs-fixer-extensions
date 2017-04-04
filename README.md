@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Slamdunk/php-cs-fixer-extensions.svg?branch=master)](https://travis-ci.org/Slamdunk/php-cs-fixer-extensions)
 
-PHP-CS-Fixer extensions and configurations
+[PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) extensions and configurations
 
 ## Usage
 
