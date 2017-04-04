@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SlamCsFixer;
 
+use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
@@ -12,6 +13,11 @@ final class FinalAbstractPublicFixer extends AbstractFixer
     public function isCandidate(Tokens $tokens)
     {
         return $tokens->isTokenKindFound(T_CLASS);
+    }
+
+    public function isRisky()
+    {
+        return true;
     }
 
     protected function applyFix(\SplFileInfo $file, Tokens $tokens)
@@ -31,9 +37,9 @@ final class FinalAbstractPublicFixer extends AbstractFixer
         }
     }
 
-    protected function getDescription()
+    public function getDefinition()
     {
-        return 'All public methods of abstract classes should be final. Warning! This could change code behavior.';
+        return new FixerDefinition('All public methods of abstract classes should be final');
     }
 
     private function fixClass(Tokens $tokens, int $classIndex, int $classOpenIndex, int $classCloseIndex)

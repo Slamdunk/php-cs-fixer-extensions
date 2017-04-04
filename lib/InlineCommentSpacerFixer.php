@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SlamCsFixer;
 
+use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Tokenizer\Tokens;
 
 final class InlineCommentSpacerFixer extends AbstractFixer
@@ -36,8 +37,8 @@ final class InlineCommentSpacerFixer extends AbstractFixer
         return pathinfo($file->getFilename(), PATHINFO_EXTENSION) === 'php';
     }
 
-    protected function getDescription()
+    public function getDefinition()
     {
-        return 'Puts a space after every inline comment start';
+        return new FixerDefinition('Puts a space after every inline comment start');
     }
 }

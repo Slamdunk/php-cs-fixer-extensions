@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace SlamCsFixer;
 
+use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Tokenizer\Tokens;
 
 final class Utf8Fixer extends AbstractFixer
 {
     public function isCandidate(Tokens $tokens)
+    {
+        return true;
+    }
+
+    public function isRisky()
     {
         return true;
     }
@@ -26,8 +32,8 @@ final class Utf8Fixer extends AbstractFixer
         return 99;
     }
 
-    protected function getDescription()
+    public function getDefinition()
     {
-        return 'Force files to be UTF8 without BOM';
+        return new FixerDefinition('Force files to be UTF8 without BOM', array());
     }
 }

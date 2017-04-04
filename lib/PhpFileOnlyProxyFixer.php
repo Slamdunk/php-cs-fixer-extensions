@@ -4,19 +4,16 @@ declare(strict_types=1);
 
 namespace SlamCsFixer;
 
-use PhpCsFixer\AbstractFixer as PhpCsFixerAbstractFixer;
-use PhpCsFixer\Fixer\FixerInterface;
+use PhpCsFixer\Fixer\DefinedFixerInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Tokenizer\Tokens;
 
-final class PhpFileOnlyProxyFixer extends PhpCsFixerAbstractFixer
+final class PhpFileOnlyProxyFixer implements DefinedFixerInterface
 {
     private $fixer;
 
-    public function __construct(FixerInterface $fixer)
+    public function __construct(DefinedFixerInterface $fixer)
     {
-        parent::__construct();
-
         $this->fixer = $fixer;
     }
 
@@ -30,9 +27,9 @@ final class PhpFileOnlyProxyFixer extends PhpCsFixerAbstractFixer
         return $this->fixer->isRisky();
     }
 
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    public function fix(\SplFileInfo $file, Tokens $tokens)
     {
-        return $this->fixer->applyFix($file, $tokens);
+        return $this->fixer->fix($file, $tokens);
     }
 
     public function getName()
@@ -52,6 +49,13 @@ final class PhpFileOnlyProxyFixer extends PhpCsFixerAbstractFixer
 
     public function getDefinition()
     {
-        return new FixerDefinition(sprintf('[.php] %s', $this->fixer->getDescription()), array());
+        $originalDefinition = $this->fixer->getDefinition();
+
+        return new FixerDefinition(
+            sprintf('[.php] %s', $originalDefinition->getSummary()),
+            $originalDefinition->getCodeSamples(),
+            $originalDefinition->getDescription(),
+            $originalDefinition->getRiskyDescription()
+        );
     }
 }

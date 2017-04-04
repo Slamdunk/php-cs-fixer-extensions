@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SlamCsFixer;
 
+use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
@@ -47,8 +48,8 @@ final class FunctionReferenceSpaceFixer extends AbstractFixer
         }
     }
 
-    protected function getDescription()
+    public function getDefinition()
     {
-        return 'Ensure space between & and variable name';
+        return new FixerDefinition('Ensure space between & and variable name');
     }
 }
