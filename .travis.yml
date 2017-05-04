@@ -4,7 +4,7 @@ sudo: false
 
 cache:
   directory:
-    - $HOME/.composer/cache
+    - $HOME/.composer
 
 php:
   - 7.0
