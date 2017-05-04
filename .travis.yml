@@ -14,7 +14,7 @@ install:
   - composer install --prefer-dist
 
 script:
-  - vendor/bin/phpunit
+  - vendor/bin/phpunit --coverage-text
   - vendor/bin/php-cs-fixer --diff --dry-run --verbose fix
 
 notifications:
