@@ -1,6 +1,8 @@
-# php-cs-fixer-extensions
+# Slam PHP-CS-Fixer extensions
 
 [![Build Status](https://travis-ci.org/Slamdunk/php-cs-fixer-extensions.svg?branch=master)](https://travis-ci.org/Slamdunk/php-cs-fixer-extensions)
+[![Code Coverage](https://scrutinizer-ci.com/g/Slamdunk/php-cs-fixer-extensions/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Slamdunk/php-cs-fixer-extensions/?branch=master)
+[![Packagist](https://img.shields.io/packagist/v/slam/php-cs-fixer-extensions.svg)](https://packagist.org/packages/slam/php-cs-fixer-extensions)
 
 [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) extensions and configurations
 
