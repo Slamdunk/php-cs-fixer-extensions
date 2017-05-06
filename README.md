@@ -6,13 +6,15 @@
 
 [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) extensions and configurations
 
-## Usage
+## Installation
 
 Execute:
 
 `composer require --dev slam/php-cs-fixer-extensions`
 
-And then, in your `.php_cs` file:
+## Usage
+
+In your `.php_cs` file:
 
 ```php
 <?php
