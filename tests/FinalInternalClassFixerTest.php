@@ -8,11 +8,11 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 
 final class FinalInternalClassFixerTest extends AbstractFixerTestCase
 {
-	public function testIsRisky()
-	{
-		$this->assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
-		$this->assertTrue($this->fixer->isRisky());
-	}
+    public function testIsRisky()
+    {
+        $this->assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
+        $this->assertTrue($this->fixer->isRisky());
+    }
 
     /**
      * @dataProvider provideCases

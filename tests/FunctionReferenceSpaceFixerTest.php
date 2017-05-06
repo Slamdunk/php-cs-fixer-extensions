@@ -8,10 +8,10 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 
 final class FunctionReferenceSpaceFixerTest extends AbstractFixerTestCase
 {
-	public function testDefinition()
-	{
-		$this->assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
-	}
+    public function testDefinition()
+    {
+        $this->assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
+    }
 
     /**
      * @dataProvider provideCases
