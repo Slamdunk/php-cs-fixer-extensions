@@ -50,6 +50,6 @@ final class FunctionReferenceSpaceFixer extends AbstractFixer
 
     public function getDefinition()
     {
-        return new FixerDefinition('Ensure space between & and variable name');
+        return new FixerDefinition('Ensure space between & and variable name', array());
     }
 }

@@ -4,8 +4,16 @@ declare(strict_types=1);
 
 namespace SlamCsFixer\Tests;
 
+use PhpCsFixer\FixerDefinition\FixerDefinition;
+
 final class FinalAbstractPublicFixerTest extends AbstractFixerTestCase
 {
+	public function testIsRisky()
+	{
+		$this->assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
+		$this->assertTrue($this->fixer->isRisky());
+	}
+
     /**
      * @dataProvider provideCases
      */

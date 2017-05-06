@@ -39,7 +39,7 @@ final class FinalAbstractPublicFixer extends AbstractFixer
 
     public function getDefinition()
     {
-        return new FixerDefinition('All public methods of abstract classes should be final');
+        return new FixerDefinition('All public methods of abstract classes should be final', array());
     }
 
     private function fixClass(Tokens $tokens, int $classIndex, int $classOpenIndex, int $classCloseIndex)

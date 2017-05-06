@@ -39,6 +39,6 @@ final class InlineCommentSpacerFixer extends AbstractFixer
 
     public function getDefinition()
     {
-        return new FixerDefinition('Puts a space after every inline comment start');
+        return new FixerDefinition('Puts a space after every inline comment start', array());
     }
 }

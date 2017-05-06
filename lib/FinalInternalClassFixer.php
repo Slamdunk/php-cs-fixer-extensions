@@ -49,6 +49,6 @@ final class FinalInternalClassFixer extends AbstractFixer
 
     public function getDefinition()
     {
-        return new FixerDefinition('All internal classes should be final except abstract ones');
+        return new FixerDefinition('All internal classes should be final except abstract ones', array());
     }
 }
