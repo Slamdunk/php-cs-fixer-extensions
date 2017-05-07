@@ -18,7 +18,7 @@ final class InlineCommentSpacerFixer extends AbstractFixer
     {
         foreach ($tokens as $token) {
             $content = $token->getContent();
-            if (! $token->isComment() or mb_substr($content, 0, 2) !== '//' or mb_substr($content, 0, 3) === '// ') {
+            if (! $token->isComment() || mb_substr($content, 0, 2) !== '//' || mb_substr($content, 0, 3) === '// ') {
                 continue;
             }
 

@@ -33,7 +33,7 @@ final class FinalInternalClassFixer extends AbstractFixer
 
             // ignore class if it's a Doctrine Entity
             $docToken = $tokens[$tokens->getPrevNonWhitespace($classIndex)];
-            if ($docToken->isGivenKind(T_DOC_COMMENT) and mb_strpos($docToken->getContent(), '@ORM\Entity') !== false) {
+            if ($docToken->isGivenKind(T_DOC_COMMENT) && mb_strpos($docToken->getContent(), '@ORM\Entity') !== false) {
                 continue;
             }
 

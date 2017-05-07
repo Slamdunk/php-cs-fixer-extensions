@@ -33,7 +33,7 @@ final class FinalAbstractPublicFixer extends AbstractFixer
             $classOpen = $tokens->getNextTokenOfKind($classIndex, array('{'));
             $classClose = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $classOpen);
 
-            $this->fixClass($tokens, $classIndex, $classOpen, $classClose);
+            $this->fixClass($tokens, $classOpen, $classClose);
         }
     }
 
@@ -42,7 +42,7 @@ final class FinalAbstractPublicFixer extends AbstractFixer
         return new FixerDefinition('All public methods of abstract classes should be final', array());
     }
 
-    private function fixClass(Tokens $tokens, int $classIndex, int $classOpenIndex, int $classCloseIndex)
+    private function fixClass(Tokens $tokens, int $classOpenIndex, int $classCloseIndex)
     {
         for ($index = $classCloseIndex - 1; $index > $classOpenIndex; --$index) {
             if ($tokens[$index]->equals('}')) {
@@ -63,7 +63,7 @@ final class FinalAbstractPublicFixer extends AbstractFixer
             }
             $nextIndex = $tokens->getNextMeaningfulToken($nextIndex);
             $nextToken = $tokens[$nextIndex];
-            if (! $nextToken->isGivenKind(T_STRING) or mb_strpos($nextToken->getContent(), '__') === 0) {
+            if (! $nextToken->isGivenKind(T_STRING) || mb_strpos($nextToken->getContent(), '__') === 0) {
                 continue;
             }
             $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
