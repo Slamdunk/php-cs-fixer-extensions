@@ -7,11 +7,11 @@ namespace SlamCsFixer\Tests;
 use PhpCsFixer\Fixer\DefinedFixerInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Tokens;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SlamCsFixer\PhpFileOnlyProxyFixer;
 use SplFileInfo;
 
-final class PhpFileOnlyProxyFixerTest extends PHPUnit_Framework_TestCase
+final class PhpFileOnlyProxyFixerTest extends TestCase
 {
     public function testProxy()
     {
