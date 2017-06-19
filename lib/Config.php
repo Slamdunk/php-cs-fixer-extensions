@@ -15,6 +15,7 @@ final class Config extends PhpCsFixerConfig
 
         $this->setRiskyAllowed(true);
         $this->registerCustomFixers(array(
+            new AlignMultilineCommentFixer(),
             new FinalAbstractPublicFixer(),
             new FinalInternalClassFixer(),
             new FunctionReferenceSpaceFixer(),
@@ -26,6 +27,7 @@ final class Config extends PhpCsFixerConfig
             new Utf8Fixer(),
         ));
         $this->setRules(array(
+            'Slam/align_multiline_comment' => true,
             'Slam/final_abstract_public' => $version2,
             'Slam/final_internal_class' => $version2,
             'Slam/function_reference_space' => true,
