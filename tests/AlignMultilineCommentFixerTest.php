@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SlamCsFixer\Tests;
 
 final class AlignMultilineCommentFixerTest extends AbstractFixerTestCase
@@ -14,8 +16,8 @@ final class AlignMultilineCommentFixerTest extends AbstractFixerTestCase
 
     public function provideCases()
     {
-        return [
-            [
+        return array(
+            array(
                 '<?php
     /*
      * Multiline comment
@@ -28,8 +30,8 @@ final class AlignMultilineCommentFixerTest extends AbstractFixerTestCase
        *
 *
    */',
-            ],
-            [
+            ),
+            array(
                 '<?php
     /**
      * Multiline doc comment
@@ -42,36 +44,36 @@ final class AlignMultilineCommentFixerTest extends AbstractFixerTestCase
        *
 *
    */',
-            ],
-            [
+            ),
+            array(
                 '<?php
  $a=1; /** test */   /**
                       */',
                 '<?php
  $a=1; /** test */   /**
 */',
-            ],
-            [
+            ),
+            array(
                 '<?php
     /*
   Lines not prefixed with
 asterisk are left untouched
      */',
-            ],
-            [
+            ),
+            array(
                 '<?php
     # Single line comments are untouched
      #
    #
       #',
-            ],
-            [
+            ),
+            array(
                 '<?php
     // Single line comments are untouched
      //
    //
       //',
-            ],
-        ];
+            ),
+        );
     }
 }

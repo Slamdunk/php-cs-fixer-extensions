@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SlamCsFixer;
 
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
 final class AlignMultilineCommentFixer extends AbstractFixer
@@ -13,19 +14,19 @@ final class AlignMultilineCommentFixer extends AbstractFixer
     {
         return new FixerDefinition(
             'Multiline comments and docblocks MUST be aligned with comment opening.',
-            [new CodeSample('<?php
+            array(new CodeSample('<?php
     /*
      * Multiline comment
   *
  Lines not prefixed with asterisk are left untouched
        *
-   */')]
+   */'))
         );
     }
 
     public function isCandidate(Tokens $tokens)
     {
-        return $tokens->isAnyTokenKindsFound([T_COMMENT, T_DOC_COMMENT]);
+        return $tokens->isAnyTokenKindsFound(array(T_COMMENT, T_DOC_COMMENT));
     }
 
     protected function applyFix(\SplFileInfo $file, Tokens $tokens)
@@ -34,9 +35,9 @@ final class AlignMultilineCommentFixer extends AbstractFixer
         foreach ($tokens as $index => $token) {
             $newlinePosition = mb_strrpos($token->getContent(), "\n");
 
-            if ($token->isComment() && '/*' === substr($token->getContent(), 0, 2) && false !== $newlinePosition) {
+            if ($token->isComment() && '/*' === mb_substr($token->getContent(), 0, 2) && false !== $newlinePosition) {
                 $content = $token->getContent();
-                $content = preg_replace('/^[ \t]*\*/m', str_repeat(' ', $intendationChars).'*', $content);
+                $content = preg_replace('/^[ \t]*\*/m', str_repeat(' ', $intendationChars) . '*', $content);
                 $content = ltrim($content, ' ');
                 $tokens[$index]->setContent($content);
                 continue;
