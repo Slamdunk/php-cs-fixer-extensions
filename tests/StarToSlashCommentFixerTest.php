@@ -94,6 +94,24 @@ $a = 1; /* after code */
      *
      */',
             ),
+            array(
+                '<?php
+//',
+                '<?php
+/***
+ *
+ */',
+            ),
+            array(
+                '<?php
+
+    // s',
+                '<?php
+
+    /***
+s    *
+     */',
+            ),
 
             // Untouched cases
             array(
@@ -107,6 +125,18 @@ $a = 1; /* in code */ $b = 2;
      * in code 2
      */ $a = 1;
 ',
+            ),
+            array(
+                '<?php
+/***
+ *
+ */ $a = 1;',
+            ),
+            array(
+                '<?php
+    /***
+s    *
+     */ $a = 1;',
             ),
             array(
                 '<?php

@@ -30,7 +30,8 @@ final class StarToSlashCommentFixer extends AbstractFixer implements Whitespaces
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         foreach ($tokens as $index => $token) {
             $content = $token->getContent();
-            if (! $token->isGivenKind(T_COMMENT) || '/*' !== mb_substr($content, 0, 2) || preg_match('/[^\s\*].*\R.*[^\s\*]/s', mb_substr($content, 2, -2))) {
+            $commentContent = mb_substr($content, 2, -2);
+            if (! $token->isGivenKind(T_COMMENT) || '/*' !== mb_substr($content, 0, 2) || preg_match('/[^\s\*].*\R.*[^\s\*]/s', $commentContent)) {
                 continue;
             }
             $nextTokenIndex = $index + 1;
@@ -43,7 +44,10 @@ final class StarToSlashCommentFixer extends AbstractFixer implements Whitespaces
                 $tokens[$nextTokenIndex] = new Token(array($nextToken->getId(), ltrim($nextToken->getContent(), " \t")));
             }
 
-            $content = '// ' . preg_replace('/[\s\*]*([^\s\*].+[^\s\*])[\s\*]*/', '\1', mb_substr($content, 2, -2));
+            $content = '//';
+            if (preg_match('/[^\s\*]/', $commentContent)) {
+                $content = '// ' . preg_replace('/[\s\*]*([^\s\*](.+[^\s\*])?)[\s\*]*/', '\1', $commentContent);
+            }
             $tokens[$index] = new Token(array($token->getId(), $content));
         }
     }
