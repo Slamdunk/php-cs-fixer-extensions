@@ -12,7 +12,7 @@ final class AlignMultilineCommentFixerTest extends AbstractFixerTestCase
     {
         $this->setExpectedException(\PhpCsFixer\ConfigurationException\InvalidFixerConfigurationException::class);
 
-        $this->fixer->configure(['a' => 1]);
+        $this->fixer->configure(array('a' => 1));
     }
 
     /**
@@ -25,8 +25,8 @@ final class AlignMultilineCommentFixerTest extends AbstractFixerTestCase
 
     public function provideDefaultCases()
     {
-        return [
-            [
+        return array(
+            array(
                 '<?php
 $a = 1;
     /**
@@ -47,8 +47,8 @@ $a = 1;
     first without an asterisk
 second without an asterisk or space
    */',
-            ],
-            [
+            ),
+            array(
                 '<?php
     /**
      * Document start
@@ -57,12 +57,12 @@ second without an asterisk or space
     /**
 * Document start
     */',
-            ],
-            [
+            ),
+            array(
                 "<?php\n \n /**\n  * Two new lines\n  */",
                 "<?php\n \n /**\n* Two new lines\n*/",
-            ],
-            [
+            ),
+            array(
                 "<?php
 \t/**
 \t * Tabs as indentation
@@ -71,8 +71,8 @@ second without an asterisk or space
 \t/**
 * Tabs as indentation
         */",
-            ],
-            [
+            ),
+            array(
                 '<?php
 $a = 1;
 /**
@@ -83,8 +83,8 @@ $a = 1;
 /**
 * Doc command without prior indentation
 */',
-            ],
-            [
+            ),
+            array(
                 '<?php
 /**
  * Doc command without prior indentation
@@ -95,44 +95,44 @@ $a = 1;
 * Doc command without prior indentation
 * Document start
 */',
-            ],
+            ),
 
             // Untouched cases
-            [
+            array(
                 '<?php
     /*
      * Multiline comment
        *
 *
    */',
-            ],
-            [
+            ),
+            array(
                 '<?php
     /** inline doc comment */',
-            ],
-            [
+            ),
+            array(
                 '<?php
  $a=1;  /**
 *
  doc comment that doesn\'t start in a new line
 
 */',
-            ],
-            [
+            ),
+            array(
                 '<?php
     # Hash single line comments are untouched
      #
    #
       #',
-            ],
-            [
+            ),
+            array(
                 '<?php
     // Slash single line comments are untouched
      //
    //
       //',
-            ],
-        ];
+            ),
+        );
     }
 
     /**
@@ -140,14 +140,14 @@ $a = 1;
      */
     public function testDocLikeMultilineComments($expected, $input = null)
     {
-        $this->fixer->configure(['comment_type' => 'phpdocs_like']);
+        $this->fixer->configure(array('comment_type' => 'phpdocs_like'));
         $this->doTest($expected, $input);
     }
 
     public function provideDocLikeMultilineComments()
     {
-        return [
-            [
+        return array(
+            array(
                 '<?php
     /*
      * Doc-like Multiline comment
@@ -160,8 +160,8 @@ $a = 1;
        *
 *
    */',
-            ],
-            [
+            ),
+            array(
                 '<?php
     /*
      * Multiline comment with mixed content
@@ -169,8 +169,8 @@ $a = 1;
   Line without an asterisk
 *
    */',
-            ],
-        ];
+            ),
+        );
     }
 
     /**
@@ -178,14 +178,14 @@ $a = 1;
      */
     public function testMixedContentMultilineComments($expected, $input = null)
     {
-        $this->fixer->configure(['comment_type' => 'all_multiline']);
+        $this->fixer->configure(array('comment_type' => 'all_multiline'));
         $this->doTest($expected, $input);
     }
 
     public function provideMixedContentMultilineComments()
     {
-        return [
-            [
+        return array(
+            array(
                 '<?php
     /*
      * Multiline comment with mixed content
@@ -200,8 +200,8 @@ $a = 1;
   Line without an asterisk
 *
    */',
-            ],
-        ];
+            ),
+        );
     }
 
     /**

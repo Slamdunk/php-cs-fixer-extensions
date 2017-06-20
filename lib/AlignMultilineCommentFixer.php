@@ -10,7 +10,6 @@ use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
 use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
 final class AlignMultilineCommentFixer extends AbstractFixer implements ConfigurationDefinitionFixerInterface, WhitespacesAwareFixerInterface
@@ -21,7 +20,7 @@ final class AlignMultilineCommentFixer extends AbstractFixer implements Configur
     {
         parent::configure($configuration);
 
-        $this->tokenKinds = [T_DOC_COMMENT];
+        $this->tokenKinds = array(T_DOC_COMMENT);
         if ('phpdocs_only' !== $this->configuration['comment_type']) {
             $this->tokenKinds[] = T_COMMENT;
         }
@@ -31,7 +30,7 @@ final class AlignMultilineCommentFixer extends AbstractFixer implements Configur
     {
         return new FixerDefinition(
             'Multiline doc comment: enforce asterisk start on each line [PSR-5] and align them.',
-            [
+            array(
                 new CodeSample(
 '<?php
     /**
@@ -45,7 +44,7 @@ with a line not prefixed with asterisk
     /*
             * This is a doc-like multiline comment
 */',
-                    ['comment_type' => 'phpdocs_like']
+                    array('comment_type' => 'phpdocs_like')
                 ),
                 new CodeSample(
 '<?php
@@ -54,9 +53,9 @@ with a line not prefixed with asterisk
 with a line not prefixed with asterisk
 
    */',
-                    ['comment_type' => 'all_multiline']
+                    array('comment_type' => 'all_multiline')
                 ),
-            ]
+            )
         );
     }
 
@@ -69,7 +68,7 @@ with a line not prefixed with asterisk
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         foreach ($tokens as $index => $token) {
-            if (!$token->isGivenKind($this->tokenKinds)) {
+            if (! $token->isGivenKind($this->tokenKinds)) {
                 continue;
             }
 
@@ -80,10 +79,10 @@ with a line not prefixed with asterisk
                 --$previousIndex;
             }
             if ($tokens[$previousIndex]->isGivenKind(T_OPEN_TAG)) {
-                $whitespace = preg_replace('/\S/', '', $tokens[$previousIndex]->getContent()).$whitespace;
+                $whitespace = preg_replace('/\S/', '', $tokens[$previousIndex]->getContent()) . $whitespace;
             }
 
-            if (!preg_match('/\R([ \t]*)$/', $whitespace, $matches)) {
+            if (! preg_match('/\R([ \t]*)$/', $whitespace, $matches)) {
                 continue;
             }
 
@@ -95,20 +94,20 @@ with a line not prefixed with asterisk
                 }
 
                 $line = ltrim($line);
-                if ($token->isGivenKind(T_COMMENT) && (!isset($line[0]) || '*' !== $line[0])) {
+                if ($token->isGivenKind(T_COMMENT) && (! isset($line[0]) || '*' !== $line[0])) {
                     if ('all_multiline' !== $this->configuration['comment_type']) {
                         continue 2;
                     }
                     continue;
                 }
 
-                if (!isset($line[0])) {
-                    $line = '*'.$line;
+                if (! isset($line[0])) {
+                    $line = '*' . $line;
                 } elseif ('*' !== $line[0]) {
-                    $line = '* '.$line;
+                    $line = '* ' . $line;
                 }
 
-                $lines[$lineNumber] = $indentation.' '.$line;
+                $lines[$lineNumber] = $indentation . ' ' . $line;
             }
 
             $tokens[$index]->setContent(implode($lineEnding, $lines));
@@ -117,11 +116,11 @@ with a line not prefixed with asterisk
 
     protected function createConfigurationDefinition()
     {
-        return new FixerConfigurationResolver([
+        return new FixerConfigurationResolver(array(
             (new FixerOptionBuilder('comment_type', 'Whether to align doc-like multiline comments if all lines start with an asterisk [`phpdocs_like`] or all multile comments  with mixed content on lines that start with an asteristk [`all_multiline`]'))
-                ->setAllowedValues(['phpdocs_only', 'phpdocs_like', 'all_multiline'])
+                ->setAllowedValues(array('phpdocs_only', 'phpdocs_like', 'all_multiline'))
                 ->setDefault('phpdocs_only')
                 ->getOption(),
-        ]);
+        ));
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SlamCsFixer;
 
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
@@ -14,7 +16,7 @@ final class StarToSlashCommentFixer extends AbstractFixer implements Whitespaces
     {
         return new FixerDefinition(
             'Converts multi-line comments that have only one line of actual content into single-line comments.',
-            [new CodeSample("<?php\n/* first comment */\n\$a = 1;\n/*\n * second comment\n */\n\$b = 2;\n/*\n * third\n * comment\n */\n\$c = 3;")]
+            array(new CodeSample("<?php\n/* first comment */\n\$a = 1;\n/*\n * second comment\n */\n\$b = 2;\n/*\n * third\n * comment\n */\n\$c = 3;"))
         );
     }
 
@@ -28,21 +30,21 @@ final class StarToSlashCommentFixer extends AbstractFixer implements Whitespaces
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         foreach ($tokens as $index => $token) {
             $content = $token->getContent();
-            if (!$token->isGivenKind(T_COMMENT) || '/*' !== substr($content, 0, 2) || preg_match('/[^\s\*].*\R.*[^\s\*]/s', substr($content, 2, -2))) {
+            if (! $token->isGivenKind(T_COMMENT) || '/*' !== mb_substr($content, 0, 2) || preg_match('/[^\s\*].*\R.*[^\s\*]/s', mb_substr($content, 2, -2))) {
                 continue;
             }
             $nextTokenIndex = $index + 1;
             if (isset($tokens[$nextTokenIndex])) {
                 $nextToken = $tokens[$nextTokenIndex];
-                if (false === strpos($nextToken->getContent(), $lineEnding)) {
+                if (false === mb_strpos($nextToken->getContent(), $lineEnding)) {
                     continue;
                 }
 
-                $tokens[$nextTokenIndex] = new Token([$nextToken->getId(), ltrim($nextToken->getContent(), " \t")]);
+                $tokens[$nextTokenIndex] = new Token(array($nextToken->getId(), ltrim($nextToken->getContent(), " \t")));
             }
 
-            $content = '// '.preg_replace('/[\s\*]*([^\s\*].+[^\s\*])[\s\*]*/', '\1', substr($content, 2, -2));
-            $tokens[$index] = new Token([$token->getId(), $content]);
+            $content = '// ' . preg_replace('/[\s\*]*([^\s\*].+[^\s\*])[\s\*]*/', '\1', mb_substr($content, 2, -2));
+            $tokens[$index] = new Token(array($token->getId(), $content));
         }
     }
 }
