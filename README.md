@@ -33,6 +33,9 @@ $config->registerCustomFixers(array(
 ));
 
 $this->setRules(array(
+    'Slam/align_multiline_comment' => array(
+        'comment_type' => 'all_multiline',
+    ),
     'Slam/final_abstract_public' => true,
     'Slam/final_internal_class' => true,
     'Slam/function_reference_space' => true,

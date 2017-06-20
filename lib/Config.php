@@ -24,10 +24,13 @@ final class Config extends PhpCsFixerConfig
             new PhpFileOnlyProxyFixer(new MainFixer\Semicolon\SemicolonAfterInstructionFixer()),
             new PhpFileOnlyProxyFixer(new MainFixer\Semicolon\SpaceAfterSemicolonFixer()),
             new PhpFileOnlyProxyFixer(new MainFixer\Strict\DeclareStrictTypesFixer()),
+            new StarToSlashCommentFixer(),
             new Utf8Fixer(),
         ));
         $this->setRules(array(
-            'Slam/align_multiline_comment' => true,
+            'Slam/align_multiline_comment' => array(
+                'comment_type' => 'all_multiline',
+            ),
             'Slam/final_abstract_public' => $version2,
             'Slam/final_internal_class' => $version2,
             'Slam/function_reference_space' => true,
@@ -36,8 +39,11 @@ final class Config extends PhpCsFixerConfig
             'Slam/php_only_declare_strict_types' => $version2,
             'Slam/php_only_semicolon_after_instruction' => true,
             'Slam/php_only_space_after_semicolon' => true,
+            'Slam/star_to_slash_comment' => true,
             'Slam/utf8' => $version2,
-            'array_syntax' => array('syntax' => 'long'),
+            'array_syntax' => array(
+                'syntax' => 'long',
+            ),
             'binary_operator_spaces' => false,
             'blank_line_after_namespace' => true,
             'blank_line_after_opening_tag' => true,
