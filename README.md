@@ -24,11 +24,13 @@ $config = new PhpCsFixer\Config();
 $config->setRiskyAllowed(true);
 
 $config->registerCustomFixers(array(
+    new SlamCsFixer\AlignMultilineCommentFixer(),
     new SlamCsFixer\FinalAbstractPublicFixer(),
     new SlamCsFixer\FinalInternalClassFixer(),
     new SlamCsFixer\FunctionReferenceSpaceFixer(),
     new SlamCsFixer\InlineCommentSpacerFixer(),
     new SlamCsFixer\PhpFileOnlyProxyFixer(new PhpCsFixer\Fixer\Basic\BracesFixer()),
+    new SlamCsFixer\StarToSlashCommentFixer(),
     new SlamCsFixer\Utf8Fixer(),
 ));
 
@@ -41,6 +43,7 @@ $this->setRules(array(
     'Slam/function_reference_space' => true,
     'Slam/inline_comment_spacer' => true,
     'Slam/php_only_braces' => true,
+    'Slam/star_to_slash_comment' => true,
     'Slam/utf8' => true,
 ));
 
