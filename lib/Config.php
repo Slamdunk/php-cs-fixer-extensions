@@ -15,7 +15,6 @@ final class Config extends PhpCsFixerConfig
 
         $this->setRiskyAllowed(true);
         $this->registerCustomFixers(array(
-            new AlignMultilineCommentFixer(),
             new FinalAbstractPublicFixer(),
             new FinalInternalClassFixer(),
             new FunctionReferenceSpaceFixer(),
@@ -24,7 +23,6 @@ final class Config extends PhpCsFixerConfig
             new PhpFileOnlyProxyFixer(new MainFixer\Semicolon\SemicolonAfterInstructionFixer()),
             new PhpFileOnlyProxyFixer(new MainFixer\Semicolon\SpaceAfterSemicolonFixer()),
             new PhpFileOnlyProxyFixer(new MainFixer\Strict\DeclareStrictTypesFixer()),
-            new StarToSlashCommentFixer(),
             new Utf8Fixer(),
         ));
         $this->setRules(array(
