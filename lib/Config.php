@@ -26,9 +26,6 @@ final class Config extends PhpCsFixerConfig
             new Utf8Fixer(),
         ));
         $this->setRules(array(
-            'Slam/align_multiline_comment' => array(
-                'comment_type' => 'all_multiline',
-            ),
             'Slam/final_abstract_public' => $version2,
             'Slam/final_internal_class' => $version2,
             'Slam/function_reference_space' => true,
@@ -37,7 +34,6 @@ final class Config extends PhpCsFixerConfig
             'Slam/php_only_declare_strict_types' => $version2,
             'Slam/php_only_semicolon_after_instruction' => true,
             'Slam/php_only_space_after_semicolon' => true,
-            'Slam/star_to_slash_comment' => true,
             'Slam/utf8' => $version2,
             'align_multiline_comment' => array(
                 'comment_type' => 'all_multiline',
