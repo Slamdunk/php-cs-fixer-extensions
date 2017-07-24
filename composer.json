@@ -11,10 +11,9 @@
     ],
     "require": {
         "php": "^7.0",
-        "friendsofphp/php-cs-fixer": "^2.3"
+        "friendsofphp/php-cs-fixer": "^2.4"
     },
     "require-dev": {
-        "gecko-packages/gecko-php-unit": "^2.0",
         "phpunit/phpunit": "^5.7",
         "slam/php-debug-r": "^1.0"
     },
