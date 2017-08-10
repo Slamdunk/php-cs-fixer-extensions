@@ -30,6 +30,7 @@ final class Config extends PhpCsFixerConfig
             'Slam/final_internal_class' => $version2,
             'Slam/function_reference_space' => true,
             'Slam/inline_comment_spacer' => true,
+            'Slam/no_unneeded_final_method' => true,
             'Slam/php_only_braces' => true,
             'Slam/php_only_declare_strict_types' => $version2,
             'Slam/php_only_semicolon_after_instruction' => true,

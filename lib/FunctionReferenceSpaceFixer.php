@@ -38,10 +38,12 @@ final class FunctionReferenceSpaceFixer extends AbstractFixer
                     }
 
                     $previous = null;
+
                     continue;
                 }
                 if ($token->equals('&')) {
                     $previous = $token;
+
                     continue;
                 }
             }

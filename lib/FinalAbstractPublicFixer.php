@@ -47,6 +47,7 @@ final class FinalAbstractPublicFixer extends AbstractFixer
         for ($index = $classCloseIndex - 1; $index > $classOpenIndex; --$index) {
             if ($tokens[$index]->equals('}')) {
                 $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index, false);
+
                 continue;
             }
             if (! $tokens[$index]->isGivenKind(T_PUBLIC)) {
