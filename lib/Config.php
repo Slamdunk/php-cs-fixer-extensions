@@ -19,6 +19,7 @@ final class Config extends PhpCsFixerConfig
             new FinalInternalClassFixer(),
             new FunctionReferenceSpaceFixer(),
             new InlineCommentSpacerFixer(),
+            new NoUnneededFinalMethodFixer(),
             new PhpFileOnlyProxyFixer(new MainFixer\Basic\BracesFixer()),
             new PhpFileOnlyProxyFixer(new MainFixer\Semicolon\SemicolonAfterInstructionFixer()),
             new PhpFileOnlyProxyFixer(new MainFixer\Semicolon\SpaceAfterSemicolonFixer()),

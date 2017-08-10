@@ -2,16 +2,14 @@ language: php
 
 sudo: false
 
-env:
-    global:
-        - PHP_LATEST_VERSION=0
-
 matrix:
-    fast_finish: true
-    include:
-        - php: 7.0
-        - php: 7.1
-          env: PHP_LATEST_VERSION=1
+  fast_finish: true
+  include:
+    - php: 7.0
+      env: CS_CHECK=1
+    - php: 7.1
+      env: CODE_COVERAGE=1
+    - php: nightly
 
 cache:
   directories:
