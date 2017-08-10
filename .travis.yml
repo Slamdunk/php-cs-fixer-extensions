@@ -9,14 +9,17 @@ matrix:
       env: CS_CHECK=1
     - php: 7.1
       env: CODE_COVERAGE=1
+    - php: 7.2
+      env: COMPOSER_FLAGS="--ignore-platform-reqs"
     - php: nightly
+      env: COMPOSER_FLAGS="--ignore-platform-reqs"
 
 cache:
   directories:
     - $HOME/.composer
 
 install:
-  - composer install --prefer-dist
+  - composer install --prefer-dist $COMPOSER_FLAGS
 
 script:
   - sh .travis.run-tests.sh

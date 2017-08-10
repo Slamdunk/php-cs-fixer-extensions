@@ -8,7 +8,7 @@ then
     PHPUNIT_ARGS="--coverage-clover ./clover.xml"
 fi
 
-vendor/bin/phpunit "$PHPUNIT_ARGS"
+vendor/bin/phpunit $PHPUNIT_ARGS
 phpenv config-rm xdebug.ini || return 0
 
 if [ "$CS_CHECK" = 1 ]
