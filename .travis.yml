@@ -18,9 +18,9 @@ cache:
   directories:
     - $HOME/.composer
 
-install: wget -qO - https://raw.githubusercontent.com/Slamdunk/travis-scripts/master/php-install.sh | sh
+install: wget -qO - https://github.com/Slamdunk/travis-scripts/raw/master/php-install.sh | sh
 
-script: wget -qO - https://raw.githubusercontent.com/Slamdunk/travis-scripts/master/php-script.sh | sh
+script: wget -qO - https://github.com/Slamdunk/travis-scripts/raw/master/php-script.sh | sh
 
 notifications:
   email: false
