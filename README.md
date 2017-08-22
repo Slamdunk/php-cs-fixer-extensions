@@ -28,7 +28,6 @@ $config->registerCustomFixers(array(
     new SlamCsFixer\FinalInternalClassFixer(),
     new SlamCsFixer\FunctionReferenceSpaceFixer(),
     new SlamCsFixer\InlineCommentSpacerFixer(),
-    new SlamCsFixer\NoUnneededFinalMethodFixer(),
     new SlamCsFixer\PhpFileOnlyProxyFixer(new PhpCsFixer\Fixer\Basic\BracesFixer()),
     new SlamCsFixer\Utf8Fixer(),
 ));
@@ -38,7 +37,6 @@ $this->setRules(array(
     'Slam/final_internal_class' => true,
     'Slam/function_reference_space' => true,
     'Slam/inline_comment_spacer' => true,
-    'Slam/no_unneeded_final_method' => true,
     'Slam/php_only_braces' => true,
     'Slam/utf8' => true,
 ));
@@ -50,5 +48,4 @@ $config->getFinder()
 ;
 
 return $config;
-
 ```
