@@ -41,5 +41,9 @@ final class ConfigTest extends TestCase
 
         $diff = array_diff($availableRules, $currentRules);
         $this->assertEmpty($diff, sprintf("Mancano tra le specifiche i seguenti fixer:\n- %s", implode(PHP_EOL . '- ', $diff)));
+
+        $orderedCurrentRules = $currentRules;
+        sort($orderedCurrentRules);
+        $this->assertEquals($orderedCurrentRules, $currentRules, 'Order the rules alphabetically please');
     }
 }

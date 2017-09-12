@@ -52,6 +52,7 @@ final class Config extends PhpCsFixerConfig
                 'singleItemSingleLine' => true,
             ),
             'class_keyword_remove' => false,
+            'combine_consecutive_issets' => false,
             'combine_consecutive_unsets' => false,
             'concat_space' => array(
                 'spacing' => 'one',
@@ -114,6 +115,7 @@ final class Config extends PhpCsFixerConfig
                 'parenthesis_brace_block',
                 'square_brace_block',
             ),
+            'no_homoglyph_names' => true,
             'no_leading_import_slash' => true,
             'no_leading_namespace_whitespace' => true,
             'no_mixed_echo_print' => array(
@@ -218,6 +220,7 @@ final class Config extends PhpCsFixerConfig
             'visibility_required' => true,
             'void_return' => true,
             'whitespace_after_comma_in_array' => true,
+            'yoda_style' => false,
         ));
     }
 }
