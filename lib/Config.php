@@ -78,7 +78,7 @@ final class Config extends PhpCsFixerConfig
             'no_useless_return' => true,
             'not_operator_with_space' => false,
             'not_operator_with_successor_space' => true,
-            'ordered_class_elements' => array('order' => array('use_trait', 'constant_public', 'constant_protected', 'constant_private', 'property_public', 'property_protected', 'property_private', 'construct', 'destruct', 'magic', 'phpunit', 'method')),
+            'ordered_class_elements' => array('order' => array('use_trait', 'constant_public', 'constant_protected', 'constant_private', 'property', 'construct', 'destruct', 'magic', 'phpunit', 'method')),
             'ordered_imports' => true,
             'php_unit_strict' => false,
             'php_unit_test_class_requires_covers' => false,
