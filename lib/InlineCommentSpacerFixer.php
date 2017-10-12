@@ -18,7 +18,7 @@ final class InlineCommentSpacerFixer extends AbstractFixer
     {
         foreach ($tokens as $token) {
             $content = $token->getContent();
-            if (! $token->isComment() || mb_substr($content, 0, 2) !== '//' || mb_substr($content, 0, 3) === '// ') {
+            if (! $token->isComment() || '//' !== mb_substr($content, 0, 2) || '// ' === mb_substr($content, 0, 3)) {
                 continue;
             }
 
@@ -34,7 +34,7 @@ final class InlineCommentSpacerFixer extends AbstractFixer
 
     public function supports(\SplFileInfo $file)
     {
-        return pathinfo($file->getFilename(), PATHINFO_EXTENSION) === 'php';
+        return 'php' === pathinfo($file->getFilename(), PATHINFO_EXTENSION);
     }
 
     public function getDefinition()

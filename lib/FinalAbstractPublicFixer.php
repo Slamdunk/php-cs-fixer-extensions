@@ -64,7 +64,7 @@ final class FinalAbstractPublicFixer extends AbstractFixer
             }
             $nextIndex = $tokens->getNextMeaningfulToken($nextIndex);
             $nextToken = $tokens[$nextIndex];
-            if (! $nextToken->isGivenKind(T_STRING) || mb_strpos($nextToken->getContent(), '__') === 0) {
+            if (! $nextToken->isGivenKind(T_STRING) || 0 === mb_strpos($nextToken->getContent(), '__')) {
                 continue;
             }
             $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];

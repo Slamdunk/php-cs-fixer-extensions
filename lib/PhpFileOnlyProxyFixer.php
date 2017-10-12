@@ -44,7 +44,7 @@ final class PhpFileOnlyProxyFixer implements DefinedFixerInterface
 
     public function supports(\SplFileInfo $file)
     {
-        return pathinfo($file->getFilename(), PATHINFO_EXTENSION) === 'php';
+        return 'php' === pathinfo($file->getFilename(), PATHINFO_EXTENSION);
     }
 
     public function getDefinition()

@@ -22,7 +22,7 @@ final class Utf8Fixer extends AbstractFixer
     protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
         $content = $tokens->generateCode();
-        if (mb_check_encoding($content, 'UTF-8') === false) {
+        if (false === mb_check_encoding($content, 'UTF-8')) {
             $tokens->setCode(mb_convert_encoding($content, 'UTF-8', 'Windows-1252'));
         }
     }
