@@ -29,6 +29,7 @@ final class Config extends PhpCsFixerConfig
             '@DoctrineAnnotation' => true,
             '@PHP71Migration' => true,
             '@PHP71Migration:risky' => true,
+            '@PHPUnit60Migration:risky' => true,
             '@Symfony' => true,
             '@Symfony:risky' => true,
             'Slam/final_abstract_public' => $version2,
@@ -50,6 +51,7 @@ final class Config extends PhpCsFixerConfig
             'class_keyword_remove' => false,
             'combine_consecutive_issets' => false,
             'combine_consecutive_unsets' => false,
+            'compact_nullable_typehint' => true,
             'concat_space' => array('spacing' => 'one'),
             'declare_strict_types' => false,
             'doctrine_annotation_array_assignment' => true,
@@ -86,6 +88,7 @@ final class Config extends PhpCsFixerConfig
             'phpdoc_order' => true,
             'phpdoc_types_order' => true,
             'pow_to_exponentiation' => false,
+            'pre_increment' => false,
             'psr0' => true,
             'random_api_migration' => true,
             'semicolon_after_instruction' => true,
@@ -96,6 +99,7 @@ final class Config extends PhpCsFixerConfig
             'strict_comparison' => $version2,
             'strict_param' => $version2,
             'unary_operator_spaces' => false,
+            'void_return' => false,
             'yoda_style' => $version2,
         ));
     }
