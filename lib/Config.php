@@ -93,7 +93,7 @@ final class Config extends PhpCsFixerConfig
             'random_api_migration' => true,
             'semicolon_after_instruction' => true,
             'silenced_deprecation_error' => false,
-            'simplified_null_return' => false,
+            'simplified_null_return' => true,
             'single_line_comment_style' => true,
             'space_after_semicolon' => true,
             'strict_comparison' => $version2,
