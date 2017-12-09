@@ -42,7 +42,7 @@ final class FinalInternalClassFixerTest extends AbstractFixerTestCase
                 "<?php\n/**\n * @codeCoverageIgnore\n */\nclass MyEntity {}",
             ),
             array(
-                "<?php\n/**\n * @ORM\Entity\n */\nclass MyEntity {}",
+                "<?php\n/**\n * @ORM\\Entity\n */\nclass MyEntity {}",
             ),
             array(
                 '<?php abstract class MyAbstract {}',
