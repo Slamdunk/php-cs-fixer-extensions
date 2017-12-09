@@ -103,7 +103,7 @@ final class Config extends PhpCsFixerConfig
             'simplified_null_return' => true,
             'single_line_comment_style' => true,
             'space_after_semicolon' => true,
-            'static_lambda' => true,
+            'static_lambda' => false,
             'strict_comparison' => $version2,
             'strict_param' => $version2,
             'unary_operator_spaces' => false,
