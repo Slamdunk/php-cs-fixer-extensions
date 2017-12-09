@@ -11,10 +11,10 @@
     ],
     "require": {
         "php": "^7.1",
-        "friendsofphp/php-cs-fixer": "^2.8.3"
+        "friendsofphp/php-cs-fixer": "^2.9"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.4",
+        "phpunit/phpunit": "^6.5",
         "slam/php-debug-r": "^1.1"
     },
     "autoload": {
