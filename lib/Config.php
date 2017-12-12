@@ -12,6 +12,7 @@ final class Config extends PhpCsFixerConfig
     public function __construct(bool $version2 = true)
     {
         parent::__construct(sprintf('%s:%s', __NAMESPACE__, $version2 ? 2 : 1));
+        putenv('PHP_CS_FIXER_FUTURE_MODE=1');
 
         $this->setRiskyAllowed(true);
         $this->registerCustomFixers(array(

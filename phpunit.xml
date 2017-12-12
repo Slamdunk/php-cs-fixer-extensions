@@ -4,6 +4,10 @@
     colors="true"
     verbose="true">
 
+    <php>
+      <env name="PHP_CS_FIXER_FUTURE_MODE" value="1"/>
+    </php>
+
     <testsuite name="SlamCsFixer">
         <directory>./tests</directory>
     </testsuite>

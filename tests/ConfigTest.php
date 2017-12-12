@@ -59,4 +59,15 @@ final class ConfigTest extends TestCase
         sort($orderedCurrentRules);
         $this->assertEquals($orderedCurrentRules, $currentRules, 'Order the rules alphabetically please');
     }
+
+    public function testFutureMode()
+    {
+        putenv('PHP_CS_FIXER_FUTURE_MODE');
+
+        $this->assertFalse(getenv('PHP_CS_FIXER_FUTURE_MODE'));
+
+        $config = new Config();
+
+        $this->assertNotEmpty(getenv('PHP_CS_FIXER_FUTURE_MODE'));
+    }
 }

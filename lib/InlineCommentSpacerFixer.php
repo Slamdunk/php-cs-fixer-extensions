@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SlamCsFixer;
 
 use PhpCsFixer\FixerDefinition\FixerDefinition;
+use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
 final class InlineCommentSpacerFixer extends AbstractFixer
@@ -16,14 +17,14 @@ final class InlineCommentSpacerFixer extends AbstractFixer
 
     protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
-        foreach ($tokens as $token) {
+        foreach ($tokens as $index => $token) {
             $content = $token->getContent();
             if (! $token->isComment() || '//' !== mb_substr($content, 0, 2) || '// ' === mb_substr($content, 0, 3)) {
                 continue;
             }
 
             $content = substr_replace($content, ' ', 2, 0);
-            $token->setContent($content);
+            $tokens[$index] = new Token(array($token->getId(), $content));
         }
     }
 

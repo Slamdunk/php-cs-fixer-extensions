@@ -31,7 +31,7 @@ final class FunctionReferenceSpaceFixer extends AbstractFixer
 
                 if ($previous) {
                     if ($token->isWhitespace()) {
-                        $token->setContent(' ');
+                        $tokens[$iter] = new Token(array($token->getId(), ' '));
                     } else {
                         $tokens->insertAt($iter, new Token(array(T_WHITESPACE, ' ')));
                         ++$endParenthesisIndex;
