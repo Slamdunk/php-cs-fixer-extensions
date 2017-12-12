@@ -6,6 +6,7 @@ namespace SlamCsFixer;
 
 use PhpCsFixer\Config as PhpCsFixerConfig;
 use PhpCsFixer\Fixer as MainFixer;
+use Symfony\Component\Console\Terminal;
 
 final class Config extends PhpCsFixerConfig
 {
@@ -13,6 +14,12 @@ final class Config extends PhpCsFixerConfig
     {
         parent::__construct(sprintf('%s:%s', __NAMESPACE__, $version2 ? 2 : 1));
         putenv('PHP_CS_FIXER_FUTURE_MODE=1');
+
+        // @codeCoverageIgnoreStart
+        if ('cygwin' === getenv('TERM')) {
+            putenv(sprintf('COLUMNS=%s', (new Terminal())->getWidth() - 1));
+        }
+        // @codeCoverageIgnoreEnd
 
         $this->setRiskyAllowed(true);
         $this->registerCustomFixers(array(
