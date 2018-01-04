@@ -72,6 +72,11 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
 
         $this->assertTrue($proxy->supports($file));
         $this->assertFalse($proxy->supports(new SplFileInfo(__DIR__ . '/_files/non-php.txt')));
+
+        $this->assertNull($proxy->configure(array()));
+        $this->assertNull($proxy->getConfigurationDefinition());
+        $this->assertNull($proxy->setWhitespacesConfig(new WhitespacesFixerConfig()));
+        $this->assertNull($proxy->getDefinition());
     }
 
     public function testGetDefinitionIsProxied()
@@ -147,26 +152,5 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
         ;
 
         $proxy->setWhitespacesConfig($config);
-    }
-
-    /**
-     * @dataProvider provideSpecificMethods
-     */
-    public function testParentInterfaceOnSubinterfacesCall(string $method, ...$arguments)
-    {
-        $proxy = new PhpFileOnlyProxyFixer($this->createMock(FixerInterface::class));
-
-        $this->expectException(\LogicException::class);
-
-        $proxy->{$method}(...$arguments);
-    }
-
-    public function provideSpecificMethods()
-    {
-        return array(
-            array('configure', array()),
-            array('getConfigurationDefinition'),
-            array('setWhitespacesConfig', new WhitespacesFixerConfig()),
-        );
     }
 }

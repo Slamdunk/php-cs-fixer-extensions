@@ -24,7 +24,7 @@ final class PhpFileOnlyProxyFixer implements DefinedFixerInterface, Configuratio
     public function configure(array $configuration = null)
     {
         if (! $this->fixer instanceof ConfigurationDefinitionFixerInterface) {
-            throw new \LogicException(sprintf('Cannot configure using Abstract parent, child not implementing `%s`.', ConfigurationDefinitionFixerInterface::class));
+            return;
         }
 
         $this->fixer->configure($configuration);
@@ -33,7 +33,7 @@ final class PhpFileOnlyProxyFixer implements DefinedFixerInterface, Configuratio
     public function getConfigurationDefinition()
     {
         if (! $this->fixer instanceof ConfigurationDefinitionFixerInterface) {
-            throw new \LogicException(sprintf('Cannot get configuration definition using Abstract parent, child not implementing `%s`.', ConfigurationDefinitionFixerInterface::class));
+            return;
         }
 
         return $this->fixer->getConfigurationDefinition();
@@ -42,7 +42,7 @@ final class PhpFileOnlyProxyFixer implements DefinedFixerInterface, Configuratio
     public function setWhitespacesConfig(WhitespacesFixerConfig $config)
     {
         if (! $this->fixer instanceof WhitespacesAwareFixerInterface) {
-            throw new \LogicException(sprintf('Cannot run method for class not implementing `%s`.', WhitespacesAwareFixerInterface::class));
+            return;
         }
 
         $this->fixer->setWhitespacesConfig($config);
@@ -50,6 +50,10 @@ final class PhpFileOnlyProxyFixer implements DefinedFixerInterface, Configuratio
 
     public function getDefinition()
     {
+        if (! $this->fixer instanceof DefinedFixerInterface) {
+            return;
+        }
+
         $originalDefinition = $this->fixer->getDefinition();
 
         return new FixerDefinition(
