@@ -4,12 +4,23 @@ declare(strict_types=1);
 
 namespace SlamCsFixer;
 
+use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
 final class InlineCommentSpacerFixer extends AbstractFixer
 {
+    public function getDefinition()
+    {
+        return new FixerDefinition(
+            'Puts a space after every inline comment start.',
+            array(
+                new CodeSample('<?php //Whut' . PHP_EOL),
+            )
+        );
+    }
+
     public function isCandidate(Tokens $tokens)
     {
         return $tokens->isTokenKindFound(T_COMMENT);
@@ -36,10 +47,5 @@ final class InlineCommentSpacerFixer extends AbstractFixer
     public function supports(\SplFileInfo $file)
     {
         return 'php' === pathinfo($file->getFilename(), PATHINFO_EXTENSION);
-    }
-
-    public function getDefinition()
-    {
-        return new FixerDefinition('Puts a space after every inline comment start', array());
     }
 }

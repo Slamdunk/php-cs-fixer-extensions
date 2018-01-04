@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SlamCsFixer;
 
+use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
@@ -11,6 +12,16 @@ use PhpCsFixer\Tokenizer\Tokens;
 
 final class FunctionReferenceSpaceFixer extends AbstractFixer
 {
+    public function getDefinition()
+    {
+        return new FixerDefinition(
+            'Ensure space between & and variable name in function declarations and lambda uses.',
+            array(
+                new CodeSample('<?php $foo = function (&$bar) use (&  $baz) {};' . PHP_EOL),
+            )
+        );
+    }
+
     public function isCandidate(Tokens $tokens)
     {
         return $tokens->isTokenKindFound(T_FUNCTION);
@@ -49,10 +60,5 @@ final class FunctionReferenceSpaceFixer extends AbstractFixer
                 }
             }
         }
-    }
-
-    public function getDefinition()
-    {
-        return new FixerDefinition('Ensure space between & and variable name', array());
     }
 }

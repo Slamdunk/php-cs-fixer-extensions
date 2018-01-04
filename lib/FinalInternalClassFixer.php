@@ -4,12 +4,25 @@ declare(strict_types=1);
 
 namespace SlamCsFixer;
 
+use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
 final class FinalInternalClassFixer extends AbstractFixer
 {
+    public function getDefinition()
+    {
+        return new FixerDefinition(
+            'All internal classes should be final except abstract ones.',
+            array(
+                new CodeSample('<?php class MyApp {}' . PHP_EOL),
+            ),
+            null,
+            'Risky when subclassing non-abstract classes.'
+        );
+    }
+
     public function isCandidate(Tokens $tokens)
     {
         return $tokens->isTokenKindFound(T_CLASS);
@@ -45,10 +58,5 @@ final class FinalInternalClassFixer extends AbstractFixer
                 )
             );
         }
-    }
-
-    public function getDefinition()
-    {
-        return new FixerDefinition('All internal classes should be final except abstract ones', array());
     }
 }

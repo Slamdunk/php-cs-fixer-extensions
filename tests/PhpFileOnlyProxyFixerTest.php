@@ -60,7 +60,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
         $definition = $proxy->getDefinition();
 
         $this->assertContains($summary, $definition->getSummary());
-        $this->assertContains('php', $definition->getSummary());
+        $this->assertContains('PHP', $definition->getSummary());
         $this->assertSame($codeSamples, $definition->getCodeSamples());
         $this->assertSame($description, $definition->getDescription());
         $this->assertSame($riskyDescription, $definition->getRiskyDescription());
