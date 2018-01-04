@@ -6,6 +6,9 @@ namespace SlamCsFixer\Tests;
 
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 
+/**
+ * @covers \SlamCsFixer\Utf8Fixer
+ */
 final class Utf8FixerTest extends AbstractFixerTestCase
 {
     public function testIsRisky()

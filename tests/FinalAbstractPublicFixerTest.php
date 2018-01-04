@@ -6,6 +6,9 @@ namespace SlamCsFixer\Tests;
 
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 
+/**
+ * @covers \SlamCsFixer\FinalAbstractPublicFixer
+ */
 final class FinalAbstractPublicFixerTest extends AbstractFixerTestCase
 {
     public function testIsRisky()

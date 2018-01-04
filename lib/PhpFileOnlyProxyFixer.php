@@ -6,6 +6,7 @@ namespace SlamCsFixer;
 
 use PhpCsFixer\Fixer\ConfigurationDefinitionFixerInterface;
 use PhpCsFixer\Fixer\DefinedFixerInterface;
+use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -15,7 +16,7 @@ final class PhpFileOnlyProxyFixer implements DefinedFixerInterface, Configuratio
 {
     private $fixer;
 
-    public function __construct(DefinedFixerInterface $fixer)
+    public function __construct(FixerInterface $fixer)
     {
         $this->fixer = $fixer;
     }

@@ -6,6 +6,9 @@ namespace SlamCsFixer\Tests;
 
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 
+/**
+ * @covers \SlamCsFixer\FinalInternalClassFixer
+ */
 final class FinalInternalClassFixerTest extends AbstractFixerTestCase
 {
     public function testIsRisky()

@@ -11,6 +11,10 @@ use PhpCsFixer\RuleSet;
 use PHPUnit\Framework\TestCase;
 use SlamCsFixer\Config;
 
+/**
+ * @covers \SlamCsFixer\AbstractFixer
+ * @covers \SlamCsFixer\Config
+ */
 final class ConfigTest extends TestCase
 {
     public function testConfig()

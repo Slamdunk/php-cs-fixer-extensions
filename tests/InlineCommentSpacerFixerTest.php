@@ -6,6 +6,9 @@ namespace SlamCsFixer\Tests;
 
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 
+/**
+ * @covers \SlamCsFixer\InlineCommentSpacerFixer
+ */
 final class InlineCommentSpacerFixerTest extends AbstractFixerTestCase
 {
     public function testDefinition()
