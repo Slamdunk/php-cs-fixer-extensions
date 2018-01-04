@@ -12,7 +12,7 @@ matrix:
 
 cache:
   directories:
-    - $HOME/.composer
+    - $HOME/.composer/cache
 
 install: wget -qO - https://github.com/Slamdunk/travis-scripts/raw/master/php-install.sh | sh
 
