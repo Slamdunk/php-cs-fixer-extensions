@@ -39,36 +39,36 @@ final class ConfigTest extends TestCase
             $rules[$name] = $value;
         }
 
-        $currentRules = array_keys($rules);
+        $currentRules = \array_keys($rules);
 
         $fixerFactory = new FixerFactory();
         $fixerFactory->registerBuiltInFixers();
         $fixerFactory->registerCustomFixers($config->getCustomFixers());
         $fixers = $fixerFactory->getFixers();
 
-        $availableRules = array_map(function (FixerInterface $fixer) {
+        $availableRules = \array_map(function (FixerInterface $fixer) {
             return $fixer->getName();
         }, $fixers);
-        sort($availableRules);
+        \sort($availableRules);
 
-        $diff = array_diff($availableRules, $currentRules);
-        $this->assertEmpty($diff, sprintf("Mancano tra le specifiche i seguenti fixer:\n- %s", implode(PHP_EOL . '- ', $diff)));
+        $diff = \array_diff($availableRules, $currentRules);
+        $this->assertEmpty($diff, \sprintf("Mancano tra le specifiche i seguenti fixer:\n- %s", \implode(\PHP_EOL . '- ', $diff)));
 
-        $currentRules = array_keys($configRules);
+        $currentRules = \array_keys($configRules);
         $orderedCurrentRules = $currentRules;
-        sort($orderedCurrentRules);
+        \sort($orderedCurrentRules);
         $this->assertEquals($orderedCurrentRules, $currentRules, 'Order the rules alphabetically please');
     }
 
     public function testFutureMode()
     {
-        putenv('PHP_CS_FIXER_FUTURE_MODE');
+        \putenv('PHP_CS_FIXER_FUTURE_MODE');
 
-        $this->assertFalse(getenv('PHP_CS_FIXER_FUTURE_MODE'));
+        $this->assertFalse(\getenv('PHP_CS_FIXER_FUTURE_MODE'));
 
         $config = new Config();
 
-        $this->assertNotEmpty(getenv('PHP_CS_FIXER_FUTURE_MODE'));
+        $this->assertNotEmpty(\getenv('PHP_CS_FIXER_FUTURE_MODE'));
     }
 
     public function testTypes()

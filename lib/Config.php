@@ -16,12 +16,12 @@ final class Config extends PhpCsFixerConfig
 
     public function __construct(string $type = self::APP_V2, array $overriddenRules = array())
     {
-        parent::__construct(sprintf('%s:%s', __NAMESPACE__, $type));
-        putenv('PHP_CS_FIXER_FUTURE_MODE=1');
+        parent::__construct(\sprintf('%s:%s', __NAMESPACE__, $type));
+        \putenv('PHP_CS_FIXER_FUTURE_MODE=1');
 
         // @codeCoverageIgnoreStart
-        if ('cygwin' === getenv('TERM')) {
-            putenv(sprintf('COLUMNS=%s', (new Terminal())->getWidth() - 1));
+        if ('cygwin' === \getenv('TERM')) {
+            \putenv(\sprintf('COLUMNS=%s', (new Terminal())->getWidth() - 1));
         }
         // @codeCoverageIgnoreEnd
 
@@ -120,7 +120,7 @@ final class Config extends PhpCsFixerConfig
             'yoda_style' => true,
         );
         if (! empty($overriddenRules)) {
-            $rules = array_merge($rules, $overriddenRules);
+            $rules = \array_merge($rules, $overriddenRules);
         }
 
         $this->setRules($rules);

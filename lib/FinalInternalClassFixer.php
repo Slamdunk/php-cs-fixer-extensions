@@ -16,7 +16,7 @@ final class FinalInternalClassFixer extends AbstractFixer
         return new FixerDefinition(
             'All internal classes should be final except abstract ones.',
             array(
-                new CodeSample('<?php class MyApp {}' . PHP_EOL),
+                new CodeSample('<?php class MyApp {}' . \PHP_EOL),
             ),
             null,
             'Risky when subclassing non-abstract classes.'
@@ -25,7 +25,7 @@ final class FinalInternalClassFixer extends AbstractFixer
 
     public function isCandidate(Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(T_CLASS);
+        return $tokens->isTokenKindFound(\T_CLASS);
     }
 
     public function isRisky()
@@ -35,26 +35,26 @@ final class FinalInternalClassFixer extends AbstractFixer
 
     protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
-        $classes = array_keys($tokens->findGivenKind(T_CLASS));
+        $classes = \array_keys($tokens->findGivenKind(\T_CLASS));
 
-        while ($classIndex = array_pop($classes)) {
+        while ($classIndex = \array_pop($classes)) {
             // ignore class if it is abstract or already final
             $prevToken = $tokens[$tokens->getPrevMeaningfulToken($classIndex)];
-            if ($prevToken->isGivenKind(array(T_ABSTRACT, T_FINAL, T_NEW))) {
+            if ($prevToken->isGivenKind(array(\T_ABSTRACT, \T_FINAL, \T_NEW))) {
                 continue;
             }
 
             // ignore class if it's a Doctrine Entity
             $docToken = $tokens[$tokens->getPrevNonWhitespace($classIndex)];
-            if ($docToken->isGivenKind(T_DOC_COMMENT) && false !== mb_strpos($docToken->getContent(), '@ORM\Entity')) {
+            if ($docToken->isGivenKind(\T_DOC_COMMENT) && false !== \mb_strpos($docToken->getContent(), '@ORM\Entity')) {
                 continue;
             }
 
             $tokens->insertAt(
                 $classIndex,
                 array(
-                    new Token(array(T_FINAL, 'final')),
-                    new Token(array(T_WHITESPACE, ' ')),
+                    new Token(array(\T_FINAL, 'final')),
+                    new Token(array(\T_WHITESPACE, ' ')),
                 )
             );
         }

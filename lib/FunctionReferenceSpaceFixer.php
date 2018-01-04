@@ -17,20 +17,20 @@ final class FunctionReferenceSpaceFixer extends AbstractFixer
         return new FixerDefinition(
             'Ensure space between & and variable name in function declarations and lambda uses.',
             array(
-                new CodeSample('<?php $foo = function (&$bar) use (&  $baz) {};' . PHP_EOL),
+                new CodeSample('<?php $foo = function (&$bar) use (&  $baz) {};' . \PHP_EOL),
             )
         );
     }
 
     public function isCandidate(Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(T_FUNCTION);
+        return $tokens->isTokenKindFound(\T_FUNCTION);
     }
 
     protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
         for ($index = $tokens->count() - 1; $index > 0; --$index) {
-            if (! $tokens[$index]->isGivenKind(T_FUNCTION)) {
+            if (! $tokens[$index]->isGivenKind(\T_FUNCTION)) {
                 continue;
             }
 
@@ -56,7 +56,7 @@ final class FunctionReferenceSpaceFixer extends AbstractFixer
                 if ($nextToken->isWhitespace()) {
                     $tokens[$nextTokenIndex] = new Token(array($nextToken->getId(), ' '));
                 } else {
-                    $tokens->insertAt($nextTokenIndex, new Token(array(T_WHITESPACE, ' ')));
+                    $tokens->insertAt($nextTokenIndex, new Token(array(\T_WHITESPACE, ' ')));
                 }
             }
         }

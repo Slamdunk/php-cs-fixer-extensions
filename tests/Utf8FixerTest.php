@@ -26,6 +26,6 @@ abcdefghijklmnopqrstuvwxyz
 €
 EOF;
 
-        $this->doTest($expected, file_get_contents(__DIR__ . '/_files/utf8-ansi.php'));
+        $this->doTest($expected, \file_get_contents(__DIR__ . '/_files/utf8-ansi.php'));
     }
 }

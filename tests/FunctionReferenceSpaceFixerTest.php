@@ -28,10 +28,10 @@ final class FunctionReferenceSpaceFixerTest extends AbstractFixerTestCase
     {
         $same = function (string $content): string {
             $use = $content;
-            $use = str_replace('array &', '&', $use);
-            $use = str_replace(' = array()', '', $use);
+            $use = \str_replace('array &', '&', $use);
+            $use = \str_replace(' = array()', '', $use);
 
-            $invariant = PHP_EOL . preg_replace('/\s+/', ' ', '
+            $invariant = \PHP_EOL . \preg_replace('/\s+/', ' ', '
                 $var =&  $var;
                 $var =& $var;
                 $var =&$var;
@@ -43,9 +43,9 @@ final class FunctionReferenceSpaceFixerTest extends AbstractFixerTestCase
                 $var &$var;
                 $var = "& ";
                 $var = "&";
-            ') . PHP_EOL;
+            ') . \PHP_EOL;
 
-            return sprintf(
+            return \sprintf(
 '<?php
 
 function test(%1$s) {
@@ -91,8 +91,8 @@ class Foo
                 $same("array & \n \$array = array()"),
             ),
             array(
-                $same(implode(',', array_fill(0, 30, '& $array'))),
-                $same(implode(',', array_fill(0, 30, '&$array'))),
+                $same(\implode(',', \array_fill(0, 30, '& $array'))),
+                $same(\implode(',', \array_fill(0, 30, '&$array'))),
             ),
         );
     }

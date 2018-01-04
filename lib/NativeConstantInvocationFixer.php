@@ -34,9 +34,9 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
         return new FixerDefinition(
             'Add leading `\` before constant invocation of internal constant to speed up resolving. Constant name match is case-sensitive, except for `null`, `false` and `true`.',
             array(
-                new CodeSample('<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);' . PHP_EOL),
+                new CodeSample('<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);' . \PHP_EOL),
                 new CodeSample(
-                    '<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);' . PHP_EOL,
+                    '<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);' . \PHP_EOL,
                     array(
                         'include' => array(
                             'MY_CUSTOM_PI',
@@ -44,7 +44,7 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
                     )
                 ),
                 new CodeSample(
-                    '<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);' . PHP_EOL,
+                    '<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);' . \PHP_EOL,
                     array(
                         'fix_built_in' => false,
                         'include' => array(
@@ -53,7 +53,7 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
                     )
                 ),
                 new CodeSample(
-                    '<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);' . PHP_EOL,
+                    '<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);' . \PHP_EOL,
                     array(
                         'exclude' => array(
                             'M_PI',
@@ -71,7 +71,7 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
      */
     public function isCandidate(Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(T_STRING);
+        return $tokens->isTokenKindFound(\T_STRING);
     }
 
     /**
@@ -92,9 +92,9 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
         $uniqueConfiguredExclude = \array_unique($this->configuration['exclude']);
 
         // Case sensitive constants handling
-        $constantsToEscape = array_values($this->configuration['include']);
+        $constantsToEscape = \array_values($this->configuration['include']);
         if (true === $this->configuration['fix_built_in']) {
-            $constantsToEscape = array_merge($constantsToEscape, \array_keys(\get_defined_constants()));
+            $constantsToEscape = \array_merge($constantsToEscape, \array_keys(\get_defined_constants()));
         }
         $constantsToEscape = \array_diff(
             \array_unique($constantsToEscape),
@@ -105,8 +105,8 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
         static $caseInsensitiveConstants = array('null', 'false', 'true');
         $caseInsensitiveConstantsToEscape = array();
         foreach ($constantsToEscape as $constantIndex => $constant) {
-            $loweredConstant = mb_strtolower($constant);
-            if (in_array($loweredConstant, $caseInsensitiveConstants, true)) {
+            $loweredConstant = \mb_strtolower($constant);
+            if (\in_array($loweredConstant, $caseInsensitiveConstants, true)) {
                 $caseInsensitiveConstantsToEscape[] = $loweredConstant;
                 unset($constantsToEscape[$constantIndex]);
             }
@@ -134,7 +134,7 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
             $tokenContent = $token->getContent();
 
             // test if we are at a constant call
-            if (! $token->isGivenKind(T_STRING)) {
+            if (! $token->isGivenKind(\T_STRING)) {
                 continue;
             }
 
@@ -144,11 +144,11 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
             }
 
             $constantNamePrefix = $tokens->getPrevMeaningfulToken($index);
-            if ($tokens[$constantNamePrefix]->isGivenKind(array(CT::T_USE_TRAIT, T_CLASS, T_CONST, T_DOUBLE_COLON, T_EXTENDS, T_FUNCTION, T_IMPLEMENTS, T_INTERFACE, T_NAMESPACE, T_NEW, T_NS_SEPARATOR, T_OBJECT_OPERATOR, T_TRAIT, T_USE))) {
+            if ($tokens[$constantNamePrefix]->isGivenKind(array(CT::T_USE_TRAIT, \T_CLASS, \T_CONST, \T_DOUBLE_COLON, \T_EXTENDS, \T_FUNCTION, \T_IMPLEMENTS, \T_INTERFACE, \T_NAMESPACE, \T_NEW, \T_NS_SEPARATOR, \T_OBJECT_OPERATOR, \T_TRAIT, \T_USE))) {
                 continue;
             }
 
-            if (! isset($this->constantsToEscape[$tokenContent]) && ! isset($this->caseInsensitiveConstantsToEscape[mb_strtolower($tokenContent)])) {
+            if (! isset($this->constantsToEscape[$tokenContent]) && ! isset($this->caseInsensitiveConstantsToEscape[\mb_strtolower($tokenContent)])) {
                 continue;
             }
 
@@ -157,7 +157,7 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
 
         $indexes = \array_reverse($indexes);
         foreach ($indexes as $index) {
-            $tokens->insertAt($index, new Token(array(T_NS_SEPARATOR, '\\')));
+            $tokens->insertAt($index, new Token(array(\T_NS_SEPARATOR, '\\')));
         }
     }
 

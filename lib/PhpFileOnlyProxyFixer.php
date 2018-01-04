@@ -57,7 +57,7 @@ final class PhpFileOnlyProxyFixer implements DefinedFixerInterface, Configuratio
         $originalDefinition = $this->fixer->getDefinition();
 
         return new FixerDefinition(
-            sprintf('PHP-FILE-ONLY: %s', $originalDefinition->getSummary()),
+            \sprintf('PHP-FILE-ONLY: %s', $originalDefinition->getSummary()),
             $originalDefinition->getCodeSamples(),
             $originalDefinition->getDescription(),
             $originalDefinition->getRiskyDescription()
@@ -81,7 +81,7 @@ final class PhpFileOnlyProxyFixer implements DefinedFixerInterface, Configuratio
 
     public function getName()
     {
-        return sprintf('Slam/php_only_%s', str_replace('/', '_', mb_strtolower($this->fixer->getName())));
+        return \sprintf('Slam/php_only_%s', \str_replace('/', '_', \mb_strtolower($this->fixer->getName())));
     }
 
     public function getPriority()
@@ -91,6 +91,6 @@ final class PhpFileOnlyProxyFixer implements DefinedFixerInterface, Configuratio
 
     public function supports(\SplFileInfo $file)
     {
-        return 'php' === pathinfo($file->getFilename(), PATHINFO_EXTENSION);
+        return 'php' === \pathinfo($file->getFilename(), \PATHINFO_EXTENSION);
     }
 }

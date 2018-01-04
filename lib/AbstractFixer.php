@@ -10,6 +10,6 @@ abstract class AbstractFixer extends PhpCsFixerAbstractFixer
 {
     final public function getName()
     {
-        return sprintf('Slam/%s', parent::getName());
+        return \sprintf('Slam/%s', parent::getName());
     }
 }

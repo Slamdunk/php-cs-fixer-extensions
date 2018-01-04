@@ -35,7 +35,7 @@ EOT
 
     public function isCandidate(Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(T_CLASS);
+        return $tokens->isTokenKindFound(\T_CLASS);
     }
 
     public function isRisky()
@@ -45,11 +45,11 @@ EOT
 
     protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
-        $classes = array_keys($tokens->findGivenKind(T_CLASS));
+        $classes = \array_keys($tokens->findGivenKind(\T_CLASS));
 
-        while ($classIndex = array_pop($classes)) {
+        while ($classIndex = \array_pop($classes)) {
             $prevToken = $tokens[$tokens->getPrevMeaningfulToken($classIndex)];
-            if (! $prevToken->isGivenKind(array(T_ABSTRACT))) {
+            if (! $prevToken->isGivenKind(array(\T_ABSTRACT))) {
                 continue;
             }
 
@@ -68,33 +68,33 @@ EOT
 
                 continue;
             }
-            if (! $tokens[$index]->isGivenKind(T_PUBLIC)) {
+            if (! $tokens[$index]->isGivenKind(\T_PUBLIC)) {
                 continue;
             }
             $nextIndex = $tokens->getNextMeaningfulToken($index);
             $nextToken = $tokens[$nextIndex];
-            if ($nextToken->isGivenKind(T_STATIC)) {
+            if ($nextToken->isGivenKind(\T_STATIC)) {
                 $nextIndex = $tokens->getNextMeaningfulToken($nextIndex);
                 $nextToken = $tokens[$nextIndex];
             }
-            if (! $nextToken->isGivenKind(T_FUNCTION)) {
+            if (! $nextToken->isGivenKind(\T_FUNCTION)) {
                 continue;
             }
             $nextIndex = $tokens->getNextMeaningfulToken($nextIndex);
             $nextToken = $tokens[$nextIndex];
-            if (! $nextToken->isGivenKind(T_STRING) || 0 === mb_strpos($nextToken->getContent(), '__')) {
+            if (! $nextToken->isGivenKind(\T_STRING) || 0 === \mb_strpos($nextToken->getContent(), '__')) {
                 continue;
             }
             $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
-            if ($prevToken->isGivenKind(array(T_FINAL))) {
+            if ($prevToken->isGivenKind(array(\T_FINAL))) {
                 continue;
             }
 
             $tokens->insertAt(
                 $index,
                 array(
-                    new Token(array(T_FINAL, 'final')),
-                    new Token(array(T_WHITESPACE, ' ')),
+                    new Token(array(\T_FINAL, 'final')),
+                    new Token(array(\T_WHITESPACE, ' ')),
                 )
             );
         }
