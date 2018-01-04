@@ -23,10 +23,6 @@ final class ConfigTest extends TestCase
 
         $this->assertInstanceOf(ConfigInterface::class, $config);
         $this->assertNotEmpty($config->getCustomFixers());
-
-        $config1 = new Config(false);
-
-        $this->assertNotSame($config->getRules(), $config1->getRules());
     }
 
     public function testAllDefaultRulesAreSpecified()
@@ -73,5 +69,38 @@ final class ConfigTest extends TestCase
         $config = new Config();
 
         $this->assertNotEmpty(getenv('PHP_CS_FIXER_FUTURE_MODE'));
+    }
+
+    public function testTypes()
+    {
+        $rules = (new Config(Config::APP_V1))->getRules();
+        $this->assertFalse($rules['declare_strict_types']);
+        $this->assertFalse($rules['Slam/native_constant_invocation']);
+
+        $rules = (new Config(Config::APP_V2))->getRules();
+        $this->assertTrue($rules['declare_strict_types']);
+        $this->assertFalse($rules['Slam/native_constant_invocation']);
+
+        $rules = (new Config(Config::LIB))->getRules();
+        $this->assertTrue($rules['native_function_invocation']);
+        $this->assertTrue($rules['Slam/native_constant_invocation']);
+
+        $this->assertSame((new Config())->getRules(), (new Config(Config::APP_V2))->getRules());
+    }
+
+    public function testOverwrite()
+    {
+        $rules = (new Config(Config::APP_V2))->getRules();
+        $this->assertTrue($rules['declare_strict_types']);
+        $this->assertFalse($rules['Slam/native_constant_invocation']);
+
+        $overriddenRules = array(
+            'declare_strict_types' => false,
+            'Slam/native_constant_invocation' => true,
+        );
+
+        $newRules = (new Config(Config::APP_V2, $overriddenRules))->getRules();
+        $this->assertFalse($newRules['declare_strict_types']);
+        $this->assertTrue($newRules['Slam/native_constant_invocation']);
     }
 }
