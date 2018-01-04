@@ -4,15 +4,8 @@ declare(strict_types=1);
 
 namespace SlamCsFixer\Tests;
 
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-
 final class FunctionReferenceSpaceFixerTest extends AbstractFixerTestCase
 {
-    public function testDefinition()
-    {
-        $this->assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
-    }
-
     /**
      * @dataProvider provideCases
      */
@@ -23,35 +16,58 @@ final class FunctionReferenceSpaceFixerTest extends AbstractFixerTestCase
 
     public function provideCases()
     {
-        $same = function ($content) {
+        $same = function (string $content): string {
+            $use = $content;
+            $use = str_replace('array &', '&', $use);
+            $use = str_replace(' = array()', '', $use);
+
+            $invariant = PHP_EOL . preg_replace('/\s+/', ' ', '
+                $var =&  $var;
+                $var =& $var;
+                $var =&$var;
+                $var &&  $var;
+                $var && $var;
+                $var &&$var;
+                $var &  $var;
+                $var & $var;
+                $var &$var;
+                $var = "& ";
+                $var = "&";
+            ') . PHP_EOL;
+
             return sprintf(
 '<?php
 
-function test(%s) {
-$test = function (%s) {
-    $var =&  $var;
-    $var =& $var;
-    $var =&$var;
-    $var &&  $var;
-    $var && $var;
-    $var &&$var;
-    $var &  $var;
-    $var & $var;
-    $var &$var;
-    $var = "& ";
-    $var = "&";
-};
+function test(%1$s) {
+    %3$s
+    $test = function (%1$s) use (%2$s) {
+        %3$s
+    };
 }
+
+class Foo
+{
+    function bar(%1$s) {
+        %3$s
+    }
+    function baz() {
+        %3$s
+        return new class () {
+            function xyz(%1$s) {
+                %3$s
+            }
+        };
+    }
+}
+
 ',
                 $content,
-                $content
+                $use,
+                $invariant
             );
         };
 
         return array(
-            array(
-                $same('array & $array = array()'),
-            ),
             array(
                 $same('array & $array = array()'),
                 $same('array &$array = array()'),

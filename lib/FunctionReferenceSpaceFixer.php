@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SlamCsFixer;
 
 use PhpCsFixer\FixerDefinition\FixerDefinition;
+use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 
@@ -17,34 +18,34 @@ final class FunctionReferenceSpaceFixer extends AbstractFixer
 
     protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
-        for ($index = $tokens->count() - 1; $index >= 0; --$index) {
+        for ($index = $tokens->count() - 1; $index > 0; --$index) {
             if (! $tokens[$index]->isGivenKind(T_FUNCTION)) {
                 continue;
             }
 
             $startParenthesisIndex = $tokens->getNextTokenOfKind($index, array('('));
             $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startParenthesisIndex);
+            $useIndex = $tokens->getNextNonWhitespace($endParenthesisIndex);
+            if ($tokens[$useIndex]->isGivenKind(CT::T_USE_LAMBDA)) {
+                $startUseIndex = $tokens->getNextTokenOfKind($useIndex, array('('));
+                $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startUseIndex);
+            }
 
             $previous = null;
-            for ($iter = $startParenthesisIndex - 1; $iter < $endParenthesisIndex; ++$iter) {
+            for ($iter = $endParenthesisIndex; $iter > $startParenthesisIndex; --$iter) {
                 $token = $tokens[$iter];
 
-                if ($previous) {
-                    if ($token->isWhitespace()) {
-                        $tokens[$iter] = new Token(array($token->getId(), ' '));
-                    } else {
-                        $tokens->insertAt($iter, new Token(array(T_WHITESPACE, ' ')));
-                        ++$endParenthesisIndex;
-                    }
-
-                    $previous = null;
-
+                if (! $token->equals('&')) {
                     continue;
                 }
-                if ($token->equals('&')) {
-                    $previous = $token;
 
-                    continue;
+                $nextTokenIndex = $iter + 1;
+                $nextToken = $tokens[$nextTokenIndex];
+
+                if ($nextToken->isWhitespace()) {
+                    $tokens[$nextTokenIndex] = new Token(array($nextToken->getId(), ' '));
+                } else {
+                    $tokens->insertAt($nextTokenIndex, new Token(array(T_WHITESPACE, ' ')));
                 }
             }
         }
