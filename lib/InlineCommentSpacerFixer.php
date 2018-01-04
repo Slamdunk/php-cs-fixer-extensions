@@ -21,6 +21,11 @@ final class InlineCommentSpacerFixer extends AbstractFixer
         );
     }
 
+    public function getPriority()
+    {
+        return 30;
+    }
+
     public function isCandidate(Tokens $tokens)
     {
         return $tokens->isTokenKindFound(T_COMMENT);
@@ -37,15 +42,5 @@ final class InlineCommentSpacerFixer extends AbstractFixer
             $content = substr_replace($content, ' ', 2, 0);
             $tokens[$index] = new Token(array($token->getId(), $content));
         }
-    }
-
-    public function getPriority()
-    {
-        return 30;
-    }
-
-    public function supports(\SplFileInfo $file)
-    {
-        return 'php' === pathinfo($file->getFilename(), PATHINFO_EXTENSION);
     }
 }

@@ -26,7 +26,7 @@ final class Config extends PhpCsFixerConfig
             new FinalAbstractPublicFixer(),
             new FinalInternalClassFixer(),
             new FunctionReferenceSpaceFixer(),
-            new InlineCommentSpacerFixer(),
+            new PhpFileOnlyProxyFixer(new InlineCommentSpacerFixer()),
             new PhpFileOnlyProxyFixer(new MainFixer\Basic\BracesFixer()),
             new Utf8Fixer(),
         ));
@@ -40,8 +40,8 @@ final class Config extends PhpCsFixerConfig
             'Slam/final_abstract_public' => $version2,
             'Slam/final_internal_class' => $version2,
             'Slam/function_reference_space' => true,
-            'Slam/inline_comment_spacer' => true,
             'Slam/php_only_braces' => true,
+            'Slam/php_only_slam_inline_comment_spacer' => true,
             'Slam/utf8' => $version2,
             'align_multiline_comment' => array('comment_type' => 'all_multiline'),
             'array_syntax' => array('syntax' => 'long'),

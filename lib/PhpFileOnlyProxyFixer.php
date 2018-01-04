@@ -77,7 +77,7 @@ final class PhpFileOnlyProxyFixer implements DefinedFixerInterface, Configuratio
 
     public function getName()
     {
-        return sprintf('Slam/php_only_%s', $this->fixer->getName());
+        return sprintf('Slam/php_only_%s', str_replace('/', '_', mb_strtolower($this->fixer->getName())));
     }
 
     public function getPriority()
