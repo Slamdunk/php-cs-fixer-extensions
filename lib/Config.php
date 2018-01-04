@@ -119,7 +119,7 @@ final class Config extends PhpCsFixerConfig
             'void_return' => false,
             'yoda_style' => true,
         );
-        if (!empty($overriddenRules)) {
+        if (! empty($overriddenRules)) {
             $rules = array_merge($rules, $overriddenRules);
         }
 
