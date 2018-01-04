@@ -28,9 +28,6 @@ final class Config extends PhpCsFixerConfig
             new FunctionReferenceSpaceFixer(),
             new InlineCommentSpacerFixer(),
             new PhpFileOnlyProxyFixer(new MainFixer\Basic\BracesFixer()),
-            new PhpFileOnlyProxyFixer(new MainFixer\Semicolon\SemicolonAfterInstructionFixer()),
-            new PhpFileOnlyProxyFixer(new MainFixer\Semicolon\SpaceAfterSemicolonFixer()),
-            new PhpFileOnlyProxyFixer(new MainFixer\Strict\DeclareStrictTypesFixer()),
             new Utf8Fixer(),
         ));
         $this->setRules(array(
@@ -45,9 +42,6 @@ final class Config extends PhpCsFixerConfig
             'Slam/function_reference_space' => true,
             'Slam/inline_comment_spacer' => true,
             'Slam/php_only_braces' => true,
-            'Slam/php_only_declare_strict_types' => $version2,
-            'Slam/php_only_semicolon_after_instruction' => true,
-            'Slam/php_only_space_after_semicolon' => true,
             'Slam/utf8' => $version2,
             'align_multiline_comment' => array('comment_type' => 'all_multiline'),
             'array_syntax' => array('syntax' => 'long'),
@@ -61,7 +55,7 @@ final class Config extends PhpCsFixerConfig
             'combine_consecutive_unsets' => false,
             'compact_nullable_typehint' => true,
             'concat_space' => array('spacing' => 'one'),
-            'declare_strict_types' => false,
+            'declare_strict_types' => $version2,
             'doctrine_annotation_array_assignment' => true,
             'doctrine_annotation_spaces' => true,
             'encoding' => $version2,
