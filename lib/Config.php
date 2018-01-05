@@ -99,7 +99,7 @@ final class Config extends PhpCsFixerConfig
             'ordered_imports' => true,
             'php_unit_strict' => false,
             'php_unit_test_annotation' => true,
-            'php_unit_test_class_requires_covers' => self::APP_V1 !== $type,
+            'php_unit_test_class_requires_covers' => false,
             'phpdoc_add_missing_param_annotation' => false,
             'phpdoc_order' => true,
             'phpdoc_types_order' => true,
