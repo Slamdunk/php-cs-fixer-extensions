@@ -51,7 +51,7 @@ final class Config extends PhpCsFixerConfig
             'Slam/php_only_slam_inline_comment_spacer' => true,
             'Slam/utf8' => self::APP_V1 !== $type,
             'align_multiline_comment' => array('comment_type' => 'all_multiline'),
-            'array_syntax' => array('syntax' => 'long'),
+            'array_syntax' => array('syntax' => self::LIB === $type ? 'short' : 'long'),
             'binary_operator_spaces' => false,
             'blank_line_before_return' => false,
             'blank_line_before_statement' => true,
