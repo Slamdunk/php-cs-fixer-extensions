@@ -14,9 +14,9 @@ final class Utf8Fixer extends AbstractFixer
     {
         return new FixerDefinition(
             'Converts files from Windows-1252 to UTF8.',
-            array(
+            [
                 new CodeSample(\mb_convert_encoding('<?php return \'è\';' . \PHP_EOL, 'Windows-1252', 'UTF-8')),
-            ),
+            ],
             null,
             'Risky when files are encoded different from UTF-8 and Windows-1252'
         );

@@ -16,9 +16,9 @@ final class FunctionReferenceSpaceFixer extends AbstractFixer
     {
         return new FixerDefinition(
             'Ensure space between & and variable name in function declarations and lambda uses.',
-            array(
+            [
                 new CodeSample('<?php $foo = function (&$bar) use (&  $baz) {};' . \PHP_EOL),
-            )
+            ]
         );
     }
 
@@ -34,11 +34,11 @@ final class FunctionReferenceSpaceFixer extends AbstractFixer
                 continue;
             }
 
-            $startParenthesisIndex = $tokens->getNextTokenOfKind($index, array('('));
+            $startParenthesisIndex = $tokens->getNextTokenOfKind($index, ['(']);
             $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startParenthesisIndex);
             $useIndex = $tokens->getNextNonWhitespace($endParenthesisIndex);
             if ($tokens[$useIndex]->isGivenKind(CT::T_USE_LAMBDA)) {
-                $startUseIndex = $tokens->getNextTokenOfKind($useIndex, array('('));
+                $startUseIndex = $tokens->getNextTokenOfKind($useIndex, ['(']);
                 $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startUseIndex);
             }
 
@@ -54,9 +54,9 @@ final class FunctionReferenceSpaceFixer extends AbstractFixer
                 $nextToken = $tokens[$nextTokenIndex];
 
                 if ($nextToken->isWhitespace()) {
-                    $tokens[$nextTokenIndex] = new Token(array($nextToken->getId(), ' '));
+                    $tokens[$nextTokenIndex] = new Token([$nextToken->getId(), ' ']);
                 } else {
-                    $tokens->insertAt($nextTokenIndex, new Token(array(\T_WHITESPACE, ' ')));
+                    $tokens->insertAt($nextTokenIndex, new Token([\T_WHITESPACE, ' ']));
                 }
             }
         }

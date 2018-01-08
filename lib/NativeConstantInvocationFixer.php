@@ -19,12 +19,12 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
     /**
      * @var array<string, true>
      */
-    private $constantsToEscape = array();
+    private $constantsToEscape = [];
 
     /**
      * @var array<string, true>
      */
-    private $caseInsensitiveConstantsToEscape = array();
+    private $caseInsensitiveConstantsToEscape = [];
 
     /**
      * {@inheritdoc}
@@ -33,34 +33,34 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
     {
         return new FixerDefinition(
             'Add leading `\` before constant invocation of internal constant to speed up resolving. Constant name match is case-sensitive, except for `null`, `false` and `true`.',
-            array(
+            [
                 new CodeSample('<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);' . \PHP_EOL),
                 new CodeSample(
                     '<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);' . \PHP_EOL,
-                    array(
-                        'include' => array(
+                    [
+                        'include' => [
                             'MY_CUSTOM_PI',
-                        ),
-                    )
+                        ],
+                    ]
                 ),
                 new CodeSample(
                     '<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);' . \PHP_EOL,
-                    array(
+                    [
                         'fix_built_in' => false,
-                        'include' => array(
+                        'include' => [
                             'MY_CUSTOM_PI',
-                        ),
-                    )
+                        ],
+                    ]
                 ),
                 new CodeSample(
                     '<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);' . \PHP_EOL,
-                    array(
-                        'exclude' => array(
+                    [
+                        'exclude' => [
                             'M_PI',
-                        ),
-                    )
+                        ],
+                    ]
                 ),
-            ),
+            ],
             null,
             'Risky when any of the constants are namespaced or overridden.'
         );
@@ -102,8 +102,8 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
         );
 
         // Case insensitive constants handling
-        static $caseInsensitiveConstants = array('null', 'false', 'true');
-        $caseInsensitiveConstantsToEscape = array();
+        static $caseInsensitiveConstants = ['null', 'false', 'true'];
+        $caseInsensitiveConstantsToEscape = [];
         foreach ($constantsToEscape as $constantIndex => $constant) {
             $loweredConstant = \mb_strtolower($constant);
             if (\in_array($loweredConstant, $caseInsensitiveConstants, true)) {
@@ -129,7 +129,7 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
      */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
-        $indexes = array();
+        $indexes = [];
         foreach ($tokens as $index => $token) {
             $tokenContent = $token->getContent();
 
@@ -144,7 +144,7 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
             }
 
             $constantNamePrefix = $tokens->getPrevMeaningfulToken($index);
-            if ($tokens[$constantNamePrefix]->isGivenKind(array(CT::T_USE_TRAIT, \T_CLASS, \T_CONST, \T_DOUBLE_COLON, \T_EXTENDS, \T_FUNCTION, \T_IMPLEMENTS, \T_INTERFACE, \T_NAMESPACE, \T_NEW, \T_NS_SEPARATOR, \T_OBJECT_OPERATOR, \T_TRAIT, \T_USE))) {
+            if ($tokens[$constantNamePrefix]->isGivenKind([CT::T_USE_TRAIT, \T_CLASS, \T_CONST, \T_DOUBLE_COLON, \T_EXTENDS, \T_FUNCTION, \T_IMPLEMENTS, \T_INTERFACE, \T_NAMESPACE, \T_NEW, \T_NS_SEPARATOR, \T_OBJECT_OPERATOR, \T_TRAIT, \T_USE])) {
                 continue;
             }
 
@@ -157,7 +157,7 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
 
         $indexes = \array_reverse($indexes);
         foreach ($indexes as $index) {
-            $tokens->insertAt($index, new Token(array(\T_NS_SEPARATOR, '\\')));
+            $tokens->insertAt($index, new Token([\T_NS_SEPARATOR, '\\']));
         }
     }
 
@@ -179,21 +179,21 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
             return true;
         };
 
-        return new FixerConfigurationResolver(array(
+        return new FixerConfigurationResolver([
             (new FixerOptionBuilder('fix_built_in', 'Whether to fix constants returned by `get_defined_constants`.'))
-                ->setAllowedTypes(array('bool'))
+                ->setAllowedTypes(['bool'])
                 ->setDefault(true)
                 ->getOption(),
             (new FixerOptionBuilder('include', 'List of additional constants to fix.'))
-                ->setAllowedTypes(array('array'))
-                ->setAllowedValues(array($constantChecker))
-                ->setDefault(array())
+                ->setAllowedTypes(['array'])
+                ->setAllowedValues([$constantChecker])
+                ->setDefault([])
                 ->getOption(),
             (new FixerOptionBuilder('exclude', 'List of constants to ignore.'))
-                ->setAllowedTypes(array('array'))
-                ->setAllowedValues(array($constantChecker))
-                ->setDefault(array('null', 'false', 'true'))
+                ->setAllowedTypes(['array'])
+                ->setAllowedValues([$constantChecker])
+                ->setDefault(['null', 'false', 'true'])
                 ->getOption(),
-        ));
+        ]);
     }
 }

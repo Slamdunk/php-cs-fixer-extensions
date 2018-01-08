@@ -15,9 +15,9 @@ final class InlineCommentSpacerFixer extends AbstractFixer
     {
         return new FixerDefinition(
             'Puts a space after every inline comment start.',
-            array(
+            [
                 new CodeSample('<?php //Whut' . \PHP_EOL),
-            )
+            ]
         );
     }
 
@@ -40,7 +40,7 @@ final class InlineCommentSpacerFixer extends AbstractFixer
             }
 
             $content = \substr_replace($content, ' ', 2, 0);
-            $tokens[$index] = new Token(array($token->getId(), $content));
+            $tokens[$index] = new Token([$token->getId(), $content]);
         }
     }
 }

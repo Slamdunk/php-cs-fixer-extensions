@@ -26,17 +26,17 @@ final class InlineCommentSpacerFixerTest extends AbstractFixerTestCase
 
     public function provideCases()
     {
-        return array(
-            array(
+        return [
+            [
                 '<?php // test',
                 '<?php //test',
-            ),
-            array(
+            ],
+            [
                 '<?php //  test',
-            ),
-            array(
+            ],
+            [
                 '<?php /*test*/',
-            ),
-        );
+            ],
+        ];
     }
 }

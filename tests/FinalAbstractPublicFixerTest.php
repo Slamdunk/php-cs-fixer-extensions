@@ -45,12 +45,12 @@ private static function f6(){}
         $fixed = \str_replace('public static function', 'final public static function', $fixed);
         $fixed = \str_replace('public function', 'final public function', $fixed);
 
-        return array(
-            'final-class' => array("<?php final class MyClass { ${original} }"),
-            'trait' => array("<?php trait MyClass { ${original} }"),
-            'interface' => array("<?php interface MyClass { ${original} }"),
-            'anonymous-class' => array("<?php abstract class MyClass { private function test() { \$a = new class { ${original} }; } }"),
-            'magic-methods' => array('<?php abstract class MyClass {
+        return [
+            'final-class' => ["<?php final class MyClass { ${original} }"],
+            'trait' => ["<?php trait MyClass { ${original} }"],
+            'interface' => ["<?php interface MyClass { ${original} }"],
+            'anonymous-class' => ["<?php abstract class MyClass { private function test() { \$a = new class { ${original} }; } }"],
+            'magic-methods' => ['<?php abstract class MyClass {
 public function __construct() {}
 public function __destruct() {}
 public function __call() {}
@@ -66,11 +66,11 @@ public function __invoke() {}
 public function __set_state() {}
 public function __clone() {}
 public function __debugInfo() {}
-            }'),
-            'abstract-class' => array(
+            }'],
+            'abstract-class' => [
                 "<?php abstract class MyClass { ${fixed} }",
                 "<?php abstract class MyClass { ${original} }",
-            ),
-        );
+            ],
+        ];
     }
 }

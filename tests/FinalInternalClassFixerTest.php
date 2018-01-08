@@ -27,35 +27,35 @@ final class FinalInternalClassFixerTest extends AbstractFixerTestCase
 
     public function provideCases()
     {
-        return array(
-            array(
+        return [
+            [
                 '<?php final class MyClass {}',
                 '<?php class MyClass {}',
-            ),
-            array(
+            ],
+            [
                 '<?php final class MyClass extends MyAbstract {}',
                 '<?php class MyClass extends MyAbstract {}',
-            ),
-            array(
+            ],
+            [
                 '<?php final class MyClass implements MyInterface {}',
                 '<?php class MyClass implements MyInterface {}',
-            ),
-            array(
+            ],
+            [
                 "<?php\n/**\n * @codeCoverageIgnore\n */\nfinal class MyEntity {}",
                 "<?php\n/**\n * @codeCoverageIgnore\n */\nclass MyEntity {}",
-            ),
-            array(
+            ],
+            [
                 "<?php\n/**\n * @ORM\\Entity\n */\nclass MyEntity {}",
-            ),
-            array(
+            ],
+            [
                 '<?php abstract class MyAbstract {}',
-            ),
-            array(
+            ],
+            [
                 '<?php trait MyTrait {}',
-            ),
-            array(
+            ],
+            [
                 '<?php $anonymClass = new class {};',
-            ),
-        );
+            ],
+        ];
     }
 }

@@ -73,7 +73,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
         $this->assertTrue($proxy->supports($file));
         $this->assertFalse($proxy->supports(new SplFileInfo(__DIR__ . '/_files/non-php.txt')));
 
-        $this->assertNull($proxy->configure(array()));
+        $this->assertNull($proxy->configure([]));
         $this->assertNull($proxy->getConfigurationDefinition());
         $this->assertNull($proxy->setWhitespacesConfig(new WhitespacesFixerConfig()));
         $this->assertNull($proxy->getDefinition());
@@ -87,7 +87,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
 
         $fixerDefinition = $this->createMock(FixerDefinitionInterface::class);
         $fixerDefinition->expects($this->once())->method('getSummary')->willReturn($summary = \uniqid('summary'));
-        $fixerDefinition->expects($this->once())->method('getCodeSamples')->willReturn($codeSamples = array());
+        $fixerDefinition->expects($this->once())->method('getCodeSamples')->willReturn($codeSamples = []);
         $fixerDefinition->expects($this->once())->method('getDescription')->willReturn($description = \uniqid('description'));
         $fixerDefinition->expects($this->once())->method('getRiskyDescription')->willReturn($riskyDescription = \uniqid('riskyDescription'));
 
@@ -109,7 +109,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
     public function testConfigureIsProxied()
     {
         $fixer = $this->createMock(ConfigurationDefinitionFixerInterface::class);
-        $configuration = array(\uniqid());
+        $configuration = [\uniqid()];
 
         $proxy = new PhpFileOnlyProxyFixer($fixer);
 

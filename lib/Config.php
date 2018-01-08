@@ -14,7 +14,7 @@ final class Config extends PhpCsFixerConfig
     const APP_V2    = 'APP_V2';
     const LIB       = 'LIB';
 
-    public function __construct(string $type = self::APP_V2, array $overriddenRules = array())
+    public function __construct(string $type = self::APP_V2, array $overriddenRules = [])
     {
         parent::__construct(\sprintf('%s:%s', __NAMESPACE__, $type));
         \putenv('PHP_CS_FIXER_FUTURE_MODE=1');
@@ -26,7 +26,7 @@ final class Config extends PhpCsFixerConfig
         // @codeCoverageIgnoreEnd
 
         $this->setRiskyAllowed(true);
-        $this->registerCustomFixers(array(
+        $this->registerCustomFixers([
             new FinalAbstractPublicFixer(),
             new FinalInternalClassFixer(),
             new FunctionReferenceSpaceFixer(),
@@ -34,9 +34,9 @@ final class Config extends PhpCsFixerConfig
             new PhpFileOnlyProxyFixer(new InlineCommentSpacerFixer()),
             new PhpFileOnlyProxyFixer(new MainFixer\Basic\BracesFixer()),
             new Utf8Fixer(),
-        ));
+        ]);
 
-        $rules = array(
+        $rules = [
             '@DoctrineAnnotation' => true,
             '@PHP71Migration' => true,
             '@PHP71Migration:risky' => true,
@@ -50,18 +50,18 @@ final class Config extends PhpCsFixerConfig
             'Slam/php_only_braces' => true,
             'Slam/php_only_slam_inline_comment_spacer' => true,
             'Slam/utf8' => self::APP_V1 !== $type,
-            'align_multiline_comment' => array('comment_type' => 'all_multiline'),
-            'array_syntax' => array('syntax' => self::LIB === $type ? 'short' : 'long'),
+            'align_multiline_comment' => ['comment_type' => 'all_multiline'],
+            'array_syntax' => ['syntax' => self::LIB === $type ? 'short' : 'long'],
             'binary_operator_spaces' => false,
             'blank_line_before_return' => false,
             'blank_line_before_statement' => true,
             'braces' => false,
-            'class_definition' => array('singleItemSingleLine' => true),
+            'class_definition' => ['singleItemSingleLine' => true],
             'class_keyword_remove' => false,
             'combine_consecutive_issets' => false,
             'combine_consecutive_unsets' => false,
             'compact_nullable_typehint' => true,
-            'concat_space' => array('spacing' => 'one'),
+            'concat_space' => ['spacing' => 'one'],
             'declare_strict_types' => self::APP_V1 !== $type,
             'doctrine_annotation_array_assignment' => true,
             'doctrine_annotation_spaces' => true,
@@ -77,12 +77,12 @@ final class Config extends PhpCsFixerConfig
             'linebreak_after_opening_tag' => true,
             'list_syntax' => true,
             'mb_str_functions' => self::APP_V2 === $type,
-            'method_argument_space' => array('keep_multiple_spaces_after_comma' => true),
+            'method_argument_space' => ['keep_multiple_spaces_after_comma' => true],
             'method_chaining_indentation' => true,
             'method_separation' => false,
             'native_function_invocation' => self::LIB === $type,
             'no_blank_lines_before_namespace' => false,
-            'no_extra_consecutive_blank_lines' => array('tokens' => array('break', 'continue', 'extra', 'return', 'throw', 'use', 'useTrait', 'curly_brace_block', 'parenthesis_brace_block', 'square_brace_block')),
+            'no_extra_consecutive_blank_lines' => ['tokens' => ['break', 'continue', 'extra', 'return', 'throw', 'use', 'useTrait', 'curly_brace_block', 'parenthesis_brace_block', 'square_brace_block']],
             'no_multiline_whitespace_around_double_arrow' => false,
             'no_multiline_whitespace_before_semicolons' => false,
             'no_null_property_initialization' => true,
@@ -95,7 +95,7 @@ final class Config extends PhpCsFixerConfig
             'no_useless_return' => true,
             'not_operator_with_space' => false,
             'not_operator_with_successor_space' => true,
-            'ordered_class_elements' => array('order' => array('use_trait', 'constant_public', 'constant_protected', 'constant_private', 'property', 'construct', 'destruct', 'magic', 'phpunit', 'method')),
+            'ordered_class_elements' => ['order' => ['use_trait', 'constant_public', 'constant_protected', 'constant_private', 'property', 'construct', 'destruct', 'magic', 'phpunit', 'method']],
             'ordered_imports' => true,
             'php_unit_strict' => false,
             'php_unit_test_annotation' => true,
@@ -118,7 +118,7 @@ final class Config extends PhpCsFixerConfig
             'unary_operator_spaces' => false,
             'void_return' => false,
             'yoda_style' => true,
-        );
+        ];
         if (! empty($overriddenRules)) {
             $rules = \array_merge($rules, $overriddenRules);
         }

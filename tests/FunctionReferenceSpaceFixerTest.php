@@ -77,23 +77,23 @@ class Foo
             );
         };
 
-        return array(
-            array(
+        return [
+            [
                 $same('array & $array = array()'),
                 $same('array &$array = array()'),
-            ),
-            array(
+            ],
+            [
                 $same('array & $array = array()'),
                 $same('array &  $array = array()'),
-            ),
-            array(
+            ],
+            [
                 $same('array & $array = array()'),
                 $same("array & \n \$array = array()"),
-            ),
-            array(
+            ],
+            [
                 $same(\implode(',', \array_fill(0, 30, '& $array'))),
                 $same(\implode(',', \array_fill(0, 30, '&$array'))),
-            ),
-        );
+            ],
+        ];
     }
 }

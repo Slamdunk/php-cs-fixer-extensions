@@ -25,9 +25,9 @@ final class NativeConstantInvocationFixerTest extends AbstractFixerTestCase
             $key
         ));
 
-        $this->fixer->configure(array(
+        $this->fixer->configure([
             $key => 'bar',
-        ));
+        ]);
     }
 
     /**
@@ -43,11 +43,11 @@ final class NativeConstantInvocationFixerTest extends AbstractFixerTestCase
             \is_object($element) ? \get_class($element) : \gettype($element)
         ));
 
-        $this->fixer->configure(array(
-            'exclude' => array(
+        $this->fixer->configure([
+            'exclude' => [
                 $element,
-            ),
-        ));
+            ],
+        ]);
     }
 
     /**
@@ -63,11 +63,11 @@ final class NativeConstantInvocationFixerTest extends AbstractFixerTestCase
             \is_object($element) ? \get_class($element) : \gettype($element)
         ));
 
-        $this->fixer->configure(array(
-            'include' => array(
+        $this->fixer->configure([
+            'include' => [
                 $element,
-            ),
-        ));
+            ],
+        ]);
     }
 
     /**
@@ -75,32 +75,32 @@ final class NativeConstantInvocationFixerTest extends AbstractFixerTestCase
      */
     public function provideInvalidConfigurationElementCases()
     {
-        return array(
-            'null' => array(null),
-            'false' => array(false),
-            'true' => array(true),
-            'int' => array(1),
-            'array' => array(array()),
-            'float' => array(0.1),
-            'object' => array(new \stdClass()),
-            'not-trimmed' => array('  M_PI  '),
-        );
+        return [
+            'null' => [null],
+            'false' => [false],
+            'true' => [true],
+            'int' => [1],
+            'array' => [[]],
+            'float' => [0.1],
+            'object' => [new \stdClass()],
+            'not-trimmed' => ['  M_PI  '],
+        ];
     }
 
     public function testConfigureResetsExclude()
     {
-        $this->fixer->configure(array(
-            'exclude' => array(
+        $this->fixer->configure([
+            'exclude' => [
                 'M_PI',
-            ),
-        ));
+            ],
+        ]);
 
         $before = '<?php var_dump(m_pi, M_PI);';
         $after = '<?php var_dump(m_pi, \\M_PI);';
 
         $this->doTest($before);
 
-        $this->fixer->configure(array());
+        $this->fixer->configure([]);
 
         $this->doTest($after, $before);
     }
@@ -128,38 +128,38 @@ final class NativeConstantInvocationFixerTest extends AbstractFixerTestCase
      */
     public function provideFixWithDefaultConfigurationCases()
     {
-        return array(
-            array('<?php var_dump(NULL, FALSE, TRUE, 1);'),
-            array('<?php echo CUSTOM_DEFINED_CONSTANT_123;'),
-            array('<?php echo m_pi; // Constant are case sensitive'),
-            array('<?php namespace M_PI;'),
-            array('<?php namespace Foo; use M_PI;'),
-            array('<?php class M_PI {}'),
-            array('<?php class Foo extends M_PI {}'),
-            array('<?php class Foo implements M_PI {}'),
-            array('<?php interface M_PI {};'),
-            array('<?php trait M_PI {};'),
-            array('<?php class Foo { const M_PI = 1; }'),
-            array('<?php class Foo { use M_PI; }'),
-            array('<?php class Foo { public $M_PI = 1; }'),
-            array('<?php class Foo { function M_PI($M_PI) {} }'),
-            array('<?php class Foo { function bar() { $M_PI = M_PI() + self::M_PI(); } }'),
-            array('<?php class Foo { function bar() { $this->M_PI(self::M_PI); } }'),
-            array(
+        return [
+            ['<?php var_dump(NULL, FALSE, TRUE, 1);'],
+            ['<?php echo CUSTOM_DEFINED_CONSTANT_123;'],
+            ['<?php echo m_pi; // Constant are case sensitive'],
+            ['<?php namespace M_PI;'],
+            ['<?php namespace Foo; use M_PI;'],
+            ['<?php class M_PI {}'],
+            ['<?php class Foo extends M_PI {}'],
+            ['<?php class Foo implements M_PI {}'],
+            ['<?php interface M_PI {};'],
+            ['<?php trait M_PI {};'],
+            ['<?php class Foo { const M_PI = 1; }'],
+            ['<?php class Foo { use M_PI; }'],
+            ['<?php class Foo { public $M_PI = 1; }'],
+            ['<?php class Foo { function M_PI($M_PI) {} }'],
+            ['<?php class Foo { function bar() { $M_PI = M_PI() + self::M_PI(); } }'],
+            ['<?php class Foo { function bar() { $this->M_PI(self::M_PI); } }'],
+            [
                 '<?php echo \\M_PI;',
                 '<?php echo M_PI;',
-            ),
-            array(
+            ],
+            [
                 '<?php namespace Foo; use M_PI; echo \\M_PI;',
                 '<?php namespace Foo; use M_PI; echo M_PI;',
-            ),
-            array(
+            ],
+            [
                 // Here we are just testing the algorithm.
                 // A user likely would add this M_PI to its excluded list.
                 '<?php namespace M_PI; const M_PI = 1; return \\M_PI;',
                 '<?php namespace M_PI; const M_PI = 1; return M_PI;',
-            ),
-            array(
+            ],
+            [
                 '<?php
 echo \\/**/M_PI;
 echo \\ M_PI;
@@ -176,8 +176,8 @@ echo \\#
 M_PI;
 echo M_PI;
 ',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -188,11 +188,11 @@ echo M_PI;
      */
     public function testFixWithConfiguredCustomInclude($expected, $input = null)
     {
-        $this->fixer->configure(array(
-            'include' => array(
+        $this->fixer->configure([
+            'include' => [
                 'FOO_BAR_BAZ',
-            ),
-        ));
+            ],
+        ]);
 
         $this->doTest($expected, $input);
     }
@@ -202,16 +202,16 @@ echo M_PI;
      */
     public function provideFixWithConfiguredCustomIncludeCases()
     {
-        return array(
-            array(
+        return [
+            [
                 '<?php echo \\FOO_BAR_BAZ . \\M_PI;',
                 '<?php echo FOO_BAR_BAZ . M_PI;',
-            ),
-            array(
+            ],
+            [
                 '<?php class Foo { public function bar($foo) { return \\FOO_BAR_BAZ . \\M_PI; } }',
                 '<?php class Foo { public function bar($foo) { return FOO_BAR_BAZ . M_PI; } }',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -222,12 +222,12 @@ echo M_PI;
      */
     public function testFixWithConfiguredOnlyInclude($expected, $input = null)
     {
-        $this->fixer->configure(array(
+        $this->fixer->configure([
             'fix_built_in' => false,
-            'include' => array(
+            'include' => [
                 'M_PI',
-            ),
-        ));
+            ],
+        ]);
 
         $this->doTest($expected, $input);
     }
@@ -237,16 +237,16 @@ echo M_PI;
      */
     public function provideFixWithConfiguredOnlyIncludeCases()
     {
-        return array(
-            array(
+        return [
+            [
                 '<?php echo PHP_SAPI . FOO_BAR_BAZ . \\M_PI;',
                 '<?php echo PHP_SAPI . FOO_BAR_BAZ . M_PI;',
-            ),
-            array(
+            ],
+            [
                 '<?php class Foo { public function bar($foo) { return PHP_SAPI . FOO_BAR_BAZ . \\M_PI; } }',
                 '<?php class Foo { public function bar($foo) { return PHP_SAPI . FOO_BAR_BAZ . M_PI; } }',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -257,11 +257,11 @@ echo M_PI;
      */
     public function testFixWithConfiguredExclude($expected, $input = null)
     {
-        $this->fixer->configure(array(
-            'exclude' => array(
+        $this->fixer->configure([
+            'exclude' => [
                 'M_PI',
-            ),
-        ));
+            ],
+        ]);
 
         $this->doTest($expected, $input);
     }
@@ -271,30 +271,30 @@ echo M_PI;
      */
     public function provideFixWithConfiguredExcludeCases()
     {
-        return array(
-            array(
+        return [
+            [
                 '<?php echo \\PHP_SAPI . M_PI;',
                 '<?php echo PHP_SAPI . M_PI;',
-            ),
-            array(
+            ],
+            [
                 '<?php class Foo { public function bar($foo) { return \\PHP_SAPI . M_PI; } }',
                 '<?php class Foo { public function bar($foo) { return PHP_SAPI . M_PI; } }',
-            ),
-        );
+            ],
+        ];
     }
 
     public function testNullTrueFalseAreCaseInsensitive()
     {
-        $this->fixer->configure(array(
+        $this->fixer->configure([
             'fix_built_in' => false,
-            'include' => array(
+            'include' => [
                 'null',
                 'false',
                 'M_PI',
                 'M_pi',
-            ),
-            'exclude' => array(),
-        ));
+            ],
+            'exclude' => [],
+        ]);
 
         $expected = <<<'EOT'
 <?php

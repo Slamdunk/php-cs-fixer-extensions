@@ -15,7 +15,7 @@ final class FinalAbstractPublicFixer extends AbstractFixer
     {
         return new FixerDefinition(
             'All public methods of abstract classes should be final.',
-            array(
+            [
                 new CodeSample(<<<'EOT'
 <?php
 
@@ -27,7 +27,7 @@ abstract class AbstractMachine
 
 EOT
 ),
-            ),
+            ],
             null,
             'Risky when overriding public methods of abstract classes'
         );
@@ -49,11 +49,11 @@ EOT
 
         while ($classIndex = \array_pop($classes)) {
             $prevToken = $tokens[$tokens->getPrevMeaningfulToken($classIndex)];
-            if (! $prevToken->isGivenKind(array(\T_ABSTRACT))) {
+            if (! $prevToken->isGivenKind([\T_ABSTRACT])) {
                 continue;
             }
 
-            $classOpen = $tokens->getNextTokenOfKind($classIndex, array('{'));
+            $classOpen = $tokens->getNextTokenOfKind($classIndex, ['{']);
             $classClose = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $classOpen);
 
             $this->fixClass($tokens, $classOpen, $classClose);
@@ -86,16 +86,16 @@ EOT
                 continue;
             }
             $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
-            if ($prevToken->isGivenKind(array(\T_FINAL))) {
+            if ($prevToken->isGivenKind([\T_FINAL])) {
                 continue;
             }
 
             $tokens->insertAt(
                 $index,
-                array(
-                    new Token(array(\T_FINAL, 'final')),
-                    new Token(array(\T_WHITESPACE, ' ')),
-                )
+                [
+                    new Token([\T_FINAL, 'final']),
+                    new Token([\T_WHITESPACE, ' ']),
+                ]
             );
         }
     }

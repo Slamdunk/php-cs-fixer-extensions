@@ -94,10 +94,10 @@ final class ConfigTest extends TestCase
         $this->assertTrue($rules['declare_strict_types']);
         $this->assertFalse($rules['Slam/native_constant_invocation']);
 
-        $overriddenRules = array(
+        $overriddenRules = [
             'declare_strict_types' => false,
             'Slam/native_constant_invocation' => true,
-        );
+        ];
 
         $newRules = (new Config(Config::APP_V2, $overriddenRules))->getRules();
         $this->assertFalse($newRules['declare_strict_types']);
