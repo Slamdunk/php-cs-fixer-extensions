@@ -53,7 +53,7 @@ EOT
                 continue;
             }
 
-            $classOpen = $tokens->getNextTokenOfKind($classIndex, ['{']);
+            $classOpen  = $tokens->getNextTokenOfKind($classIndex, ['{']);
             $classClose = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $classOpen);
 
             $this->fixClass($tokens, $classOpen, $classClose);

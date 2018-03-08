@@ -74,13 +74,13 @@ final class NativeConstantInvocationFixerTest extends AbstractFixerTestCase
     public function provideInvalidConfigurationElementCases()
     {
         return [
-            'null' => [null],
-            'false' => [false],
-            'true' => [true],
-            'int' => [1],
-            'array' => [[]],
-            'float' => [0.1],
-            'object' => [new \stdClass()],
+            'null'        => [null],
+            'false'       => [false],
+            'true'        => [true],
+            'int'         => [1],
+            'array'       => [[]],
+            'float'       => [0.1],
+            'object'      => [new \stdClass()],
             'not-trimmed' => ['  M_PI  '],
         ];
     }
@@ -94,7 +94,7 @@ final class NativeConstantInvocationFixerTest extends AbstractFixerTestCase
         ]);
 
         $before = '<?php var_dump(m_pi, M_PI);';
-        $after = '<?php var_dump(m_pi, \\M_PI);';
+        $after  = '<?php var_dump(m_pi, \\M_PI);';
 
         $this->doTest($before);
 
@@ -222,7 +222,7 @@ echo M_PI;
     {
         $this->fixer->configure([
             'fix_built_in' => false,
-            'include' => [
+            'include'      => [
                 'M_PI',
             ],
         ]);
@@ -285,7 +285,7 @@ echo M_PI;
     {
         $this->fixer->configure([
             'fix_built_in' => false,
-            'include' => [
+            'include'      => [
                 'null',
                 'false',
                 'M_PI',

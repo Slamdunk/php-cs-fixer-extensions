@@ -108,7 +108,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
 
     public function testConfigureIsProxied()
     {
-        $fixer = $this->createMock(ConfigurationDefinitionFixerInterface::class);
+        $fixer         = $this->createMock(ConfigurationDefinitionFixerInterface::class);
         $configuration = [\uniqid()];
 
         $proxy = new PhpFileOnlyProxyFixer($fixer);
@@ -140,7 +140,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
 
     public function testSetWhitespacesConfigIsProxied()
     {
-        $fixer = $this->createMock(WhitespacesAwareFixerInterface::class);
+        $fixer  = $this->createMock(WhitespacesAwareFixerInterface::class);
         $config = new WhitespacesFixerConfig();
 
         $proxy = new PhpFileOnlyProxyFixer($fixer);

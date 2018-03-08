@@ -35,10 +35,10 @@ final class FunctionReferenceSpaceFixer extends AbstractFixer
             }
 
             $startParenthesisIndex = $tokens->getNextTokenOfKind($index, ['(']);
-            $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startParenthesisIndex);
-            $useIndex = $tokens->getNextNonWhitespace($endParenthesisIndex);
+            $endParenthesisIndex   = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startParenthesisIndex);
+            $useIndex              = $tokens->getNextNonWhitespace($endParenthesisIndex);
             if ($tokens[$useIndex]->isGivenKind(CT::T_USE_LAMBDA)) {
-                $startUseIndex = $tokens->getNextTokenOfKind($useIndex, ['(']);
+                $startUseIndex       = $tokens->getNextTokenOfKind($useIndex, ['(']);
                 $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startUseIndex);
             }
 
@@ -51,7 +51,7 @@ final class FunctionReferenceSpaceFixer extends AbstractFixer
                 }
 
                 $nextTokenIndex = $iter + 1;
-                $nextToken = $tokens[$nextTokenIndex];
+                $nextToken      = $tokens[$nextTokenIndex];
 
                 if ($nextToken->isWhitespace()) {
                     $tokens[$nextTokenIndex] = new Token([$nextToken->getId(), ' ']);

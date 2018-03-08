@@ -47,7 +47,7 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
                     '<?php var_dump(PHP_VERSION, M_PI, MY_CUSTOM_PI);' . \PHP_EOL,
                     [
                         'fix_built_in' => false,
-                        'include' => [
+                        'include'      => [
                             'MY_CUSTOM_PI',
                         ],
                     ]
@@ -102,7 +102,7 @@ final class NativeConstantInvocationFixer extends AbstractFixer implements Confi
         );
 
         // Case insensitive constants handling
-        static $caseInsensitiveConstants = ['null', 'false', 'true'];
+        static $caseInsensitiveConstants  = ['null', 'false', 'true'];
         $caseInsensitiveConstantsToEscape = [];
         foreach ($constantsToEscape as $constantIndex => $constant) {
             $loweredConstant = \mb_strtolower($constant);
