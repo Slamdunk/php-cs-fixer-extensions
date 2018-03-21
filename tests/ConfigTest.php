@@ -66,7 +66,7 @@ final class ConfigTest extends TestCase
 
         $this->assertFalse(\getenv('PHP_CS_FIXER_FUTURE_MODE'));
 
-        $config = new Config();
+        new Config();
 
         $this->assertNotEmpty(\getenv('PHP_CS_FIXER_FUTURE_MODE'));
     }

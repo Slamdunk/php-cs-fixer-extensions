@@ -42,7 +42,6 @@ final class FunctionReferenceSpaceFixer extends AbstractFixer
                 $endParenthesisIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startUseIndex);
             }
 
-            $previous = null;
             for ($iter = $endParenthesisIndex; $iter > $startParenthesisIndex; --$iter) {
                 $token = $tokens[$iter];
 
