@@ -9,13 +9,13 @@ use PhpCsFixer\Test\AbstractFixerTestCase as PhpCsFixerAbstractFixerTestCase;
 
 abstract class AbstractFixerTestCase extends PhpCsFixerAbstractFixerTestCase
 {
-    final protected function createFixerFactory()
+    final protected function createFixer()
     {
         $fixerClass = \get_class($this);
         $fixerClass = \str_replace('\\Tests\\', '\\', $fixerClass);
         $fixerClass = \preg_replace('/Test$/', '', $fixerClass);
 
-        return FixerFactory::create()->registerCustomFixers([new $fixerClass()]);
+        return new $fixerClass();
     }
 
     final protected function getFixerName()

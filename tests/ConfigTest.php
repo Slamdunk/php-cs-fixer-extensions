@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SlamCsFixer\Tests;
 
 use PhpCsFixer\ConfigInterface;
+use PhpCsFixer\Fixer\DeprecatedFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\FixerFactory;
 use PhpCsFixer\RuleSet;
@@ -40,19 +41,26 @@ final class ConfigTest extends TestCase
         }
 
         $currentRules = \array_keys($rules);
+        \sort($currentRules);
 
         $fixerFactory = new FixerFactory();
         $fixerFactory->registerBuiltInFixers();
         $fixerFactory->registerCustomFixers($config->getCustomFixers());
         $fixers = $fixerFactory->getFixers();
 
+        $availableRules = \array_filter($fixers, function (FixerInterface $fixer) {
+            return ! $fixer instanceof DeprecatedFixerInterface;
+        });
         $availableRules = \array_map(function (FixerInterface $fixer) {
             return $fixer->getName();
-        }, $fixers);
+        }, $availableRules);
         \sort($availableRules);
 
         $diff = \array_diff($availableRules, $currentRules);
         $this->assertEmpty($diff, \sprintf("Mancano tra le specifiche i seguenti fixer:\n- %s", \implode(\PHP_EOL . '- ', $diff)));
+
+        $diff = \array_diff($currentRules, $availableRules);
+        $this->assertEmpty($diff, \sprintf("I seguenti fixer sono di troppo:\n- %s", \implode(\PHP_EOL . '- ', $diff)));
 
         $currentRules        = \array_keys($configRules);
         $orderedCurrentRules = $currentRules;
@@ -75,15 +83,15 @@ final class ConfigTest extends TestCase
     {
         $rules = (new Config(Config::APP_V1))->getRules();
         $this->assertFalse($rules['declare_strict_types']);
-        $this->assertFalse($rules['Slam/native_constant_invocation']);
+        $this->assertFalse($rules['native_constant_invocation']);
 
         $rules = (new Config(Config::APP_V2))->getRules();
         $this->assertTrue($rules['declare_strict_types']);
-        $this->assertFalse($rules['Slam/native_constant_invocation']);
+        $this->assertFalse($rules['native_constant_invocation']);
 
         $rules = (new Config(Config::LIB))->getRules();
         $this->assertTrue($rules['native_function_invocation']);
-        $this->assertTrue($rules['Slam/native_constant_invocation']);
+        $this->assertTrue($rules['native_constant_invocation']);
 
         $this->assertSame((new Config())->getRules(), (new Config(Config::APP_V2))->getRules());
     }
@@ -92,7 +100,7 @@ final class ConfigTest extends TestCase
     {
         $rules = (new Config(Config::APP_V2))->getRules();
         $this->assertTrue($rules['declare_strict_types']);
-        $this->assertFalse($rules['Slam/native_constant_invocation']);
+        $this->assertFalse($rules['native_constant_invocation']);
 
         $overriddenRules = [
             'declare_strict_types'            => false,
