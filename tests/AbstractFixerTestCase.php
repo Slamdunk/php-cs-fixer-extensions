@@ -16,9 +16,4 @@ abstract class AbstractFixerTestCase extends PhpCsFixerAbstractFixerTestCase
 
         return new $fixerClass();
     }
-
-    final protected function getFixerName()
-    {
-        return \sprintf('Slam/%s', parent::getFixerName());
-    }
 }
