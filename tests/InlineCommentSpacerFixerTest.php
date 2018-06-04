@@ -13,7 +13,7 @@ final class InlineCommentSpacerFixerTest extends AbstractFixerTestCase
 {
     public function testDefinition()
     {
-        $this->assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
+        static::assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
     }
 
     /**

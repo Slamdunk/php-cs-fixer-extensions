@@ -29,54 +29,54 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
 
         $tokens = $this->createMock(Tokens::class);
         $fixer
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('isCandidate')
-            ->with($this->identicalTo($tokens))
+            ->with(static::identicalTo($tokens))
             ->willReturn($candidate = (bool) \random_int(0, 1))
         ;
-        $this->assertSame($candidate, $proxy->isCandidate($tokens));
+        static::assertSame($candidate, $proxy->isCandidate($tokens));
 
         $fixer
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('isRisky')
             ->willReturn($risky = (bool) \random_int(0, 1))
         ;
-        $this->assertSame($risky, $proxy->isRisky());
+        static::assertSame($risky, $proxy->isRisky());
 
         $file = new SplFileInfo(__FILE__);
         $fixer
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('fix')
             ->with(
-                $this->identicalTo($file),
-                $this->identicalTo($tokens)
+                static::identicalTo($file),
+                static::identicalTo($tokens)
             )
         ;
         $proxy->fix($file, $tokens);
 
         $fixer
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('getName')
             ->willReturn($name = \uniqid('_name'))
         ;
         $proxyName = $proxy->getName();
-        $this->assertContains('Slam', $proxyName);
-        $this->assertContains($name, $proxyName);
+        static::assertContains('Slam', $proxyName);
+        static::assertContains($name, $proxyName);
 
         $fixer
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('getPriority')
             ->willReturn($priority = \random_int(-100, 100))
         ;
-        $this->assertSame($priority, $proxy->getPriority());
+        static::assertSame($priority, $proxy->getPriority());
 
-        $this->assertTrue($proxy->supports($file));
-        $this->assertFalse($proxy->supports(new SplFileInfo(__DIR__ . '/_files/non-php.txt')));
+        static::assertTrue($proxy->supports($file));
+        static::assertFalse($proxy->supports(new SplFileInfo(__DIR__ . '/_files/non-php.txt')));
 
-        $this->assertNull($proxy->configure([]));
-        $this->assertNull($proxy->getConfigurationDefinition());
-        $this->assertNull($proxy->setWhitespacesConfig(new WhitespacesFixerConfig()));
-        $this->assertNull($proxy->getDefinition());
+        static::assertNull($proxy->configure([]));
+        static::assertNull($proxy->getConfigurationDefinition());
+        static::assertNull($proxy->setWhitespacesConfig(new WhitespacesFixerConfig()));
+        static::assertNull($proxy->getDefinition());
     }
 
     public function testGetDefinitionIsProxied()
@@ -86,24 +86,24 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
         $proxy = new PhpFileOnlyProxyFixer($fixer);
 
         $fixerDefinition = $this->createMock(FixerDefinitionInterface::class);
-        $fixerDefinition->expects($this->once())->method('getSummary')->willReturn($summary = \uniqid('summary'));
-        $fixerDefinition->expects($this->once())->method('getCodeSamples')->willReturn($codeSamples = []);
-        $fixerDefinition->expects($this->once())->method('getDescription')->willReturn($description = \uniqid('description'));
-        $fixerDefinition->expects($this->once())->method('getRiskyDescription')->willReturn($riskyDescription = \uniqid('riskyDescription'));
+        $fixerDefinition->expects(static::once())->method('getSummary')->willReturn($summary = \uniqid('summary'));
+        $fixerDefinition->expects(static::once())->method('getCodeSamples')->willReturn($codeSamples = []);
+        $fixerDefinition->expects(static::once())->method('getDescription')->willReturn($description = \uniqid('description'));
+        $fixerDefinition->expects(static::once())->method('getRiskyDescription')->willReturn($riskyDescription = \uniqid('riskyDescription'));
 
         $fixer
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('getDefinition')
             ->willReturn($fixerDefinition)
         ;
 
         $definition = $proxy->getDefinition();
 
-        $this->assertContains($summary, $definition->getSummary());
-        $this->assertContains('PHP', $definition->getSummary());
-        $this->assertSame($codeSamples, $definition->getCodeSamples());
-        $this->assertSame($description, $definition->getDescription());
-        $this->assertSame($riskyDescription, $definition->getRiskyDescription());
+        static::assertContains($summary, $definition->getSummary());
+        static::assertContains('PHP', $definition->getSummary());
+        static::assertSame($codeSamples, $definition->getCodeSamples());
+        static::assertSame($description, $definition->getDescription());
+        static::assertSame($riskyDescription, $definition->getRiskyDescription());
     }
 
     public function testConfigureIsProxied()
@@ -114,9 +114,9 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
         $proxy = new PhpFileOnlyProxyFixer($fixer);
 
         $fixer
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('configure')
-            ->with($this->identicalTo($configuration))
+            ->with(static::identicalTo($configuration))
         ;
 
         $proxy->configure($configuration);
@@ -130,12 +130,12 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
 
         $definition = $this->createMock(FixerConfigurationResolverInterface::class);
         $fixer
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('getConfigurationDefinition')
             ->willReturn($definition)
         ;
 
-        $this->assertSame($definition, $proxy->getConfigurationDefinition());
+        static::assertSame($definition, $proxy->getConfigurationDefinition());
     }
 
     public function testSetWhitespacesConfigIsProxied()
@@ -146,9 +146,9 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
         $proxy = new PhpFileOnlyProxyFixer($fixer);
 
         $fixer
-            ->expects($this->once())
+            ->expects(static::once())
             ->method('setWhitespacesConfig')
-            ->with($this->identicalTo($config))
+            ->with(static::identicalTo($config))
         ;
 
         $proxy->setWhitespacesConfig($config);

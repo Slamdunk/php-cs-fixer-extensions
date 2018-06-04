@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SlamCsFixer\Tests;
 
-use PhpCsFixer\FixerFactory;
 use PhpCsFixer\Test\AbstractFixerTestCase as PhpCsFixerAbstractFixerTestCase;
 
 abstract class AbstractFixerTestCase extends PhpCsFixerAbstractFixerTestCase
