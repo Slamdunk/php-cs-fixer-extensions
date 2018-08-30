@@ -6,6 +6,4 @@ includes:
 
 parameters:
     ignoreErrors:
-        - '#Call to an undefined method PhpCsFixer\\Fixer\\FixerInterface#'
-        - '#Calling method .+ on possibly null value of type#'
         - '#Parameter .+ given#'

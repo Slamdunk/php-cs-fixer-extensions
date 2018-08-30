@@ -107,6 +107,7 @@ final class Config extends PhpCsFixerConfig
             'ordered_class_elements'                        => ['order' => ['use_trait', 'constant_public', 'constant_protected', 'constant_private', 'property', 'construct', 'destruct', 'magic', 'phpunit', 'method']],
             'ordered_imports'                               => true,
             'php_unit_internal_class'                       => false,
+            'php_unit_method_casing'                        => true,
             'php_unit_ordered_covers'                       => true,
             'php_unit_set_up_tear_down_visibility'          => true,
             'php_unit_strict'                               => false,
