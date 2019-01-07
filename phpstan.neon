@@ -5,5 +5,8 @@ includes:
     - vendor/slam/phpstan-extensions/conf/thecodingmachine-rules.neon
 
 parameters:
+    paths:
+        - lib/
+        - tests/
     ignoreErrors:
         - '#Parameter .+ given#'
