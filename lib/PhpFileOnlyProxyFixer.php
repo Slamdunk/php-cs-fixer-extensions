@@ -8,6 +8,7 @@ use PhpCsFixer\Fixer\ConfigurationDefinitionFixerInterface;
 use PhpCsFixer\Fixer\DefinedFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
+use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\WhitespacesFixerConfig;
@@ -33,7 +34,16 @@ final class PhpFileOnlyProxyFixer implements DefinedFixerInterface, Configuratio
     public function getConfigurationDefinition()
     {
         if (! $this->fixer instanceof ConfigurationDefinitionFixerInterface) {
-            return;
+            return new class() implements FixerConfigurationResolverInterface {
+                public function getOptions()
+                {
+                    return [];
+                }
+
+                public function resolve(array $configuration)
+                {
+                }
+            };
         }
 
         return $this->fixer->getConfigurationDefinition();
@@ -51,7 +61,7 @@ final class PhpFileOnlyProxyFixer implements DefinedFixerInterface, Configuratio
     public function getDefinition()
     {
         if (! $this->fixer instanceof DefinedFixerInterface) {
-            return;
+            return new FixerDefinition('Description is not available.', []);
         }
 
         $originalDefinition = $this->fixer->getDefinition();
