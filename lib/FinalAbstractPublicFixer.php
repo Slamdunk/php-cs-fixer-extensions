@@ -86,7 +86,7 @@ EOT
                 continue;
             }
             $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
-            if ($prevToken->isGivenKind([\T_FINAL])) {
+            if ($prevToken->isGivenKind([\T_FINAL, \T_ABSTRACT])) {
                 continue;
             }
 

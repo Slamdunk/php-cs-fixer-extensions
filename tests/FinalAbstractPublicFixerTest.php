@@ -67,6 +67,10 @@ public function __set_state() {}
 public function __clone() {}
 public function __debugInfo() {}
             }'],
+            'abstract-methods'   => ['<?php abstract class MyClass {
+abstract public function foo();
+abstract protected function foo();
+            }'],
             'abstract-class' => [
                 "<?php abstract class MyClass { ${fixed} }",
                 "<?php abstract class MyClass { ${original} }",
