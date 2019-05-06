@@ -13,7 +13,7 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\WhitespacesFixerConfig;
 
-final class PhpFileOnlyProxyFixer implements DefinedFixerInterface, ConfigurationDefinitionFixerInterface, WhitespacesAwareFixerInterface
+final class PhpFileOnlyProxyFixer implements ConfigurationDefinitionFixerInterface, DefinedFixerInterface, WhitespacesAwareFixerInterface
 {
     private $fixer;
 
