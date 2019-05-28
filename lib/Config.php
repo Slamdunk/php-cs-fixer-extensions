@@ -10,9 +10,9 @@ use Symfony\Component\Console\Terminal;
 
 final class Config extends PhpCsFixerConfig
 {
-    const APP_V1    = 'APP_V1';
-    const APP_V2    = 'APP_V2';
-    const LIB       = 'LIB';
+    public const APP_V1    = 'APP_V1';
+    public const APP_V2    = 'APP_V2';
+    public const LIB       = 'LIB';
 
     public function __construct(string $type = self::APP_V2, array $overriddenRules = [])
     {
@@ -36,12 +36,12 @@ final class Config extends PhpCsFixerConfig
         ]);
 
         $rules = [
+            '@Symfony'                                      => true,
+            '@Symfony:risky'                                => true,
             '@DoctrineAnnotation'                           => true,
             '@PHP71Migration'                               => true,
             '@PHP71Migration:risky'                         => true,
-            '@PHPUnit60Migration:risky'                     => true,
-            '@Symfony'                                      => true,
-            '@Symfony:risky'                                => true,
+            '@PHPUnit75Migration:risky'                     => true,
             'Slam/final_abstract_public'                    => self::APP_V1 !== $type,
             'Slam/final_internal_class'                     => self::APP_V1 !== $type,
             'Slam/function_reference_space'                 => true,
@@ -110,7 +110,6 @@ final class Config extends PhpCsFixerConfig
             'ordered_class_elements'                        => ['order' => ['use_trait', 'constant_public', 'constant_protected', 'constant_private', 'property', 'construct', 'destruct', 'magic', 'phpunit', 'method']],
             'ordered_imports'                               => true,
             'ordered_interfaces'                            => true,
-            'php_unit_dedicate_assert_internal_type'        => true,
             'php_unit_internal_class'                       => false,
             'php_unit_method_casing'                        => true,
             'php_unit_ordered_covers'                       => true,
