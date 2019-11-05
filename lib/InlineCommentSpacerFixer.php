@@ -8,6 +8,7 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+use SplFileInfo;
 
 final class InlineCommentSpacerFixer extends AbstractFixer
 {
@@ -31,7 +32,7 @@ final class InlineCommentSpacerFixer extends AbstractFixer
         return $tokens->isTokenKindFound(\T_COMMENT);
     }
 
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(SplFileInfo $file, Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
             $content = $token->getContent();

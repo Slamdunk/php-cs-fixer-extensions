@@ -9,6 +9,7 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+use SplFileInfo;
 
 final class FunctionReferenceSpaceFixer extends AbstractFixer
 {
@@ -27,7 +28,7 @@ final class FunctionReferenceSpaceFixer extends AbstractFixer
         return $tokens->isTokenKindFound(\T_FUNCTION);
     }
 
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(SplFileInfo $file, Tokens $tokens)
     {
         for ($index = $tokens->count() - 1; $index > 0; --$index) {
             if (! $tokens[$index]->isGivenKind(\T_FUNCTION)) {

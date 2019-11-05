@@ -13,8 +13,8 @@ final class Utf8FixerTest extends AbstractFixerTestCase
 {
     public function testIsRisky()
     {
-        static::assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
-        static::assertTrue($this->fixer->isRisky());
+        self::assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
+        self::assertTrue($this->fixer->isRisky());
     }
 
     public function testFix()

@@ -22,8 +22,8 @@ final class ConfigTest extends TestCase
     {
         $config = new Config();
 
-        static::assertInstanceOf(ConfigInterface::class, $config);
-        static::assertNotEmpty($config->getCustomFixers());
+        self::assertInstanceOf(ConfigInterface::class, $config);
+        self::assertNotEmpty($config->getCustomFixers());
     }
 
     public function testAllDefaultRulesAreSpecified()
@@ -57,17 +57,17 @@ final class ConfigTest extends TestCase
         \sort($availableRules);
 
         $diff = \array_diff($availableRules, $currentRules);
-        static::assertEmpty($diff, \sprintf("Mancano tra le specifiche i seguenti fixer:\n- %s", \implode(\PHP_EOL . '- ', $diff)));
+        self::assertEmpty($diff, \sprintf("Mancano tra le specifiche i seguenti fixer:\n- %s", \implode(\PHP_EOL . '- ', $diff)));
 
         $diff = \array_diff($currentRules, $availableRules);
-        static::assertEmpty($diff, \sprintf("I seguenti fixer sono di troppo:\n- %s", \implode(\PHP_EOL . '- ', $diff)));
+        self::assertEmpty($diff, \sprintf("I seguenti fixer sono di troppo:\n- %s", \implode(\PHP_EOL . '- ', $diff)));
 
         $currentSets = \array_values(\array_filter(\array_keys($configRules), static function (string $fixerName): bool {
             return isset($fixerName[0]) && '@' === $fixerName[0];
         }));
         $defaultSets   = $ruleSet->getSetDefinitionNames();
         $intersectSets = \array_values(\array_intersect($defaultSets, $currentSets));
-        static::assertEquals($intersectSets, $currentSets, \sprintf('Rule sets must be ordered as the appear in %s', RuleSet::class));
+        self::assertEquals($intersectSets, $currentSets, \sprintf('Rule sets must be ordered as the appear in %s', RuleSet::class));
 
         $currentRules = \array_values(\array_filter(\array_keys($configRules), static function (string $fixerName): bool {
             return isset($fixerName[0]) && '@' !== $fixerName[0];
@@ -75,42 +75,42 @@ final class ConfigTest extends TestCase
 
         $orderedCurrentRules = $currentRules;
         \sort($orderedCurrentRules);
-        static::assertEquals($orderedCurrentRules, $currentRules, 'Order the rules alphabetically please');
+        self::assertEquals($orderedCurrentRules, $currentRules, 'Order the rules alphabetically please');
     }
 
     public function testFutureMode()
     {
         \putenv('PHP_CS_FIXER_FUTURE_MODE');
 
-        static::assertFalse(\getenv('PHP_CS_FIXER_FUTURE_MODE'));
+        self::assertFalse(\getenv('PHP_CS_FIXER_FUTURE_MODE'));
 
         new Config();
 
-        static::assertNotEmpty(\getenv('PHP_CS_FIXER_FUTURE_MODE'));
+        self::assertNotEmpty(\getenv('PHP_CS_FIXER_FUTURE_MODE'));
     }
 
     public function testTypes()
     {
         $rules = (new Config(Config::APP_V1))->getRules();
-        static::assertFalse($rules['declare_strict_types']);
-        static::assertFalse($rules['native_constant_invocation']);
+        self::assertFalse($rules['declare_strict_types']);
+        self::assertFalse($rules['native_constant_invocation']);
 
         $rules = (new Config(Config::APP_V2))->getRules();
-        static::assertTrue($rules['declare_strict_types']);
-        static::assertFalse($rules['native_constant_invocation']);
+        self::assertTrue($rules['declare_strict_types']);
+        self::assertFalse($rules['native_constant_invocation']);
 
         $rules = (new Config(Config::LIB))->getRules();
-        static::assertTrue($rules['native_function_invocation']);
-        static::assertTrue($rules['native_constant_invocation']);
+        self::assertTrue($rules['native_function_invocation']);
+        self::assertTrue($rules['native_constant_invocation']);
 
-        static::assertSame((new Config())->getRules(), (new Config(Config::APP_V2))->getRules());
+        self::assertSame((new Config())->getRules(), (new Config(Config::APP_V2))->getRules());
     }
 
     public function testOverwrite()
     {
         $rules = (new Config(Config::APP_V2))->getRules();
-        static::assertTrue($rules['declare_strict_types']);
-        static::assertFalse($rules['native_constant_invocation']);
+        self::assertTrue($rules['declare_strict_types']);
+        self::assertFalse($rules['native_constant_invocation']);
 
         $overriddenRules = [
             'declare_strict_types'            => false,
@@ -118,7 +118,7 @@ final class ConfigTest extends TestCase
         ];
 
         $newRules = (new Config(Config::APP_V2, $overriddenRules))->getRules();
-        static::assertFalse($newRules['declare_strict_types']);
-        static::assertTrue($newRules['Slam/native_constant_invocation']);
+        self::assertFalse($newRules['declare_strict_types']);
+        self::assertTrue($newRules['Slam/native_constant_invocation']);
     }
 }

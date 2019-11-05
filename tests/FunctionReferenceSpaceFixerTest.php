@@ -13,7 +13,7 @@ final class FunctionReferenceSpaceFixerTest extends AbstractFixerTestCase
 {
     public function testIsRisky()
     {
-        static::assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
+        self::assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
     }
 
     /**

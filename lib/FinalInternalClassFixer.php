@@ -8,6 +8,7 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+use SplFileInfo;
 
 final class FinalInternalClassFixer extends AbstractFixer
 {
@@ -33,7 +34,7 @@ final class FinalInternalClassFixer extends AbstractFixer
         return true;
     }
 
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(SplFileInfo $file, Tokens $tokens)
     {
         $classes = \array_keys($tokens->findGivenKind(\T_CLASS));
 

@@ -12,6 +12,7 @@ use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\WhitespacesFixerConfig;
+use SplFileInfo;
 
 final class PhpFileOnlyProxyFixer implements ConfigurationDefinitionFixerInterface, DefinedFixerInterface, WhitespacesAwareFixerInterface
 {
@@ -22,7 +23,7 @@ final class PhpFileOnlyProxyFixer implements ConfigurationDefinitionFixerInterfa
         $this->fixer = $fixer;
     }
 
-    public function configure(array $configuration = null)
+    public function configure(?array $configuration = null)
     {
         if (! $this->fixer instanceof ConfigurationDefinitionFixerInterface) {
             return;
@@ -84,7 +85,7 @@ final class PhpFileOnlyProxyFixer implements ConfigurationDefinitionFixerInterfa
         return $this->fixer->isRisky();
     }
 
-    public function fix(\SplFileInfo $file, Tokens $tokens)
+    public function fix(SplFileInfo $file, Tokens $tokens)
     {
         return $this->fixer->fix($file, $tokens);
     }
@@ -99,7 +100,7 @@ final class PhpFileOnlyProxyFixer implements ConfigurationDefinitionFixerInterfa
         return $this->fixer->getPriority();
     }
 
-    public function supports(\SplFileInfo $file)
+    public function supports(SplFileInfo $file)
     {
         return 'php' === \pathinfo($file->getFilename(), \PATHINFO_EXTENSION);
     }

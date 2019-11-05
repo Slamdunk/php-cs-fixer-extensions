@@ -7,6 +7,7 @@ namespace SlamCsFixer;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Tokenizer\Tokens;
+use SplFileInfo;
 
 final class Utf8Fixer extends AbstractFixer
 {
@@ -32,7 +33,7 @@ final class Utf8Fixer extends AbstractFixer
         return true;
     }
 
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(SplFileInfo $file, Tokens $tokens)
     {
         $content = $tokens->generateCode();
         if (false === \mb_check_encoding($content, 'UTF-8')) {
