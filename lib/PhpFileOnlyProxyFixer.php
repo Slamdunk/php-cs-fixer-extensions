@@ -16,6 +16,9 @@ use SplFileInfo;
 
 final class PhpFileOnlyProxyFixer implements ConfigurationDefinitionFixerInterface, DefinedFixerInterface, WhitespacesAwareFixerInterface
 {
+    /**
+     * @var FixerInterface
+     */
     private $fixer;
 
     public function __construct(FixerInterface $fixer)
@@ -43,6 +46,7 @@ final class PhpFileOnlyProxyFixer implements ConfigurationDefinitionFixerInterfa
 
                 public function resolve(array $configuration)
                 {
+                    return [];
                 }
             };
         }

@@ -11,7 +11,7 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
  */
 final class InlineCommentSpacerFixerTest extends AbstractFixerTestCase
 {
-    public function testDefinition()
+    public function testDefinition(): void
     {
         self::assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
     }
@@ -19,12 +19,15 @@ final class InlineCommentSpacerFixerTest extends AbstractFixerTestCase
     /**
      * @dataProvider provideCases
      */
-    public function testFix($expected, $input = null)
+    public function testFix(string $expected, ?string $input = null): void
     {
         $this->doTest($expected, $input);
     }
 
-    public function provideCases()
+    /**
+     * @return string[][]
+     */
+    public function provideCases(): array
     {
         return [
             [
