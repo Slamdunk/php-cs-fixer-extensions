@@ -14,6 +14,9 @@ final class Config extends PhpCsFixerConfig
     public const APP_V2    = 'APP_V2';
     public const LIB       = 'LIB';
 
+    /**
+     * @param array<string, mixed> $overriddenRules
+     */
     public function __construct(string $type = self::APP_V2, array $overriddenRules = [])
     {
         parent::__construct(\sprintf('%s:%s', __NAMESPACE__, $type));

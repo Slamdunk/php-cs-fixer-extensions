@@ -11,7 +11,7 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
  */
 final class FinalInternalClassFixerTest extends AbstractFixerTestCase
 {
-    public function testIsRisky()
+    public function testIsRisky(): void
     {
         self::assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
         self::assertTrue($this->fixer->isRisky());
@@ -20,12 +20,15 @@ final class FinalInternalClassFixerTest extends AbstractFixerTestCase
     /**
      * @dataProvider provideCases
      */
-    public function testFix($expected, $input = null)
+    public function testFix(string $expected, ?string $input = null): void
     {
         $this->doTest($expected, $input);
     }
 
-    public function provideCases()
+    /**
+     * @return string[][]
+     */
+    public function provideCases(): array
     {
         return [
             [

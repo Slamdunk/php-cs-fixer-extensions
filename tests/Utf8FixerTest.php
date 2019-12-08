@@ -11,13 +11,13 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
  */
 final class Utf8FixerTest extends AbstractFixerTestCase
 {
-    public function testIsRisky()
+    public function testIsRisky(): void
     {
         self::assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
         self::assertTrue($this->fixer->isRisky());
     }
 
-    public function testFix()
+    public function testFix(): void
     {
         $expected = <<<'EOF'
 1234567890

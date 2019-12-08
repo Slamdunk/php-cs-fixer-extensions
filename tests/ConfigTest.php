@@ -18,7 +18,7 @@ use SlamCsFixer\Config;
  */
 final class ConfigTest extends TestCase
 {
-    public function testConfig()
+    public function testConfig(): void
     {
         $config = new Config();
 
@@ -26,9 +26,10 @@ final class ConfigTest extends TestCase
         self::assertNotEmpty($config->getCustomFixers());
     }
 
-    public function testAllDefaultRulesAreSpecified()
+    public function testAllDefaultRulesAreSpecified(): void
     {
         $config      = new Config();
+        /** @var array<string, mixed> $configRules */
         $configRules = $config->getRules();
         $ruleSet     = new RuleSet($configRules);
         $rules       = $ruleSet->getRules();
@@ -78,7 +79,7 @@ final class ConfigTest extends TestCase
         self::assertEquals($orderedCurrentRules, $currentRules, 'Order the rules alphabetically please');
     }
 
-    public function testFutureMode()
+    public function testFutureMode(): void
     {
         \putenv('PHP_CS_FIXER_FUTURE_MODE');
 
@@ -89,7 +90,7 @@ final class ConfigTest extends TestCase
         self::assertNotEmpty(\getenv('PHP_CS_FIXER_FUTURE_MODE'));
     }
 
-    public function testTypes()
+    public function testTypes(): void
     {
         $rules = (new Config(Config::APP_V1))->getRules();
         self::assertFalse($rules['declare_strict_types']);
@@ -106,7 +107,7 @@ final class ConfigTest extends TestCase
         self::assertSame((new Config())->getRules(), (new Config(Config::APP_V2))->getRules());
     }
 
-    public function testOverwrite()
+    public function testOverwrite(): void
     {
         $rules = (new Config(Config::APP_V2))->getRules();
         self::assertTrue($rules['declare_strict_types']);
