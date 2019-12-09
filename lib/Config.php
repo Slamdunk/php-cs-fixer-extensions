@@ -104,7 +104,7 @@ final class Config extends PhpCsFixerConfig
             'no_php4_constructor'                               => true,
             'no_short_echo_tag'                                 => true,
             'no_superfluous_elseif'                             => true,
-            'no_superfluous_phpdoc_tags'                        => true,
+            'no_superfluous_phpdoc_tags'                        => ['allow_mixed' => true],
             'no_unneeded_control_parentheses'                   => true,
             'no_unreachable_default_argument_value'             => true,
             'no_unset_cast'                                     => true,
