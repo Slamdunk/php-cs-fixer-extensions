@@ -145,6 +145,7 @@ final class Config extends PhpCsFixerConfig
             'simple_to_complex_string_variable'                 => false,
             'simplified_null_return'                            => true,
             'single_line_comment_style'                         => true,
+            'single_line_throw'                                 => false,
             'single_quote'                                      => ['strings_containing_single_quote_chars' => true],
             'space_after_semicolon'                             => true,
             'static_lambda'                                     => false,
