@@ -90,36 +90,14 @@ final class ConfigTest extends TestCase
         self::assertNotEmpty(\getenv('PHP_CS_FIXER_FUTURE_MODE'));
     }
 
-    public function testTypes(): void
-    {
-        $rules = (new Config(Config::APP_V1))->getRules();
-        self::assertFalse($rules['declare_strict_types']);
-        self::assertFalse($rules['native_constant_invocation']);
-
-        $rules = (new Config(Config::APP_V2))->getRules();
-        self::assertTrue($rules['declare_strict_types']);
-        self::assertFalse($rules['native_constant_invocation']);
-
-        $rules = (new Config(Config::LIB))->getRules();
-        self::assertTrue($rules['native_function_invocation']);
-        self::assertTrue($rules['native_constant_invocation']);
-
-        self::assertSame((new Config())->getRules(), (new Config(Config::APP_V2))->getRules());
-    }
-
     public function testOverwrite(): void
     {
-        $rules = (new Config(Config::APP_V2))->getRules();
+        $rules = (new Config())->getRules();
         self::assertTrue($rules['declare_strict_types']);
-        self::assertFalse($rules['native_constant_invocation']);
 
-        $overriddenRules = [
-            'declare_strict_types'            => false,
-            'Slam/native_constant_invocation' => true,
-        ];
-
-        $newRules = (new Config(Config::APP_V2, $overriddenRules))->getRules();
+        $newRules = (new Config([
+            'declare_strict_types' => false,
+        ]))->getRules();
         self::assertFalse($newRules['declare_strict_types']);
-        self::assertTrue($newRules['Slam/native_constant_invocation']);
     }
 }

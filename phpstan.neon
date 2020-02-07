@@ -1,5 +1,5 @@
 includes:
-    - phar://phpstan.phar/conf/config.levelmax.neon
+    - phar://phpstan.phar/conf/config.level5.neon
     - vendor/phpstan/phpstan-phpunit/extension.neon
     - vendor/slam/phpstan-extensions/conf/slam-rules.neon
     - vendor/slam/phpstan-extensions/conf/thecodingmachine-rules.neon
@@ -9,6 +9,4 @@ parameters:
         - lib/
         - tests/
     ignoreErrors:
-        - '#Parameter .+ given#'
-        - '#Method .+ has no return typehint specified#'
-        - '#Method .+ has parameter .+ with no value type specified in iterable type array#'
+        - '#^Parameter \#2 \$items of method PhpCsFixer\\Tokenizer\\Tokens::insertAt\(\) expects .+, array<int, PhpCsFixer\\Tokenizer\\Token> given.$#'
