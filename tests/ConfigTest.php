@@ -10,6 +10,7 @@ use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\FixerFactory;
 use PhpCsFixer\RuleSet;
 use PHPUnit\Framework\TestCase;
+use ReflectionProperty;
 use SlamCsFixer\Config;
 
 /**
@@ -18,6 +19,11 @@ use SlamCsFixer\Config;
  */
 final class ConfigTest extends TestCase
 {
+    /**
+     * @var null|array
+     */
+    private $setDefinitions;
+
     public function testConfig(): void
     {
         $config = new Config();
@@ -26,16 +32,19 @@ final class ConfigTest extends TestCase
         self::assertNotEmpty($config->getCustomFixers());
     }
 
-    public function testAllDefaultRulesAreSpecified(): void
+    public function testAllRulesAreSpecifiedAndDifferentFromRuleSets(): void
     {
         $config      = new Config();
         /** @var array<string, mixed> $configRules */
-        $configRules = $config->getRules();
-        $ruleSet     = new RuleSet($configRules);
-        $rules       = $ruleSet->getRules();
+        $configRules           = $config->getRules();
+        $ruleSet               = new RuleSet($configRules);
+        $rules                 = $ruleSet->getRules();
+        $defaultSetDefinitions = [];
         // RuleSet strips all disabled rules
         foreach ($configRules as $name => $value) {
             if ('@' === $name[0]) {
+                $defaultSetDefinitions[$name] = $this->resolveSubset($name);
+
                 continue;
             }
             $rules[$name] = $value;
@@ -49,19 +58,29 @@ final class ConfigTest extends TestCase
         $fixerFactory->registerCustomFixers($config->getCustomFixers());
         $fixers = $fixerFactory->getFixers();
 
-        $availableRules = \array_filter($fixers, static function (FixerInterface $fixer) {
+        $availableRules = \array_filter($fixers, static function (FixerInterface $fixer): bool {
             return ! $fixer instanceof DeprecatedFixerInterface;
         });
-        $availableRules = \array_map(function (FixerInterface $fixer) {
+        $availableRules = \array_map(function (FixerInterface $fixer): string {
             return $fixer->getName();
         }, $availableRules);
         \sort($availableRules);
 
         $diff = \array_diff($availableRules, $currentRules);
-        self::assertEmpty($diff, \sprintf("Mancano tra le specifiche i seguenti fixer:\n- %s", \implode(\PHP_EOL . '- ', $diff)));
+        self::assertEmpty($diff, \sprintf("The following fixers are missing:\n- %s", \implode(\PHP_EOL . '- ', $diff)));
 
         $diff = \array_diff($currentRules, $availableRules);
-        self::assertEmpty($diff, \sprintf("I seguenti fixer sono di troppo:\n- %s", \implode(\PHP_EOL . '- ', $diff)));
+        self::assertEmpty($diff, \sprintf("The following fixers do not exist:\n- %s", \implode(\PHP_EOL . '- ', $diff)));
+
+        $alreadyDefinedRules = [];
+        foreach (Config::RULES as $ruleName => $ruleConfig) {
+            foreach ($defaultSetDefinitions as $setName => $rules) {
+                if (isset($rules[$ruleName]) && $ruleConfig === $rules[$ruleName] && false !== $ruleConfig) {
+                    $alreadyDefinedRules[$ruleName] = $setName;
+                }
+            }
+        }
+        self::assertSame([], $alreadyDefinedRules, 'These rules are already defined in the respective set');
 
         $currentSets = \array_values(\array_filter(\array_keys($configRules), static function (string $fixerName): bool {
             return isset($fixerName[0]) && '@' === $fixerName[0];
@@ -93,11 +112,39 @@ final class ConfigTest extends TestCase
     public function testOverwrite(): void
     {
         $rules = (new Config())->getRules();
-        self::assertTrue($rules['declare_strict_types']);
+        self::assertTrue($rules['psr0']);
 
         $newRules = (new Config([
-            'declare_strict_types' => false,
+            'psr0' => false,
         ]))->getRules();
-        self::assertFalse($newRules['declare_strict_types']);
+        self::assertFalse($newRules['psr0']);
+    }
+
+    private function resolveSubset(string $setName): array
+    {
+        $rules = $this->getSetDefinition($setName);
+        foreach ($rules as $name => $value) {
+            if ('@' === $name[0]) {
+                $set = $this->resolveSubset($name);
+                unset($rules[$name]);
+                $rules = \array_merge($rules, $set);
+            } else {
+                $rules[$name] = $value;
+            }
+        }
+
+        return $rules;
+    }
+
+    private function getSetDefinition(string $name): array
+    {
+        if (null === $this->setDefinitions) {
+            $refProp = (new ReflectionProperty(RuleSet::class, 'setDefinitions'));
+            $refProp->setAccessible(true);
+            $this->setDefinitions = $refProp->getValue(new RuleSet());
+            $refProp->setAccessible(false);
+        }
+
+        return $this->setDefinitions[$name];
     }
 }

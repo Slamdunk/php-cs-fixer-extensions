@@ -34,7 +34,7 @@ final class FinalInternalClassFixer extends AbstractFixer
         return true;
     }
 
-    protected function applyFix(SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(SplFileInfo $file, Tokens $tokens): void
     {
         $classes = \array_keys($tokens->findGivenKind(\T_CLASS));
 

@@ -26,7 +26,7 @@ final class PhpFileOnlyProxyFixer implements ConfigurationDefinitionFixerInterfa
         $this->fixer = $fixer;
     }
 
-    public function configure(?array $configuration = null)
+    public function configure(?array $configuration = null): void
     {
         if (! $this->fixer instanceof ConfigurationDefinitionFixerInterface) {
             return;
@@ -54,7 +54,7 @@ final class PhpFileOnlyProxyFixer implements ConfigurationDefinitionFixerInterfa
         return $this->fixer->getConfigurationDefinition();
     }
 
-    public function setWhitespacesConfig(WhitespacesFixerConfig $config)
+    public function setWhitespacesConfig(WhitespacesFixerConfig $config): void
     {
         if (! $this->fixer instanceof WhitespacesAwareFixerInterface) {
             return;

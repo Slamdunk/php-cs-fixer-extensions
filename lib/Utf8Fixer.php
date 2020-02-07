@@ -33,7 +33,7 @@ final class Utf8Fixer extends AbstractFixer
         return true;
     }
 
-    protected function applyFix(SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(SplFileInfo $file, Tokens $tokens): void
     {
         $content = $tokens->generateCode();
         if (false === \mb_check_encoding($content, 'UTF-8')) {

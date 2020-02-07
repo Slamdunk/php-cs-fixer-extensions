@@ -44,7 +44,7 @@ EOT
         return true;
     }
 
-    protected function applyFix(SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(SplFileInfo $file, Tokens $tokens): void
     {
         $classes = \array_keys($tokens->findGivenKind(\T_CLASS));
 
@@ -61,7 +61,7 @@ EOT
         }
     }
 
-    private function fixClass(Tokens $tokens, int $classOpenIndex, int $classCloseIndex)
+    private function fixClass(Tokens $tokens, int $classOpenIndex, int $classCloseIndex): void
     {
         for ($index = $classCloseIndex - 1; $index > $classOpenIndex; --$index) {
             if ($tokens[$index]->equals('}')) {
