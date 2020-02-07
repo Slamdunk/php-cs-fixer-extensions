@@ -73,9 +73,9 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
         self::assertTrue($proxy->supports($file));
         self::assertFalse($proxy->supports(new SplFileInfo(__DIR__ . '/_files/non-php.txt')));
 
-        self::assertNull($proxy->configure([]));
+        $proxy->configure([]);
         self::assertEmpty($proxy->getConfigurationDefinition()->getOptions());
-        self::assertNull($proxy->setWhitespacesConfig(new WhitespacesFixerConfig()));
+        $proxy->setWhitespacesConfig(new WhitespacesFixerConfig());
         self::assertEmpty($proxy->getDefinition()->getCodeSamples());
     }
 

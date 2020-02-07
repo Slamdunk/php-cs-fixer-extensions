@@ -32,7 +32,7 @@ final class InlineCommentSpacerFixer extends AbstractFixer
         return $tokens->isTokenKindFound(\T_COMMENT);
     }
 
-    protected function applyFix(SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(SplFileInfo $file, Tokens $tokens): void
     {
         foreach ($tokens as $index => $token) {
             $content = $token->getContent();
