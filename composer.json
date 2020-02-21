@@ -19,7 +19,7 @@
         "phpunit/phpunit": "^7.5",
         "roave/security-advisories": "dev-master",
         "slam/php-debug-r": "^1.6",
-        "slam/phpstan-extensions": "^4.0",
+        "slam/phpstan-extensions": "^5.0",
         "thecodingmachine/phpstan-strict-rules": "^0.12"
     },
     "autoload": {
