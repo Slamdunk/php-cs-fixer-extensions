@@ -57,7 +57,6 @@ jobs:
       matrix:
         php-version:
           - "7.4"
-          - "8.0"
 
     steps:
       - name: "Checkout"
@@ -81,13 +80,8 @@ jobs:
           key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ matrix.dependencies }}-composer-${{ hashFiles('**/composer.json') }}
           restore-keys: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ matrix.dependencies }}-composer-
 
-      - name: "Install highest dependencies"
-        if: ${{ matrix.php-version != '8.0' }}
+      - name: "Install dependencies"
         run: "composer update --no-interaction --no-progress"
-
-      - name: "Install highest dependencies PHP 8.0"
-        if: ${{ matrix.php-version == '8.0' }}
-        run: "composer update --no-interaction --no-progress --ignore-platform-reqs"
 
       - name: "Run tests"
         timeout-minutes: 3
