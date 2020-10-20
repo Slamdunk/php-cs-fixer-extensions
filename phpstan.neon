@@ -8,5 +8,3 @@ parameters:
     paths:
         - lib/
         - tests/
-    ignoreErrors:
-        - '#^Parameter \#2 \$items of method PhpCsFixer\\Tokenizer\\Tokens::insertAt\(\) expects .+, array<int, PhpCsFixer\\Tokenizer\\Token> given.$#'

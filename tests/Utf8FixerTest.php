@@ -4,19 +4,11 @@ declare(strict_types=1);
 
 namespace SlamCsFixer\Tests;
 
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-
 /**
  * @covers \SlamCsFixer\Utf8Fixer
  */
 final class Utf8FixerTest extends AbstractFixerTestCase
 {
-    public function testIsRisky(): void
-    {
-        self::assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
-        self::assertTrue($this->fixer->isRisky());
-    }
-
     public function testFix(): void
     {
         $expected = <<<'EOF'
