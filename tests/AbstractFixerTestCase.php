@@ -16,7 +16,7 @@ abstract class AbstractFixerTestCase extends PhpCsFixerAbstractFixerTestCase
 
     final protected function createFixer()
     {
-        $fixerClass = \get_class($this);
+        $fixerClass = static::class;
         $fixerClass = \str_replace('\\Tests\\', '\\', $fixerClass);
         $fixerClass = \preg_replace('/Test$/', '', $fixerClass);
 

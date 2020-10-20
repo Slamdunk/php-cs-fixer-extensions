@@ -4,18 +4,11 @@ declare(strict_types=1);
 
 namespace SlamCsFixer\Tests;
 
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-
 /**
  * @covers \SlamCsFixer\FunctionReferenceSpaceFixer
  */
 final class FunctionReferenceSpaceFixerTest extends AbstractFixerTestCase
 {
-    public function testIsRisky(): void
-    {
-        self::assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
-    }
-
     /**
      * @dataProvider provideCases
      */

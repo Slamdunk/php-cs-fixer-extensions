@@ -19,7 +19,7 @@ final class Utf8Fixer extends AbstractFixer
                 new CodeSample(\mb_convert_encoding('<?php return \'è\';' . \PHP_EOL, 'Windows-1252', 'UTF-8')),
             ],
             null,
-            'Risky when files are encoded different from UTF-8 and Windows-1252'
+            'Risky when files are encoded different from UTF-8 and Windows-1252.'
         );
     }
 

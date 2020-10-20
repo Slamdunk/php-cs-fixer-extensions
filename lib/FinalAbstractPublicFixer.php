@@ -30,7 +30,7 @@ EOT
 ),
             ],
             null,
-            'Risky when overriding public methods of abstract classes'
+            'Risky when overriding public methods of abstract classes.'
         );
     }
 
