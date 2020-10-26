@@ -4,4 +4,6 @@
 .gitignore export-ignore
 .php_cs export-ignore
 Makefile export-ignore
+composer-require-checker.json export-ignore
+phpstan.neon export-ignore
 phpunit.xml export-ignore
