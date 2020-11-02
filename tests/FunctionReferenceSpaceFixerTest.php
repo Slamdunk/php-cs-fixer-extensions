@@ -22,10 +22,11 @@ final class FunctionReferenceSpaceFixerTest extends AbstractFixerTestCase
      */
     public function provideCases(): array
     {
-        $same = function (string $content): string {
+        $same = static function (string $content): string {
             $use = $content;
             $use = \str_replace('array &', '&', $use);
             $use = \str_replace(' = array()', '', $use);
+            $use = \str_replace('$array', '$secondArray', $use);
 
             $invariant = \PHP_EOL . \preg_replace('/\s+/', ' ', '
                 $var =&  $var;
@@ -73,6 +74,8 @@ class Foo
             );
         };
 
+        $inc1 = $inc2 = 0;
+
         return [
             [
                 $same('array & $array = array()'),
@@ -87,8 +90,12 @@ class Foo
                 $same("array & \n \$array = array()"),
             ],
             [
-                $same(\implode(',', \array_fill(0, 30, '& $array'))),
-                $same(\implode(',', \array_fill(0, 30, '&$array'))),
+                $same(\implode(',', \array_map(static function (string $var) use (& $inc1): string {
+                    return $var . ++$inc1;
+                }, \array_fill(0, 30, '& $array')))),
+                $same(\implode(',', \array_map(static function (string $var) use (& $inc2): string {
+                    return $var . ++$inc2;
+                }, \array_fill(0, 30, '&$array')))),
             ],
         ];
     }

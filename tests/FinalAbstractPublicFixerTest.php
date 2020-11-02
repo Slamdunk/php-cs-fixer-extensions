@@ -43,17 +43,20 @@ private static function f6(){}
         return [
             'final-class'     => ["<?php final class MyClass { ${original} }"],
             'trait'           => ["<?php trait MyClass { ${original} }"],
-            'interface'       => ["<?php interface MyClass { ${original} }"],
+            'interface'       => ['<?php interface MyClass {
+public function f1();
+public static function f4();
+            }'],
             'anonymous-class' => ["<?php abstract class MyClass { private function test() { \$a = new class { ${original} }; } }"],
             'magic-methods'   => ['<?php abstract class MyClass {
 public function __construct() {}
 public function __destruct() {}
-public function __call() {}
-public function __callStatic() {}
-public function __get() {}
-public function __set() {}
-public function __isset() {}
-public function __unset() {}
+public function __call($a, $b) {}
+public static function __callStatic($a, $b) {}
+public function __get($a) {}
+public function __set($a, $b) {}
+public function __isset($a) {}
+public function __unset($a) {}
 public function __sleep() {}
 public function __wakeup() {}
 public function __toString() {}
@@ -64,7 +67,7 @@ public function __debugInfo() {}
             }'],
             'abstract-methods'   => ['<?php abstract class MyClass {
 abstract public function foo();
-abstract protected function foo();
+abstract protected function bar();
             }'],
             'abstract-class' => [
                 "<?php abstract class MyClass { ${fixed} }",
