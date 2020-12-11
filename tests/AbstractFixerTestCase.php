@@ -22,4 +22,9 @@ abstract class AbstractFixerTestCase extends PhpCsFixerAbstractFixerTestCase
 
         return new $fixerClass();
     }
+
+    protected function assertMatchesRegularExpression(string $format, string $string, string $message = ''): void
+    {
+        static::assertRegExp($format, $string, $message);
+    }
 }
