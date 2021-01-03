@@ -60,8 +60,8 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
             ->willReturn($name = \uniqid('_name'))
         ;
         $proxyName = $proxy->getName();
-        self::assertContains('Slam', $proxyName);
-        self::assertContains($name, $proxyName);
+        self::assertStringContainsString('Slam', $proxyName);
+        self::assertStringContainsString($name, $proxyName);
 
         $fixer
             ->expects(self::once())
@@ -99,8 +99,8 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
 
         $definition = $proxy->getDefinition();
 
-        self::assertContains($summary, $definition->getSummary());
-        self::assertContains('PHP', $definition->getSummary());
+        self::assertStringContainsString($summary, $definition->getSummary());
+        self::assertStringContainsString('PHP', $definition->getSummary());
         self::assertSame($codeSamples, $definition->getCodeSamples());
         self::assertSame($description, $definition->getDescription());
         self::assertSame($riskyDescription, $definition->getRiskyDescription());

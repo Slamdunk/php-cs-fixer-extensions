@@ -13,15 +13,21 @@
         "php": "^7.4 || 8.0",
         "ext-mbstring": "*",
         "ext-tokenizer": "*",
-        "friendsofphp/php-cs-fixer": "^2.17"
+        "friendsofphp/php-cs-fixer": "^2.17.3"
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.12.59",
-        "phpstan/phpstan-phpunit": "^0.12.16",
-        "phpunit/phpunit": "^7.5.20",
+        "malukenho/mcbumpface": "^1.1.5",
+        "phpstan/phpstan": "^0.12.64",
+        "phpstan/phpstan-phpunit": "^0.12.17",
+        "phpunit/phpunit": "^9.5.0",
         "slam/php-debug-r": "^1.6.1",
         "slam/phpstan-extensions": "^5.1.0",
         "thecodingmachine/phpstan-strict-rules": "^0.12.1"
+    },
+    "extra": {
+        "mc-bumpface": {
+            "stripVersionPrefixes": true
+        }
     },
     "autoload": {
         "psr-4": {
@@ -30,8 +36,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "SlamCsFixer\\Tests\\": "tests/",
-            "PhpCsFixer\\Tests\\": "vendor/friendsofphp/php-cs-fixer/tests/"
+            "SlamCsFixer\\Tests\\": "tests/"
         }
     }
 }
