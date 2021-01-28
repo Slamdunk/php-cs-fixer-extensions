@@ -10,17 +10,17 @@
         }
     ],
     "require": {
-        "php": "^7.4 || 8.0",
+        "php": "^7.4 || ^8.0",
         "ext-mbstring": "*",
         "ext-tokenizer": "*",
-        "friendsofphp/php-cs-fixer": "^2.17.3"
+        "friendsofphp/php-cs-fixer": "^2.18.2"
     },
     "require-dev": {
         "malukenho/mcbumpface": "^1.1.5",
-        "phpstan/phpstan": "^0.12.64",
+        "phpstan/phpstan": "^0.12.70",
         "phpstan/phpstan-phpunit": "^0.12.17",
-        "phpunit/phpunit": "^9.5.0",
-        "slam/php-debug-r": "^1.6.1",
+        "phpunit/phpunit": "^9.5.1",
+        "slam/php-debug-r": "^1.7.0",
         "slam/phpstan-extensions": "^5.1.0",
         "thecodingmachine/phpstan-strict-rules": "^0.12.1"
     },
