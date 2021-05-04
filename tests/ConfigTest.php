@@ -19,9 +19,6 @@ use SlamCsFixer\Config;
  */
 final class ConfigTest extends TestCase
 {
-    /**
-     * @var null|array
-     */
     private ?array $setDefinitions;
 
     public function testConfig(): void
