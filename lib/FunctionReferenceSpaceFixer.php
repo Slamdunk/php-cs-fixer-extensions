@@ -6,6 +6,7 @@ namespace SlamCsFixer;
 
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
+use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -13,7 +14,7 @@ use SplFileInfo;
 
 final class FunctionReferenceSpaceFixer extends AbstractFixer
 {
-    public function getDefinition()
+    public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
             'Ensure space between & and variable name in function declarations and lambda uses.',
@@ -23,7 +24,7 @@ final class FunctionReferenceSpaceFixer extends AbstractFixer
         );
     }
 
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(Tokens $tokens): bool
     {
         return $tokens->isTokenKindFound(\T_FUNCTION);
     }

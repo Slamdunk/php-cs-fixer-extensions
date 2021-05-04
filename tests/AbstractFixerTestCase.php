@@ -6,9 +6,8 @@ namespace SlamCsFixer\Tests;
 
 use Exception;
 use InvalidArgumentException;
-use PhpCsFixer\Fixer\DefinedFixerInterface;
+use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Linter\TokenizerLinter;
-use PhpCsFixer\Tests\Test\Assert\AssertTokensTrait;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PHPUnit\Framework\TestCase;
@@ -16,10 +15,8 @@ use SplFileInfo;
 
 abstract class AbstractFixerTestCase extends TestCase
 {
-    use AssertTokensTrait;
-
     private TokenizerLinter $linter;
-    protected DefinedFixerInterface $fixer;
+    protected FixerInterface $fixer;
 
     protected function setUp(): void
     {
@@ -30,8 +27,8 @@ abstract class AbstractFixerTestCase extends TestCase
     final protected function createFixer()
     {
         $fixerClass = static::class;
-        $fixerClass = \str_replace('\\Tests\\', '\\', $fixerClass);
-        $fixerClass = \preg_replace('/Test$/', '', $fixerClass);
+        $fixerClass = str_replace('\\Tests\\', '\\', $fixerClass);
+        $fixerClass = preg_replace('/Test$/', '', $fixerClass);
 
         return new $fixerClass();
     }
@@ -84,8 +81,7 @@ abstract class AbstractFixerTestCase extends TestCase
             if ($fileIsSupported) {
                 static::assertTrue($this->fixer->isCandidate($tokens), 'Fixer must be a candidate for input code.');
                 static::assertFalse($tokens->isChanged(), 'Fixer must not touch Tokens on candidate check.');
-                $fixResult = $this->fixer->fix($file, $tokens);
-                static::assertNull($fixResult, '->fix method must return null.');
+                $this->fixer->fix($file, $tokens);
             }
 
             static::assertSame(
@@ -99,8 +95,8 @@ abstract class AbstractFixerTestCase extends TestCase
 
             static::assertSame(
                 \count($tokens),
-                \count(\array_unique(\array_map(static function (Token $token) {
-                    return \spl_object_hash($token);
+                \count(array_unique(array_map(static function (Token $token) {
+                    return spl_object_hash($token);
                 }, $tokens->toArray()))),
                 'Token items inside Tokens collection must be unique.'
             );
@@ -116,8 +112,7 @@ abstract class AbstractFixerTestCase extends TestCase
         $tokens = Tokens::fromCode($expected);
 
         if ($fileIsSupported) {
-            $fixResult = $this->fixer->fix($file, $tokens);
-            static::assertNull($fixResult, '->fix method must return null.');
+            $this->fixer->fix($file, $tokens);
         }
 
         static::assertSame(
@@ -142,5 +137,33 @@ abstract class AbstractFixerTestCase extends TestCase
         }
 
         return null;
+    }
+
+    private static function assertTokens(Tokens $expectedTokens, Tokens $inputTokens): void
+    {
+        foreach ($expectedTokens as $index => $expectedToken) {
+            if (! isset($inputTokens[$index])) {
+                static::fail(sprintf("The token at index %d must be:\n%s, but is not set in the input collection.", $index, $expectedToken->toJson()));
+            }
+
+            $inputToken = $inputTokens[$index];
+
+            static::assertTrue(
+                $expectedToken->equals($inputToken),
+                sprintf("The token at index %d must be:\n%s,\ngot:\n%s.", $index, $expectedToken->toJson(), $inputToken->toJson())
+            );
+
+            $expectedTokenKind = $expectedToken->isArray() ? $expectedToken->getId() : $expectedToken->getContent();
+            static::assertTrue(
+                $inputTokens->isTokenKindFound($expectedTokenKind),
+                sprintf(
+                    'The token kind %s (%s) must be found in tokens collection.',
+                    $expectedTokenKind,
+                    \is_string($expectedTokenKind) ? $expectedTokenKind : Token::getNameForId($expectedTokenKind)
+                )
+            );
+        }
+
+        static::assertSame($expectedTokens->count(), $inputTokens->count(), 'Both collections must have the same length.');
     }
 }

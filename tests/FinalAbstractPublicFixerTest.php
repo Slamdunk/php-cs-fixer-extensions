@@ -37,8 +37,8 @@ protected static function f5(){}
 private static function f6(){}
 ';
         $fixed = $original;
-        $fixed = \str_replace('public static function', 'final public static function', $fixed);
-        $fixed = \str_replace('public function', 'final public function', $fixed);
+        $fixed = str_replace('public static function', 'final public static function', $fixed);
+        $fixed = str_replace('public function', 'final public function', $fixed);
 
         return [
             'final-class'     => ["<?php final class MyClass { ${original} }"],

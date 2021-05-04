@@ -13,13 +13,13 @@
         "php": "^7.4 || ^8.0",
         "ext-mbstring": "*",
         "ext-tokenizer": "*",
-        "friendsofphp/php-cs-fixer": "^2.18.2"
+        "friendsofphp/php-cs-fixer": "^3.0.0"
     },
     "require-dev": {
         "malukenho/mcbumpface": "^1.1.5",
-        "phpstan/phpstan": "^0.12.70",
-        "phpstan/phpstan-phpunit": "^0.12.17",
-        "phpunit/phpunit": "^9.5.1",
+        "phpstan/phpstan": "^0.12.85",
+        "phpstan/phpstan-phpunit": "^0.12.18",
+        "phpunit/phpunit": "^9.5.4",
         "slam/php-debug-r": "^1.7.0",
         "slam/phpstan-extensions": "^5.1.0",
         "thecodingmachine/phpstan-strict-rules": "^0.12.1"

@@ -8,8 +8,8 @@ use PhpCsFixer\AbstractFixer as PhpCsFixerAbstractFixer;
 
 abstract class AbstractFixer extends PhpCsFixerAbstractFixer
 {
-    final public function getName()
+    final public function getName(): string
     {
-        return \sprintf('Slam/%s', parent::getName());
+        return sprintf('Slam/%s', parent::getName());
     }
 }

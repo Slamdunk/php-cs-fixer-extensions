@@ -24,11 +24,11 @@ final class FunctionReferenceSpaceFixerTest extends AbstractFixerTestCase
     {
         $same = static function (string $content): string {
             $use = $content;
-            $use = \str_replace('array &', '&', $use);
-            $use = \str_replace(' = array()', '', $use);
-            $use = \str_replace('$array', '$secondArray', $use);
+            $use = str_replace('array &', '&', $use);
+            $use = str_replace(' = array()', '', $use);
+            $use = str_replace('$array', '$secondArray', $use);
 
-            $invariant = \PHP_EOL . \preg_replace('/\s+/', ' ', '
+            $invariant = \PHP_EOL . preg_replace('/\s+/', ' ', '
                 $var =&  $var;
                 $var =& $var;
                 $var =&$var;
@@ -42,8 +42,8 @@ final class FunctionReferenceSpaceFixerTest extends AbstractFixerTestCase
                 $var = "&";
             ') . \PHP_EOL;
 
-            return \sprintf(
-'<?php
+            return sprintf(
+                '<?php
 
 function test(%1$s) {
     %3$s
@@ -90,12 +90,12 @@ class Foo
                 $same("array & \n \$array = array()"),
             ],
             [
-                $same(\implode(',', \array_map(static function (string $var) use (& $inc1): string {
+                $same(implode(',', array_map(static function (string $var) use (& $inc1): string {
                     return $var . ++$inc1;
-                }, \array_fill(0, 30, '& $array')))),
-                $same(\implode(',', \array_map(static function (string $var) use (& $inc2): string {
+                }, array_fill(0, 30, '& $array')))),
+                $same(implode(',', array_map(static function (string $var) use (& $inc2): string {
                     return $var . ++$inc2;
-                }, \array_fill(0, 30, '&$array')))),
+                }, array_fill(0, 30, '&$array')))),
             ],
         ];
     }

@@ -35,13 +35,11 @@ final class Config extends PhpCsFixerConfig
         'final_class'                                       => false,
         'final_internal_class'                              => false,
         'final_public_method_for_abstract_class'            => false,
-        //        'final_static_access'                               => true,
         'general_phpdoc_annotation_remove'                  => false,
         'global_namespace_import'                           => true,
         'group_import'                                      => false,
         'header_comment'                                    => false,
         'heredoc_indentation'                               => false,
-        'list_syntax'                                       => true,
         'mb_str_functions'                                  => false,
         'method_argument_space'                             => ['keep_multiple_spaces_after_comma' => true],
         'native_constant_invocation'                        => true,
@@ -62,9 +60,10 @@ final class Config extends PhpCsFixerConfig
         'phpdoc_line_span'                                  => true,
         'phpdoc_tag_casing'                                 => true,
         'phpdoc_to_param_type'                              => false,
+        'phpdoc_to_property_type'                           => true,
         'phpdoc_to_return_type'                             => false,
         'pow_to_exponentiation'                             => false,
-        //        'psr0'                                              => true,
+        // 'psr0'                                              => true,
         'random_api_migration'                              => true,
         'regular_callable_call'                             => true,
         'self_static_accessor'                              => true,
@@ -84,7 +83,7 @@ final class Config extends PhpCsFixerConfig
     public function __construct(array $overriddenRules = [])
     {
         parent::__construct(__NAMESPACE__);
-        \putenv('PHP_CS_FIXER_FUTURE_MODE=1');
+        putenv('PHP_CS_FIXER_FUTURE_MODE=1');
 
         $this->setRiskyAllowed(true);
         $this->registerCustomFixers([
@@ -98,7 +97,7 @@ final class Config extends PhpCsFixerConfig
 
         $rules = self::RULES;
         if (! empty($overriddenRules)) {
-            $rules = \array_merge($rules, $overriddenRules);
+            $rules = array_merge($rules, $overriddenRules);
         }
 
         $this->setRules($rules);
