@@ -27,8 +27,8 @@ abstract class AbstractFixerTestCase extends TestCase
     final protected function createFixer()
     {
         $fixerClass = static::class;
-        $fixerClass = str_replace('\\Tests\\', '\\', $fixerClass);
-        $fixerClass = preg_replace('/Test$/', '', $fixerClass);
+        $fixerClass = \str_replace('\\Tests\\', '\\', $fixerClass);
+        $fixerClass = \preg_replace('/Test$/', '', $fixerClass);
 
         return new $fixerClass();
     }
@@ -95,8 +95,8 @@ abstract class AbstractFixerTestCase extends TestCase
 
             static::assertSame(
                 \count($tokens),
-                \count(array_unique(array_map(static function (Token $token) {
-                    return spl_object_hash($token);
+                \count(\array_unique(\array_map(static function (Token $token) {
+                    return \spl_object_hash($token);
                 }, $tokens->toArray()))),
                 'Token items inside Tokens collection must be unique.'
             );
@@ -143,20 +143,20 @@ abstract class AbstractFixerTestCase extends TestCase
     {
         foreach ($expectedTokens as $index => $expectedToken) {
             if (! isset($inputTokens[$index])) {
-                static::fail(sprintf("The token at index %d must be:\n%s, but is not set in the input collection.", $index, $expectedToken->toJson()));
+                static::fail(\sprintf("The token at index %d must be:\n%s, but is not set in the input collection.", $index, $expectedToken->toJson()));
             }
 
             $inputToken = $inputTokens[$index];
 
             static::assertTrue(
                 $expectedToken->equals($inputToken),
-                sprintf("The token at index %d must be:\n%s,\ngot:\n%s.", $index, $expectedToken->toJson(), $inputToken->toJson())
+                \sprintf("The token at index %d must be:\n%s,\ngot:\n%s.", $index, $expectedToken->toJson(), $inputToken->toJson())
             );
 
             $expectedTokenKind = $expectedToken->isArray() ? $expectedToken->getId() : $expectedToken->getContent();
             static::assertTrue(
                 $inputTokens->isTokenKindFound($expectedTokenKind),
-                sprintf(
+                \sprintf(
                     'The token kind %s (%s) must be found in tokens collection.',
                     $expectedTokenKind,
                     \is_string($expectedTokenKind) ? $expectedTokenKind : Token::getNameForId($expectedTokenKind)

@@ -31,14 +31,14 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
             ->expects(self::once())
             ->method('isCandidate')
             ->with(self::identicalTo($tokens))
-            ->willReturn($candidate = (bool) random_int(0, 1))
+            ->willReturn($candidate = (bool) \random_int(0, 1))
         ;
         self::assertSame($candidate, $proxy->isCandidate($tokens));
 
         $fixer
             ->expects(self::once())
             ->method('isRisky')
-            ->willReturn($risky = (bool) random_int(0, 1))
+            ->willReturn($risky = (bool) \random_int(0, 1))
         ;
         self::assertSame($risky, $proxy->isRisky());
 
@@ -56,7 +56,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
         $fixer
             ->expects(self::once())
             ->method('getName')
-            ->willReturn($name = uniqid('_name'))
+            ->willReturn($name = \uniqid('_name'))
         ;
         $proxyName = $proxy->getName();
         self::assertStringContainsString('Slam', $proxyName);
@@ -65,7 +65,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
         $fixer
             ->expects(self::once())
             ->method('getPriority')
-            ->willReturn($priority = random_int(-100, 100))
+            ->willReturn($priority = \random_int(-100, 100))
         ;
         self::assertSame($priority, $proxy->getPriority());
 
@@ -85,10 +85,10 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
         $proxy = new PhpFileOnlyProxyFixer($fixer);
 
         $fixerDefinition = $this->createMock(FixerDefinitionInterface::class);
-        $fixerDefinition->expects(self::once())->method('getSummary')->willReturn($summary = uniqid('summary'));
+        $fixerDefinition->expects(self::once())->method('getSummary')->willReturn($summary = \uniqid('summary'));
         $fixerDefinition->expects(self::once())->method('getCodeSamples')->willReturn($codeSamples = []);
-        $fixerDefinition->expects(self::once())->method('getDescription')->willReturn($description = uniqid('description'));
-        $fixerDefinition->expects(self::once())->method('getRiskyDescription')->willReturn($riskyDescription = uniqid('riskyDescription'));
+        $fixerDefinition->expects(self::once())->method('getDescription')->willReturn($description = \uniqid('description'));
+        $fixerDefinition->expects(self::once())->method('getRiskyDescription')->willReturn($riskyDescription = \uniqid('riskyDescription'));
 
         $fixer
             ->expects(self::once())
@@ -108,7 +108,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
     public function testConfigureIsProxied(): void
     {
         $fixer         = $this->createMock(ConfigurableFixerInterface::class);
-        $configuration = [uniqid()];
+        $configuration = [\uniqid()];
 
         $proxy = new PhpFileOnlyProxyFixer($fixer);
 

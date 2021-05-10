@@ -37,11 +37,11 @@ final class InlineCommentSpacerFixer extends AbstractFixer
     {
         foreach ($tokens as $index => $token) {
             $content = $token->getContent();
-            if (! $token->isComment() || '//' !== mb_substr($content, 0, 2) || '// ' === mb_substr($content, 0, 3)) {
+            if (! $token->isComment() || '//' !== \mb_substr($content, 0, 2) || '// ' === \mb_substr($content, 0, 3)) {
                 continue;
             }
 
-            $content        = substr_replace($content, ' ', 2, 0);
+            $content        = \substr_replace($content, ' ', 2, 0);
             $tokens[$index] = new Token([$token->getId(), $content]);
         }
     }

@@ -43,7 +43,7 @@ final class Config extends PhpCsFixerConfig
         'mb_str_functions'                                  => false,
         'method_argument_space'                             => ['keep_multiple_spaces_after_comma' => true],
         'native_constant_invocation'                        => true,
-        'native_function_invocation'                        => true,
+        'native_function_invocation'                        => ['include' => ['@internal']],
         'no_blank_lines_before_namespace'                   => false,
         'no_multiline_whitespace_around_double_arrow'       => false,
         'no_superfluous_phpdoc_tags'                        => ['allow_mixed' => true],
@@ -83,7 +83,7 @@ final class Config extends PhpCsFixerConfig
     public function __construct(array $overriddenRules = [])
     {
         parent::__construct(__NAMESPACE__);
-        putenv('PHP_CS_FIXER_FUTURE_MODE=1');
+        \putenv('PHP_CS_FIXER_FUTURE_MODE=1');
 
         $this->setRiskyAllowed(true);
         $this->registerCustomFixers([
@@ -97,7 +97,7 @@ final class Config extends PhpCsFixerConfig
 
         $rules = self::RULES;
         if (! empty($overriddenRules)) {
-            $rules = array_merge($rules, $overriddenRules);
+            $rules = \array_merge($rules, $overriddenRules);
         }
 
         $this->setRules($rules);

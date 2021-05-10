@@ -17,7 +17,7 @@ final class Utf8Fixer extends AbstractFixer
         return new FixerDefinition(
             'Converts files from Windows-1252 to UTF8.',
             [
-                new CodeSample(mb_convert_encoding('<?php return \'è\';' . \PHP_EOL, 'Windows-1252', 'UTF-8')),
+                new CodeSample(\mb_convert_encoding('<?php return \'è\';' . \PHP_EOL, 'Windows-1252', 'UTF-8')),
             ],
             null,
             'Risky when files are encoded different from UTF-8 and Windows-1252.'
@@ -37,8 +37,8 @@ final class Utf8Fixer extends AbstractFixer
     protected function applyFix(SplFileInfo $file, Tokens $tokens): void
     {
         $content = $tokens->generateCode();
-        if (false === mb_check_encoding($content, 'UTF-8')) {
-            $tokens->setCode(mb_convert_encoding($content, 'UTF-8', 'Windows-1252'));
+        if (false === \mb_check_encoding($content, 'UTF-8')) {
+            $tokens->setCode(\mb_convert_encoding($content, 'UTF-8', 'Windows-1252'));
         }
     }
 

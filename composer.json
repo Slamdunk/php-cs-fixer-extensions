@@ -17,7 +17,7 @@
     },
     "require-dev": {
         "malukenho/mcbumpface": "^1.1.5",
-        "phpstan/phpstan": "^0.12.85",
+        "phpstan/phpstan": "^0.12.86",
         "phpstan/phpstan-phpunit": "^0.12.18",
         "phpunit/phpunit": "^9.5.4",
         "slam/php-debug-r": "^1.7.0",

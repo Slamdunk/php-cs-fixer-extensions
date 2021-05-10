@@ -48,9 +48,9 @@ EOT
 
     protected function applyFix(SplFileInfo $file, Tokens $tokens): void
     {
-        $classes = array_keys($tokens->findGivenKind(\T_CLASS));
+        $classes = \array_keys($tokens->findGivenKind(\T_CLASS));
 
-        while ($classIndex = array_pop($classes)) {
+        while ($classIndex = \array_pop($classes)) {
             $prevToken = $tokens[$tokens->getPrevMeaningfulToken($classIndex)];
             if (! $prevToken->isGivenKind([\T_ABSTRACT])) {
                 continue;
@@ -85,7 +85,7 @@ EOT
             }
             $nextIndex = $tokens->getNextMeaningfulToken($nextIndex);
             $nextToken = $tokens[$nextIndex];
-            if (! $nextToken->isGivenKind(\T_STRING) || 0 === mb_strpos($nextToken->getContent(), '__')) {
+            if (! $nextToken->isGivenKind(\T_STRING) || 0 === \mb_strpos($nextToken->getContent(), '__')) {
                 continue;
             }
             $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];

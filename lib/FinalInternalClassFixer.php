@@ -37,9 +37,9 @@ final class FinalInternalClassFixer extends AbstractFixer
 
     protected function applyFix(SplFileInfo $file, Tokens $tokens): void
     {
-        $classes = array_keys($tokens->findGivenKind(\T_CLASS));
+        $classes = \array_keys($tokens->findGivenKind(\T_CLASS));
 
-        while ($classIndex = array_pop($classes)) {
+        while ($classIndex = \array_pop($classes)) {
             // ignore class if it is abstract or already final
             $prevToken = $tokens[$tokens->getPrevMeaningfulToken($classIndex)];
             if ($prevToken->isGivenKind([\T_ABSTRACT, \T_FINAL, \T_NEW])) {
@@ -48,7 +48,7 @@ final class FinalInternalClassFixer extends AbstractFixer
 
             // ignore class if it's a Doctrine Entity
             $docToken = $tokens[$tokens->getPrevNonWhitespace($classIndex)];
-            if ($docToken->isGivenKind(\T_DOC_COMMENT) && false !== mb_strpos($docToken->getContent(), '@ORM\Entity')) {
+            if ($docToken->isGivenKind(\T_DOC_COMMENT) && false !== \mb_strpos($docToken->getContent(), '@ORM\Entity')) {
                 continue;
             }
 
