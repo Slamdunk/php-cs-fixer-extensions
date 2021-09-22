@@ -11,9 +11,9 @@ final class Config extends PhpCsFixerConfig
 {
     public const RULES = [
         '@DoctrineAnnotation'                               => true,
-        '@PHP71Migration'                                   => true,
-        '@PHP71Migration:risky'                             => true,
-        '@PHPUnit75Migration:risky'                         => true,
+        '@PHP80Migration'                                   => true,
+        '@PHP80Migration:risky'                             => true,
+        '@PHPUnit84Migration:risky'                         => true,
         '@PhpCsFixer'                                       => true,
         '@PhpCsFixer:risky'                                 => true,
         'Slam/final_abstract_public'                        => true,
@@ -25,12 +25,12 @@ final class Config extends PhpCsFixerConfig
         'align_multiline_comment'                           => ['comment_type' => 'all_multiline'],
         'binary_operator_spaces'                            => ['default' => 'align_single_space'],
         'braces'                                            => false,   // See Slam/php_only_braces
-        'class_keyword_remove'                              => false,
         'combine_consecutive_issets'                        => false,
         'combine_consecutive_unsets'                        => false,
         'comment_to_phpdoc'                                 => false,
         'concat_space'                                      => ['spacing' => 'one'],
         'date_time_immutable'                               => false,
+        'declare_parentheses'                               => true,
         'error_suppression'                                 => false,
         'final_class'                                       => false,
         'final_internal_class'                              => false,
