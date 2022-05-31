@@ -43,10 +43,16 @@ final class FinalInternalClassFixerTest extends AbstractFixerTestCase
                 "<?php\n/**\n * @ORM\\Entity\n */\nclass MyEntity {}",
             ],
             [
+                "<?php\n/**\n * @final\n */\nclass MyEntity {}",
+            ],
+            [
                 "<?php\n#[ORM\\Entity]\nclass MyEntity {}",
             ],
             [
                 "<?php\n#[ORM\\Entity]\n#[CustomAttribute]\nclass MyEntity {}",
+            ],
+            [
+                "<?php\n#[ORM\\Entity(repositoryClass: \\MyClass::class)]\n#[CustomAttribute]\nclass MyEntity {}",
             ],
             [
                 "<?php\n#[\\Doctrine\\ORM\\Mapping\\Entity(repositoryClass: \\MyClass::class)]\nclass MyEntity {}",

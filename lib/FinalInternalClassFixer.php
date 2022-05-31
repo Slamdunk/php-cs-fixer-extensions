@@ -14,6 +14,8 @@ use SplFileInfo;
 
 final class FinalInternalClassFixer extends AbstractFixer
 {
+    private const REGEX = '(?:final|\\\\Doctrine\\\\ORM\\\\Mapping\\\\Entity|ORM\\\\Mapping\\\\Entity|ORM\\\\Entity|Entity)';
+
     public function getDefinition(): FixerDefinitionInterface
     {
         return new FixerDefinition(
@@ -65,7 +67,7 @@ final class FinalInternalClassFixer extends AbstractFixer
     private static function isDoctrineEntity(Tokens $tokens, int $classIndex): bool
     {
         $docToken = $tokens[$tokens->getPrevNonWhitespace($classIndex)];
-        if ($docToken->isGivenKind(\T_DOC_COMMENT) && false !== \mb_strpos($docToken->getContent(), '@ORM\Entity')) {
+        if ($docToken->isGivenKind(\T_DOC_COMMENT) && 1 === \preg_match(\sprintf('/@%s/', self::REGEX), $docToken->getContent())) {
             return true;
         }
 
@@ -76,10 +78,7 @@ final class FinalInternalClassFixer extends AbstractFixer
             for ($index = $attributeOpenIndex; $index < $classIndex; ++$index) {
                 $content .= $tokens[$index]->getContent();
             }
-            if (false !== \mb_strpos($content, '#[ORM\Entity]')) {
-                return true;
-            }
-            if (false !== \mb_strpos($content, '#[\Doctrine\ORM\Mapping\Entity')) {
+            if (1 === \preg_match(\sprintf('/^#\[%s/', self::REGEX), $content)) {
                 return true;
             }
 
