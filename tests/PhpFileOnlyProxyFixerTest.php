@@ -84,10 +84,10 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
 
         $proxy = new PhpFileOnlyProxyFixer($fixer);
 
-        $fixerDefinition = $this->createMock(FixerDefinitionInterface::class);
-        $fixerDefinition->expects(self::once())->method('getSummary')->willReturn($summary = \uniqid('summary'));
-        $fixerDefinition->expects(self::once())->method('getCodeSamples')->willReturn($codeSamples = []);
-        $fixerDefinition->expects(self::once())->method('getDescription')->willReturn($description = \uniqid('description'));
+        $fixerDefinition                                                                                     = $this->createMock(FixerDefinitionInterface::class);
+        $fixerDefinition->expects(self::once())->method('getSummary')->willReturn($summary                   = \uniqid('summary'));
+        $fixerDefinition->expects(self::once())->method('getCodeSamples')->willReturn($codeSamples           = []);
+        $fixerDefinition->expects(self::once())->method('getDescription')->willReturn($description           = \uniqid('description'));
         $fixerDefinition->expects(self::once())->method('getRiskyDescription')->willReturn($riskyDescription = \uniqid('riskyDescription'));
 
         $fixer

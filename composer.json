@@ -10,24 +10,18 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "~8.0.0 || ~8.1.0",
         "ext-mbstring": "*",
         "ext-tokenizer": "*",
-        "friendsofphp/php-cs-fixer": "^3.1.0"
+        "friendsofphp/php-cs-fixer": "^3.8.0"
     },
     "require-dev": {
         "malukenho/mcbumpface": "^1.1.5",
-        "phpstan/phpstan": "^0.12.99",
-        "phpstan/phpstan-phpunit": "^0.12.22",
-        "phpunit/phpunit": "^9.5.9",
+        "phpstan/phpstan": "^1.7.6",
+        "phpstan/phpstan-phpunit": "^1.1.1",
+        "phpunit/phpunit": "^9.5.20",
         "slam/php-debug-r": "^1.7.0",
-        "slam/phpstan-extensions": "^5.1.0",
-        "thecodingmachine/phpstan-strict-rules": "^0.12.1"
-    },
-    "extra": {
-        "mc-bumpface": {
-            "stripVersionPrefixes": true
-        }
+        "slam/phpstan-extensions": "^6.0.0"
     },
     "autoload": {
         "psr-4": {
@@ -37,6 +31,16 @@
     "autoload-dev": {
         "psr-4": {
             "SlamCsFixer\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "malukenho/mcbumpface": true
+        }
+    },
+    "extra": {
+        "mc-bumpface": {
+            "stripVersionPrefixes": true
         }
     }
 }

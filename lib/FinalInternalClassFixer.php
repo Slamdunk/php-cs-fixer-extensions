@@ -7,6 +7,7 @@ namespace SlamCsFixer;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
+use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
@@ -47,8 +48,7 @@ final class FinalInternalClassFixer extends AbstractFixer
             }
 
             // ignore class if it's a Doctrine Entity
-            $docToken = $tokens[$tokens->getPrevNonWhitespace($classIndex)];
-            if ($docToken->isGivenKind(\T_DOC_COMMENT) && false !== \mb_strpos($docToken->getContent(), '@ORM\Entity')) {
+            if (self::isDoctrineEntity($tokens, $classIndex)) {
                 continue;
             }
 
@@ -60,5 +60,32 @@ final class FinalInternalClassFixer extends AbstractFixer
                 ]
             );
         }
+    }
+
+    private static function isDoctrineEntity(Tokens $tokens, int $classIndex): bool
+    {
+        $docToken = $tokens[$tokens->getPrevNonWhitespace($classIndex)];
+        if ($docToken->isGivenKind(\T_DOC_COMMENT) && false !== \mb_strpos($docToken->getContent(), '@ORM\Entity')) {
+            return true;
+        }
+
+        while ($classIndex > 0 && $tokens[$tokens->getPrevNonWhitespace($classIndex)]->isGivenKind(CT::T_ATTRIBUTE_CLOSE)) {
+            $attributeOpenIndex = $tokens->getPrevTokenOfKind($classIndex, [[\T_ATTRIBUTE]]);
+            \assert(null !== $attributeOpenIndex);
+            $content = '';
+            for ($index = $attributeOpenIndex; $index < $classIndex; ++$index) {
+                $content .= $tokens[$index]->getContent();
+            }
+            if (false !== \mb_strpos($content, '#[ORM\Entity]')) {
+                return true;
+            }
+            if (false !== \mb_strpos($content, '#[\Doctrine\ORM\Mapping\Entity')) {
+                return true;
+            }
+
+            $classIndex = $attributeOpenIndex - 1;
+        }
+
+        return false;
     }
 }
