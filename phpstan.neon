@@ -1,9 +1,9 @@
 includes:
-    - phar://phpstan.phar/conf/config.level5.neon
     - vendor/phpstan/phpstan-phpunit/extension.neon
     - vendor/slam/phpstan-extensions/conf/slam-rules.neon
 
 parameters:
+    level: 5
     paths:
         - lib/
         - tests/

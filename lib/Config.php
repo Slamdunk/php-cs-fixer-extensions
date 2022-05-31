@@ -11,8 +11,8 @@ final class Config extends PhpCsFixerConfig
 {
     public const RULES = [
         '@DoctrineAnnotation'                               => true,
-        '@PHP80Migration'                                   => true,
         '@PHP80Migration:risky'                             => true,
+        '@PHP81Migration'                                   => true,
         '@PHPUnit84Migration:risky'                         => true,
         '@PhpCsFixer'                                       => true,
         '@PhpCsFixer:risky'                                 => true,
@@ -29,6 +29,8 @@ final class Config extends PhpCsFixerConfig
         'combine_consecutive_unsets'                        => false,
         'comment_to_phpdoc'                                 => false,
         'concat_space'                                      => ['spacing' => 'one'],
+        'control_structure_continuation_position'           => true,
+        'date_time_create_from_format_call'                 => true,
         'date_time_immutable'                               => false,
         'declare_parentheses'                               => true,
         'error_suppression'                                 => false,

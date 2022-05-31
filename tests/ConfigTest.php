@@ -19,8 +19,6 @@ use SlamCsFixer\Config;
  */
 final class ConfigTest extends TestCase
 {
-    private ?array $setDefinitions;
-
     public function testConfig(): void
     {
         $config = new Config();
@@ -32,6 +30,7 @@ final class ConfigTest extends TestCase
     public function testAllRulesAreSpecifiedAndDifferentFromRuleSets(): void
     {
         $config      = new Config();
+
         /** @var array<string, mixed> $configRules */
         $configRules           = $config->getRules();
         $ruleSet               = new RuleSet($configRules);
