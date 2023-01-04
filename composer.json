@@ -10,16 +10,15 @@
         }
     ],
     "require": {
-        "php": "~8.0.0 || ~8.1.0",
+        "php": "~8.1.0 || ~8.2.0",
         "ext-mbstring": "*",
         "ext-tokenizer": "*",
-        "friendsofphp/php-cs-fixer": "^3.8.0"
+        "friendsofphp/php-cs-fixer": "^3.13.2"
     },
     "require-dev": {
-        "malukenho/mcbumpface": "^1.1.5",
-        "phpstan/phpstan": "^1.7.6",
-        "phpstan/phpstan-phpunit": "^1.1.1",
-        "phpunit/phpunit": "^9.5.20",
+        "phpstan/phpstan": "^1.9.6",
+        "phpstan/phpstan-phpunit": "^1.3.3",
+        "phpunit/phpunit": "^9.5.27",
         "slam/php-debug-r": "^1.7.0",
         "slam/phpstan-extensions": "^6.0.0"
     },
@@ -31,16 +30,6 @@
     "autoload-dev": {
         "psr-4": {
             "SlamCsFixer\\Tests\\": "tests/"
-        }
-    },
-    "config": {
-        "allow-plugins": {
-            "malukenho/mcbumpface": true
-        }
-    },
-    "extra": {
-        "mc-bumpface": {
-            "stripVersionPrefixes": true
         }
     }
 }

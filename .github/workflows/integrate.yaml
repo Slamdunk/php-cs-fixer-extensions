@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - "8.0"
+          - "8.1"
 
     steps:
       - name: "Checkout"
@@ -62,8 +62,8 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - "8.0"
           - "8.1"
+          - "8.2"
 
     steps:
       - name: "Checkout"
@@ -92,15 +92,7 @@ jobs:
 
       - name: "Run tests"
         timeout-minutes: 3
-        run: "vendor/bin/phpunit --coverage-clover=coverage.xml"
-
-      - name: "Send code coverage report to Codecov.io"
-        if: ${{ matrix.php-version == '8.1' }}
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
-          fail_ci_if_error: true
+        run: "make test"
 
   coding-standards:
     name: "Coding Standards"
@@ -110,7 +102,7 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - "8.0"
+          - "8.1"
 
     steps:
       - name: "Checkout"
@@ -147,7 +139,7 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - "8.0"
+          - "8.1"
 
     steps:
       - name: "Checkout"
@@ -158,7 +150,6 @@ jobs:
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
-          tools: cs2pr
 
       - name: "Get composer cache directory"
         id: composercache
@@ -175,4 +166,4 @@ jobs:
         run: "composer update --no-interaction --no-progress"
 
       - name: "Run static analysis"
-        run: "vendor/bin/phpstan analyse --no-progress --error-format=checkstyle | cs2pr"
+        run: "vendor/bin/phpstan analyse --no-progress --error-format=github"
