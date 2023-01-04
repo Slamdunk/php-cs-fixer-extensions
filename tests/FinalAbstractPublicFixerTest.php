@@ -41,14 +41,14 @@ private static function f6(){}
         $fixed = \str_replace('public function', 'final public function', $fixed);
 
         return [
-            'final-class'     => ["<?php final class MyClass { ${original} }"],
-            'trait'           => ["<?php trait MyClass { ${original} }"],
-            'interface'       => ['<?php interface MyClass {
+            'final-class'        => ["<?php final class MyClass { ${original} }"],
+            'trait'              => ["<?php trait MyClass { ${original} }"],
+            'interface'          => ['<?php interface MyClass {
 public function f1();
 public static function f4();
             }'],
-            'anonymous-class' => ["<?php abstract class MyClass { private function test() { \$a = new class { ${original} }; } }"],
-            'magic-methods'   => ['<?php abstract class MyClass {
+            'anonymous-class'    => ["<?php abstract class MyClass { private function test() { \$a = new class { ${original} }; } }"],
+            'magic-methods'      => ['<?php abstract class MyClass {
 public function __construct() {}
 public function __destruct() {}
 public function __call($a, $b) {}
@@ -69,7 +69,7 @@ public function __debugInfo() {}
 abstract public function foo();
 abstract protected function bar();
             }'],
-            'abstract-class' => [
+            'abstract-class'     => [
                 "<?php abstract class MyClass { ${fixed} }",
                 "<?php abstract class MyClass { ${original} }",
             ],
