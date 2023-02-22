@@ -30,7 +30,7 @@ jobs:
 
       - run: "composer validate --strict"
       - run: "composer-normalize --dry-run"
-      - run: "composer-require-checker check --config-file=$(realpath composer-require-checker.json)"
+      - run: "composer-require-checker check"
       - run: "composer-unused"
 
   tests:
@@ -55,7 +55,12 @@ jobs:
           ini-values: "${{ env.INI_VALUES }}"
       - uses: "ramsey/composer-install@v2"
 
-      - run: "make test"
+      - run: "vendor/bin/phpunit --no-coverage --no-logging"
+        if: ${{ matrix.code-coverage == 'none' }}
+        timeout-minutes: 3
+
+      - run: "vendor/bin/phpunit --no-logging"
+        if: ${{ matrix.code-coverage != 'none' }}
         timeout-minutes: 3
 
   coding-standards:
