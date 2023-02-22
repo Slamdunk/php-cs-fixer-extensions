@@ -33,12 +33,7 @@ abstract class AbstractFixerTestCase extends TestCase
         return new $fixerClass();
     }
 
-    /**
-     * @param string $filename
-     *
-     * @return SplFileInfo
-     */
-    final protected function getTestFile($filename = __FILE__)
+    final protected function getTestFile(string $filename = __FILE__): SplFileInfo
     {
         static $files = [];
 
@@ -58,12 +53,8 @@ abstract class AbstractFixerTestCase extends TestCase
      * as the latter covers both of them.
      * This method throws an exception if $expected and $input are equal to prevent test cases that accidentally do
      * not test anything.
-     *
-     * @param string           $expected The expected fixer output
-     * @param null|string      $input    The fixer input, or null if it should intentionally be equal to the output
-     * @param null|SplFileInfo $file     The file to fix, or null if unneeded
      */
-    final protected function doTest($expected, $input = null, ?SplFileInfo $file = null): void
+    final protected function doTest(string $expected, ?string $input = null, ?SplFileInfo $file = null): void
     {
         if ($expected === $input) {
             throw new InvalidArgumentException('Input parameter must not be equal to expected parameter.');
@@ -123,12 +114,7 @@ abstract class AbstractFixerTestCase extends TestCase
         static::assertFalse($tokens->isChanged(), 'Tokens collection built on expected code must not be marked as changed after fixing.');
     }
 
-    /**
-     * @param string $source
-     *
-     * @return null|string
-     */
-    private function lintSource($source)
+    private function lintSource(string $source): ?string
     {
         try {
             $this->linter->lintSource($source)->check();

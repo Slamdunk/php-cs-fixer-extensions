@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace SlamCsFixer\Tests;
 
 use PhpCsFixer\FixerDefinition\FixerDefinition;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use SlamCsFixer\InlineCommentSpacerFixer;
 
-/**
- * @covers \SlamCsFixer\InlineCommentSpacerFixer
- */
+#[CoversClass(InlineCommentSpacerFixer::class)]
 final class InlineCommentSpacerFixerTest extends AbstractFixerTestCase
 {
     public function testDefinition(): void
@@ -16,9 +17,7 @@ final class InlineCommentSpacerFixerTest extends AbstractFixerTestCase
         self::assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
     }
 
-    /**
-     * @dataProvider provideCases
-     */
+    #[DataProvider('provideCases')]
     public function testFix(string $expected, ?string $input = null): void
     {
         $this->doTest($expected, $input);
@@ -27,7 +26,7 @@ final class InlineCommentSpacerFixerTest extends AbstractFixerTestCase
     /**
      * @return string[][]
      */
-    public function provideCases(): array
+    public static function provideCases(): array
     {
         return [
             [

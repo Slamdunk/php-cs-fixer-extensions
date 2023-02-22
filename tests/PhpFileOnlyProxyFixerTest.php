@@ -11,13 +11,12 @@ use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\WhitespacesFixerConfig;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use SlamCsFixer\PhpFileOnlyProxyFixer;
 use SplFileInfo;
 
-/**
- * @covers \SlamCsFixer\PhpFileOnlyProxyFixer
- */
+#[CoversClass(PhpFileOnlyProxyFixer::class)]
 final class PhpFileOnlyProxyFixerTest extends TestCase
 {
     public function testFixerInterfaceProxy(): void

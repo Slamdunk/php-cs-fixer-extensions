@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace SlamCsFixer\Tests;
 
-/**
- * @covers \SlamCsFixer\FinalAbstractPublicFixer
- */
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use SlamCsFixer\FinalAbstractPublicFixer;
+
+#[CoversClass(FinalAbstractPublicFixer::class)]
 final class FinalAbstractPublicFixerTest extends AbstractFixerTestCase
 {
-    /**
-     * @dataProvider provideCases
-     */
+    #[DataProvider('provideCases')]
     public function testFix(string $expected, ?string $input = null): void
     {
         $this->doTest($expected, $input);
@@ -20,7 +20,7 @@ final class FinalAbstractPublicFixerTest extends AbstractFixerTestCase
     /**
      * @return string[][]
      */
-    public function provideCases(): array
+    public static function provideCases(): array
     {
         $original = '
 public $a1;

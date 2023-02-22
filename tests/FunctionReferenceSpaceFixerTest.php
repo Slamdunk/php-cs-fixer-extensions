@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace SlamCsFixer\Tests;
 
-/**
- * @covers \SlamCsFixer\FunctionReferenceSpaceFixer
- */
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use SlamCsFixer\FunctionReferenceSpaceFixer;
+
+#[CoversClass(FunctionReferenceSpaceFixer::class)]
 final class FunctionReferenceSpaceFixerTest extends AbstractFixerTestCase
 {
-    /**
-     * @dataProvider provideCases
-     */
+    #[DataProvider('provideCases')]
     public function testFix(string $expected, ?string $input = null): void
     {
         $this->doTest($expected, $input);
@@ -20,7 +20,7 @@ final class FunctionReferenceSpaceFixerTest extends AbstractFixerTestCase
     /**
      * @return string[][]
      */
-    public function provideCases(): array
+    public static function provideCases(): array
     {
         $same = static function (string $content): string {
             $use = $content;
