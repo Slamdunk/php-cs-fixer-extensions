@@ -10,13 +10,13 @@ use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\FixerFactory;
 use PhpCsFixer\RuleSet\RuleSet;
 use PhpCsFixer\RuleSet\RuleSets;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use SlamCsFixer\AbstractFixer;
 use SlamCsFixer\Config;
 
-/**
- * @covers \SlamCsFixer\AbstractFixer
- * @covers \SlamCsFixer\Config
- */
+#[CoversClass(AbstractFixer::class)]
+#[CoversClass(Config::class)]
 final class ConfigTest extends TestCase
 {
     public function testConfig(): void
@@ -31,7 +31,6 @@ final class ConfigTest extends TestCase
     {
         $config      = new Config();
 
-        /** @var array<string, mixed> $configRules */
         $configRules           = $config->getRules();
         $ruleSet               = new RuleSet($configRules);
         $rules                 = $ruleSet->getRules();

@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace SlamCsFixer\Tests;
 
-/**
- * @covers \SlamCsFixer\Utf8Fixer
- */
+use PHPUnit\Framework\Attributes\CoversClass;
+use SlamCsFixer\Utf8Fixer;
+
+#[CoversClass(Utf8Fixer::class)]
 final class Utf8FixerTest extends AbstractFixerTestCase
 {
     public function testFix(): void

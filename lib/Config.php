@@ -57,6 +57,7 @@ final class Config extends PhpCsFixerConfig
         'nullable_type_declaration_for_default_null_value'  => true,
         'ordered_class_elements'                            => ['order' => ['use_trait', 'constant_public', 'constant_protected', 'constant_private', 'property', 'construct', 'destruct', 'magic', 'phpunit', 'method']],
         'ordered_interfaces'                                => true,
+        'php_unit_data_provider_static'                     => true,
         'php_unit_internal_class'                           => false,
         'php_unit_size_class'                               => false,
         'php_unit_strict'                                   => false,

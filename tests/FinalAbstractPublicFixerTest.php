@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace SlamCsFixer\Tests;
 
-/**
- * @covers \SlamCsFixer\FinalAbstractPublicFixer
- */
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use SlamCsFixer\FinalAbstractPublicFixer;
+
+#[CoversClass(FinalAbstractPublicFixer::class)]
 final class FinalAbstractPublicFixerTest extends AbstractFixerTestCase
 {
-    /**
-     * @dataProvider provideCases
-     */
+    #[DataProvider('provideCases')]
     public function testFix(string $expected, ?string $input = null): void
     {
         $this->doTest($expected, $input);
@@ -20,7 +20,7 @@ final class FinalAbstractPublicFixerTest extends AbstractFixerTestCase
     /**
      * @return string[][]
      */
-    public function provideCases(): array
+    public static function provideCases(): array
     {
         $original = '
 public $a1;
@@ -41,13 +41,13 @@ private static function f6(){}
         $fixed = \str_replace('public function', 'final public function', $fixed);
 
         return [
-            'final-class'        => ["<?php final class MyClass { ${original} }"],
-            'trait'              => ["<?php trait MyClass { ${original} }"],
+            'final-class'        => ["<?php final class MyClass { {$original} }"],
+            'trait'              => ["<?php trait MyClass { {$original} }"],
             'interface'          => ['<?php interface MyClass {
 public function f1();
 public static function f4();
             }'],
-            'anonymous-class'    => ["<?php abstract class MyClass { private function test() { \$a = new class { ${original} }; } }"],
+            'anonymous-class'    => ["<?php abstract class MyClass { private function test() { \$a = new class { {$original} }; } }"],
             'magic-methods'      => ['<?php abstract class MyClass {
 public function __construct() {}
 public function __destruct() {}
@@ -70,8 +70,8 @@ abstract public function foo();
 abstract protected function bar();
             }'],
             'abstract-class'     => [
-                "<?php abstract class MyClass { ${fixed} }",
-                "<?php abstract class MyClass { ${original} }",
+                "<?php abstract class MyClass { {$fixed} }",
+                "<?php abstract class MyClass { {$original} }",
             ],
         ];
     }
