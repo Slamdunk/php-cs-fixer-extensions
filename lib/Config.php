@@ -63,7 +63,7 @@ final class Config extends PhpCsFixerConfig
         'php_unit_strict'                                   => false,
         'php_unit_test_class_requires_covers'               => false,
         'phpdoc_add_missing_param_annotation'               => false,
-        'phpdoc_line_span'                                  => true,
+        'phpdoc_line_span'                                  => ['const' => 'single', 'property' => 'single', 'method' => 'single'],
         'phpdoc_tag_casing'                                 => true,
         'phpdoc_to_param_type'                              => false,
         'phpdoc_to_property_type'                           => true,
@@ -84,9 +84,7 @@ final class Config extends PhpCsFixerConfig
         'use_arrow_functions'                               => false,
     ];
 
-    /**
-     * @param array<string, mixed> $overriddenRules
-     */
+    /** @param array<string, mixed> $overriddenRules */
     public function __construct(array $overriddenRules = [])
     {
         parent::__construct(__NAMESPACE__);

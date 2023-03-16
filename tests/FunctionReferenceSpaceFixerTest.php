@@ -17,9 +17,7 @@ final class FunctionReferenceSpaceFixerTest extends AbstractFixerTestCase
         $this->doTest($expected, $input);
     }
 
-    /**
-     * @return string[][]
-     */
+    /** @return string[][] */
     public static function provideCases(): array
     {
         $same = static function (string $content): string {

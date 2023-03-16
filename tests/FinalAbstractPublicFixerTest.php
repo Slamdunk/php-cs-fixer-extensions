@@ -17,9 +17,7 @@ final class FinalAbstractPublicFixerTest extends AbstractFixerTestCase
         $this->doTest($expected, $input);
     }
 
-    /**
-     * @return string[][]
-     */
+    /** @return string[][] */
     public static function provideCases(): array
     {
         $original = '

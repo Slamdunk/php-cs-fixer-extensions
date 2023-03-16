@@ -17,9 +17,7 @@ final class FinalInternalClassFixerTest extends AbstractFixerTestCase
         $this->doTest($expected, $input);
     }
 
-    /**
-     * @return string[][]
-     */
+    /** @return string[][] */
     public static function provideCases(): array
     {
         return [

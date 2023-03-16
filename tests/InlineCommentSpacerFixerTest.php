@@ -23,9 +23,7 @@ final class InlineCommentSpacerFixerTest extends AbstractFixerTestCase
         $this->doTest($expected, $input);
     }
 
-    /**
-     * @return string[][]
-     */
+    /** @return string[][] */
     public static function provideCases(): array
     {
         return [
