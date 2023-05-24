@@ -64,31 +64,29 @@ abstract class AbstractFixerTestCase extends TestCase
         $fileIsSupported = $this->fixer->supports($file);
 
         if (null !== $input) {
-            static::assertNull($this->lintSource($input));
+            self::assertNull($this->lintSource($input));
 
             Tokens::clearCache();
             $tokens = Tokens::fromCode($input);
 
             if ($fileIsSupported) {
-                static::assertTrue($this->fixer->isCandidate($tokens), 'Fixer must be a candidate for input code.');
-                static::assertFalse($tokens->isChanged(), 'Fixer must not touch Tokens on candidate check.');
+                self::assertTrue($this->fixer->isCandidate($tokens), 'Fixer must be a candidate for input code.');
+                self::assertFalse($tokens->isChanged(), 'Fixer must not touch Tokens on candidate check.');
                 $this->fixer->fix($file, $tokens);
             }
 
-            static::assertSame(
+            self::assertSame(
                 $expected,
                 $tokens->generateCode(),
                 'Code build on input code must match expected code.'
             );
-            static::assertTrue($tokens->isChanged(), 'Tokens collection built on input code must be marked as changed after fixing.');
+            self::assertTrue($tokens->isChanged(), 'Tokens collection built on input code must be marked as changed after fixing.');
 
             $tokens->clearEmptyTokens();
 
-            static::assertSame(
+            self::assertSame(
                 \count($tokens),
-                \count(\array_unique(\array_map(static function (Token $token) {
-                    return \spl_object_hash($token);
-                }, $tokens->toArray()))),
+                \count(\array_unique(\array_map(static fn (Token $token) => \spl_object_hash($token), $tokens->toArray()))),
                 'Token items inside Tokens collection must be unique.'
             );
 
@@ -97,7 +95,7 @@ abstract class AbstractFixerTestCase extends TestCase
             self::assertTokens($expectedTokens, $tokens);
         }
 
-        static::assertNull($this->lintSource($expected));
+        self::assertNull($this->lintSource($expected));
 
         Tokens::clearCache();
         $tokens = Tokens::fromCode($expected);
@@ -106,12 +104,12 @@ abstract class AbstractFixerTestCase extends TestCase
             $this->fixer->fix($file, $tokens);
         }
 
-        static::assertSame(
+        self::assertSame(
             $expected,
             $tokens->generateCode(),
             'Code build on expected code must not change.'
         );
-        static::assertFalse($tokens->isChanged(), 'Tokens collection built on expected code must not be marked as changed after fixing.');
+        self::assertFalse($tokens->isChanged(), 'Tokens collection built on expected code must not be marked as changed after fixing.');
     }
 
     private function lintSource(string $source): ?string
@@ -129,18 +127,18 @@ abstract class AbstractFixerTestCase extends TestCase
     {
         foreach ($expectedTokens as $index => $expectedToken) {
             if (! isset($inputTokens[$index])) {
-                static::fail(\sprintf("The token at index %d must be:\n%s, but is not set in the input collection.", $index, $expectedToken->toJson()));
+                self::fail(\sprintf("The token at index %d must be:\n%s, but is not set in the input collection.", $index, $expectedToken->toJson()));
             }
 
             $inputToken = $inputTokens[$index];
 
-            static::assertTrue(
+            self::assertTrue(
                 $expectedToken->equals($inputToken),
                 \sprintf("The token at index %d must be:\n%s,\ngot:\n%s.", $index, $expectedToken->toJson(), $inputToken->toJson())
             );
 
             $expectedTokenKind = $expectedToken->isArray() ? $expectedToken->getId() : $expectedToken->getContent();
-            static::assertTrue(
+            self::assertTrue(
                 $inputTokens->isTokenKindFound($expectedTokenKind),
                 \sprintf(
                     'The token kind %s (%s) must be found in tokens collection.',
@@ -150,6 +148,6 @@ abstract class AbstractFixerTestCase extends TestCase
             );
         }
 
-        static::assertSame($expectedTokens->count(), $inputTokens->count(), 'Both collections must have the same length.');
+        self::assertSame($expectedTokens->count(), $inputTokens->count(), 'Both collections must have the same length.');
     }
 }
