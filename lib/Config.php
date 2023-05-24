@@ -10,11 +10,11 @@ final class Config extends PhpCsFixerConfig
 {
     public const RULES = [
         '@DoctrineAnnotation'                               => true,
+        '@PhpCsFixer'                                       => true,
+        '@PhpCsFixer:risky'                                 => true,
         '@PHP80Migration:risky'                             => true,
         '@PHP81Migration'                                   => true,
         '@PHPUnit84Migration:risky'                         => true,
-        '@PhpCsFixer'                                       => true,
-        '@PhpCsFixer:risky'                                 => true,
         'Slam/final_abstract_public'                        => true,
         'Slam/final_internal_class'                         => true,
         'Slam/function_reference_space'                     => true,
@@ -65,7 +65,6 @@ final class Config extends PhpCsFixerConfig
         // 'psr0'                                              => true,
         'random_api_migration'                              => true,
         'regular_callable_call'                             => true,
-        'self_static_accessor'                              => true,
         'simple_to_complex_string_variable'                 => false,
         'simplified_if_return'                              => true,
         'simplified_null_return'                            => false,

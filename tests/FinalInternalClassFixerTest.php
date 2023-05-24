@@ -6,6 +6,7 @@ namespace SlamCsFixer\Tests;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\RequiresPhp;
 use SlamCsFixer\FinalInternalClassFixer;
 
 #[CoversClass(FinalInternalClassFixer::class)]
@@ -15,6 +16,7 @@ final class FinalInternalClassFixerTest extends AbstractFixerTestCase
     public function testFix(string $expected, ?string $input = null): void
     {
         $this->doTest($expected, $input);
+        $this->doTest($expected);
     }
 
     /** @return string[][] */
@@ -63,6 +65,37 @@ final class FinalInternalClassFixerTest extends AbstractFixerTestCase
             ],
             [
                 '<?php $anonymClass = new class {};',
+            ],
+        ];
+    }
+
+    #[RequiresPhp('8.2')]
+    #[DataProvider('provide82Cases')]
+    public function test82Fix(string $expected, ?string $input = null): void
+    {
+        $this->doTest($expected, $input);
+        $this->doTest($expected);
+    }
+
+    /** @return string[][] */
+    public static function provide82Cases(): array
+    {
+        return [
+            [
+                '<?php final readonly class MyClass {}',
+                '<?php readonly class MyClass {}',
+            ],
+            [
+                '<?php final readonly class MyClass extends MyAbstract {}',
+                '<?php readonly class MyClass extends MyAbstract {}',
+            ],
+            [
+                '<?php final readonly class MyClass implements MyInterface {}',
+                '<?php readonly class MyClass implements MyInterface {}',
+            ],
+            [
+                "<?php\n/**\n * @codeCoverageIgnore\n */\nfinal readonly class MyEntity {}",
+                "<?php\n/**\n * @codeCoverageIgnore\n */\nreadonly class MyEntity {}",
             ],
         ];
     }

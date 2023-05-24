@@ -43,6 +43,11 @@ final class FinalInternalClassFixer extends AbstractFixer
         $classes = \array_keys($tokens->findGivenKind(\T_CLASS));
 
         while ($classIndex = \array_pop($classes)) {
+            $prevTokenIndex = $tokens->getPrevMeaningfulToken($classIndex);
+            if (\defined('T_READONLY') && $tokens[$prevTokenIndex]->isGivenKind([\T_READONLY])) {
+                $classIndex = $prevTokenIndex;
+            }
+
             // ignore class if it is abstract or already final
             $prevToken = $tokens[$tokens->getPrevMeaningfulToken($classIndex)];
             if ($prevToken->isGivenKind([\T_ABSTRACT, \T_FINAL, \T_NEW])) {
