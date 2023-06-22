@@ -42,7 +42,6 @@ final class Config extends PhpCsFixerConfig
         'method_argument_space'                             => ['keep_multiple_spaces_after_comma' => true],
         'native_constant_invocation'                        => true,
         'native_function_invocation'                        => ['include' => ['@internal']],
-        'no_blank_lines_before_namespace'                   => false,
         'no_multiline_whitespace_around_double_arrow'       => false,
         'no_superfluous_phpdoc_tags'                        => ['allow_mixed' => true],
         'not_operator_with_space'                           => false,
