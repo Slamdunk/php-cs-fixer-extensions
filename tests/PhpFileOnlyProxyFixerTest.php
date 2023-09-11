@@ -107,7 +107,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
     public function testConfigureIsProxied(): void
     {
         $fixer         = $this->createMock(ConfigurableFixerInterface::class);
-        $configuration = [\uniqid()];
+        $configuration = [\uniqid() => \uniqid()];
 
         $proxy = new PhpFileOnlyProxyFixer($fixer);
 
