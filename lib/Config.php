@@ -26,7 +26,6 @@ final class Config extends PhpCsFixerConfig
         'combine_consecutive_unsets'                        => false,
         'comment_to_phpdoc'                                 => false,
         'concat_space'                                      => ['spacing' => 'one'],
-        'curly_braces_position'                             => true,
         'date_time_create_from_format_call'                 => true,
         'date_time_immutable'                               => false,
         'error_suppression'                                 => false,
