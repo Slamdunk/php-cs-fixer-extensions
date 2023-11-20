@@ -1,6 +1,5 @@
 includes:
     - vendor/phpstan/phpstan-phpunit/extension.neon
-    - vendor/slam/phpstan-extensions/conf/slam-rules.neon
     - phpstan-baseline.neon
 
 parameters:
