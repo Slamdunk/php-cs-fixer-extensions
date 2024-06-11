@@ -45,7 +45,6 @@ final class Config extends PhpCsFixerConfig
         'no_superfluous_phpdoc_tags'                        => ['allow_mixed' => true],
         'not_operator_with_space'                           => false,
         'not_operator_with_successor_space'                 => true,
-        'nullable_type_declaration_for_default_null_value'  => true,
         'ordered_class_elements'                            => ['order' => ['use_trait', 'constant_public', 'constant_protected', 'constant_private', 'property', 'construct', 'destruct', 'magic', 'phpunit', 'method']],
         'ordered_interfaces'                                => true,
         'php_unit_data_provider_static'                     => true,
