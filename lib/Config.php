@@ -68,6 +68,7 @@ final class Config extends PhpCsFixerConfig
         'single_line_throw'                                 => false,
         'space_after_semicolon'                             => true,
         'static_lambda'                                     => false,
+        'string_implicit_backslashes'                       => ['single_quoted' => 'escape'],
         'unary_operator_spaces'                             => false,
         'use_arrow_functions'                               => false,
     ];
