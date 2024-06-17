@@ -14,7 +14,7 @@ use SplFileInfo;
 
 final class FinalInternalClassFixer extends AbstractFixer
 {
-    private const REGEX = '(?:final|\\\\Doctrine\\\\ORM\\\\Mapping\\\\Entity|ORM\\\\Mapping\\\\Entity|ORM\\\\Entity|Entity)';
+    private const REGEX = '(?:final|\\\Doctrine\\\ORM\\\Mapping\\\Entity|ORM\\\Mapping\\\Entity|ORM\\\Entity|Entity)';
 
     public function getDefinition(): FixerDefinitionInterface
     {
@@ -83,7 +83,7 @@ final class FinalInternalClassFixer extends AbstractFixer
             for ($index = $attributeOpenIndex; $index < $classIndex; ++$index) {
                 $content .= $tokens[$index]->getContent();
             }
-            if (1 === \preg_match(\sprintf('/^#\\[%s/', self::REGEX), $content)) {
+            if (1 === \preg_match(\sprintf('/^#\[%s/', self::REGEX), $content)) {
                 return true;
             }
 

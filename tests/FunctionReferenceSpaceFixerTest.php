@@ -26,7 +26,7 @@ final class FunctionReferenceSpaceFixerTest extends AbstractFixerTestCase
             $use = \str_replace(' = array()', '', $use);
             $use = \str_replace('$array', '$secondArray', $use);
 
-            $invariant = \PHP_EOL . \preg_replace('/\\s+/', ' ', '
+            $invariant = \PHP_EOL . \preg_replace('/\s+/', ' ', '
                 $var =&  $var;
                 $var =& $var;
                 $var =&$var;

@@ -27,7 +27,7 @@ abstract class AbstractFixerTestCase extends TestCase
     final protected function createFixer()
     {
         $fixerClass = static::class;
-        $fixerClass = \str_replace('\\Tests\\', '\\', $fixerClass);
+        $fixerClass = \str_replace('\Tests\\', '\\', $fixerClass);
         $fixerClass = \preg_replace('/Test$/', '', $fixerClass);
 
         return new $fixerClass();
