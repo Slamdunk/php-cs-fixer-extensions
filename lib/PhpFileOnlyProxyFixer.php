@@ -35,7 +35,7 @@ final class PhpFileOnlyProxyFixer implements ConfigurableFixerInterface, Whitesp
     public function getConfigurationDefinition(): FixerConfigurationResolverInterface
     {
         if (! $this->fixer instanceof ConfigurableFixerInterface) {
-            return new class() implements FixerConfigurationResolverInterface {
+            return new class implements FixerConfigurationResolverInterface {
                 public function getOptions(): array
                 {
                     return [];
