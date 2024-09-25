@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - "8.2"
+          - "8.3"
 
     steps:
       - uses: "actions/checkout@v4"
@@ -40,11 +40,11 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - "8.3"
+          - "8.4"
         code-coverage:
           - "none"
         include:
-          - php-version: "8.2"
+          - php-version: "8.3"
             code-coverage: "pcov"
 
     steps:
@@ -70,7 +70,7 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - "8.2"
+          - "8.3"
 
     steps:
       - uses: "actions/checkout@v4"
@@ -89,7 +89,7 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - "8.2"
+          - "8.3"
 
     steps:
       - uses: "actions/checkout@v4"

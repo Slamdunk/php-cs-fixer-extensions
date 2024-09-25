@@ -6,7 +6,6 @@ namespace SlamCsFixer\Tests;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\RequiresPhp;
 use SlamCsFixer\FinalInternalClassFixer;
 
 #[CoversClass(FinalInternalClassFixer::class)]
@@ -69,7 +68,6 @@ final class FinalInternalClassFixerTest extends AbstractFixerTestCase
         ];
     }
 
-    #[RequiresPhp('8.2')]
     #[DataProvider('provide82Cases')]
     public function test82Fix(string $expected, ?string $input = null): void
     {
