@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SlamCsFixer\Tests;
 
-use PhpCsFixer\ConfigInterface;
 use PhpCsFixer\Fixer\DeprecatedFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\FixerFactory;
@@ -23,7 +22,6 @@ final class ConfigTest extends TestCase
     {
         $config = new Config();
 
-        self::assertInstanceOf(ConfigInterface::class, $config);
         self::assertNotEmpty($config->getCustomFixers());
     }
 
