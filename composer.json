@@ -13,10 +13,10 @@
         "php": "~8.3.0 || ~8.4.0",
         "ext-mbstring": "*",
         "ext-tokenizer": "*",
-        "friendsofphp/php-cs-fixer": "^3.66.0"
+        "friendsofphp/php-cs-fixer": "^3.66.1"
     },
     "require-dev": {
-        "phpstan/phpstan": "^2.1.0",
+        "phpstan/phpstan": "^2.1.1",
         "phpstan/phpstan-phpunit": "^2",
         "phpunit/phpunit": "^11.5.2"
     },
