@@ -1,12 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertNotEmpty\(\) with false will always evaluate to false\.$#'
-			identifier: staticMethod.impossibleType
-			count: 1
-			path: tests/ConfigTest.php
-
-		-
 			message: '#^Strict comparison using \!\=\= between false and array\{allow_mixed\: true\}\|array\{comment_type\: ''all_multiline''\}\|array\{const\: ''single'', property\: ''single'', method\: ''single''\}\|array\{default\: ''align_single_space''\}\|array\{include\: array\{''@internal''\}\}\|array\{keep_multiple_spaces_after_comma\: true\}\|array\{order\: array\{''use_trait'', ''constant_public'', ''constant_protected'', ''constant_private'', ''property'', ''construct'', ''destruct'', ''magic'', \.\.\.\}\}\|array\{spacing\: ''one''\}\|true will always evaluate to true\.$#'
 			identifier: notIdentical.alwaysTrue
 			count: 1
