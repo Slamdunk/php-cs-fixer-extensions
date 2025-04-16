@@ -16,7 +16,7 @@
         "friendsofphp/php-cs-fixer": "^3.75.0"
     },
     "require-dev": {
-        "phpstan/phpstan": "^2.1.11",
+        "phpstan/phpstan": "^2.1.12",
         "phpstan/phpstan-phpunit": "^2.0.6",
         "phpunit/phpunit": "^12.1.2"
     },
