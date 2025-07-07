@@ -17,14 +17,14 @@ final class InlineCommentSpacerFixerTest extends AbstractFixerTestCase
         self::assertInstanceOf(FixerDefinition::class, $this->fixer->getDefinition());
     }
 
-    #[DataProvider('provideCases')]
+    #[DataProvider('provideFixCases')]
     public function testFix(string $expected, ?string $input = null): void
     {
         $this->doTest($expected, $input);
     }
 
     /** @return string[][] */
-    public static function provideCases(): array
+    public static function provideFixCases(): iterable
     {
         return [
             [

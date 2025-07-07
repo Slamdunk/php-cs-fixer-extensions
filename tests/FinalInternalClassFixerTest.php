@@ -11,7 +11,7 @@ use SlamCsFixer\FinalInternalClassFixer;
 #[CoversClass(FinalInternalClassFixer::class)]
 final class FinalInternalClassFixerTest extends AbstractFixerTestCase
 {
-    #[DataProvider('provideCases')]
+    #[DataProvider('provideFixCases')]
     public function testFix(string $expected, ?string $input = null): void
     {
         $this->doTest($expected, $input);
@@ -19,7 +19,7 @@ final class FinalInternalClassFixerTest extends AbstractFixerTestCase
     }
 
     /** @return string[][] */
-    public static function provideCases(): array
+    public static function provideFixCases(): iterable
     {
         return [
             [
@@ -68,7 +68,7 @@ final class FinalInternalClassFixerTest extends AbstractFixerTestCase
         ];
     }
 
-    #[DataProvider('provide82Cases')]
+    #[DataProvider('provide82FixCases')]
     public function test82Fix(string $expected, ?string $input = null): void
     {
         $this->doTest($expected, $input);
@@ -76,7 +76,7 @@ final class FinalInternalClassFixerTest extends AbstractFixerTestCase
     }
 
     /** @return string[][] */
-    public static function provide82Cases(): array
+    public static function provide82FixCases(): iterable
     {
         return [
             [

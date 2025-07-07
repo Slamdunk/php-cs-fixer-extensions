@@ -11,14 +11,14 @@ use SlamCsFixer\FunctionReferenceSpaceFixer;
 #[CoversClass(FunctionReferenceSpaceFixer::class)]
 final class FunctionReferenceSpaceFixerTest extends AbstractFixerTestCase
 {
-    #[DataProvider('provideCases')]
+    #[DataProvider('provideFixCases')]
     public function testFix(string $expected, ?string $input = null): void
     {
         $this->doTest($expected, $input);
     }
 
     /** @return string[][] */
-    public static function provideCases(): array
+    public static function provideFixCases(): iterable
     {
         $same = static function (string $content): string {
             $use = $content;
