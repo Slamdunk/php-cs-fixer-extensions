@@ -11,14 +11,14 @@ use SlamCsFixer\FinalAbstractPublicFixer;
 #[CoversClass(FinalAbstractPublicFixer::class)]
 final class FinalAbstractPublicFixerTest extends AbstractFixerTestCase
 {
-    #[DataProvider('provideCases')]
+    #[DataProvider('provideFixCases')]
     public function testFix(string $expected, ?string $input = null): void
     {
         $this->doTest($expected, $input);
     }
 
     /** @return string[][] */
-    public static function provideCases(): array
+    public static function provideFixCases(): iterable
     {
         $original = '
 public $a1;
