@@ -27,7 +27,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
 
         $tokens = $this->createMock(Tokens::class);
         $fixer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('isCandidate')
             ->with(self::identicalTo($tokens))
             ->willReturn($candidate = (bool) \random_int(0, 1))
@@ -35,7 +35,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
         self::assertSame($candidate, $proxy->isCandidate($tokens));
 
         $fixer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('isRisky')
             ->willReturn($risky = (bool) \random_int(0, 1))
         ;
@@ -43,7 +43,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
 
         $file = new SplFileInfo(__FILE__);
         $fixer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('fix')
             ->with(
                 self::identicalTo($file),
@@ -53,7 +53,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
         $proxy->fix($file, $tokens);
 
         $fixer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getName')
             ->willReturn($name = \uniqid('_name'))
         ;
@@ -62,7 +62,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
         self::assertStringContainsString($name, $proxyName);
 
         $fixer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getPriority')
             ->willReturn($priority = \random_int(-100, 100))
         ;
@@ -84,13 +84,13 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
         $proxy = new PhpFileOnlyProxyFixer($fixer);
 
         $fixerDefinition                                                                                     = $this->createMock(FixerDefinitionInterface::class);
-        $fixerDefinition->expects(self::once())->method('getSummary')->willReturn($summary                   = \uniqid('summary'));
-        $fixerDefinition->expects(self::once())->method('getCodeSamples')->willReturn($codeSamples           = []);
-        $fixerDefinition->expects(self::once())->method('getDescription')->willReturn($description           = \uniqid('description'));
-        $fixerDefinition->expects(self::once())->method('getRiskyDescription')->willReturn($riskyDescription = \uniqid('riskyDescription'));
+        $fixerDefinition->expects($this->once())->method('getSummary')->willReturn($summary                   = \uniqid('summary'));
+        $fixerDefinition->expects($this->once())->method('getCodeSamples')->willReturn($codeSamples           = []);
+        $fixerDefinition->expects($this->once())->method('getDescription')->willReturn($description           = \uniqid('description'));
+        $fixerDefinition->expects($this->once())->method('getRiskyDescription')->willReturn($riskyDescription = \uniqid('riskyDescription'));
 
         $fixer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getDefinition')
             ->willReturn($fixerDefinition)
         ;
@@ -112,7 +112,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
         $proxy = new PhpFileOnlyProxyFixer($fixer);
 
         $fixer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('configure')
             ->with(self::identicalTo($configuration))
         ;
@@ -128,7 +128,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
 
         $definition = $this->createMock(FixerConfigurationResolverInterface::class);
         $fixer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getConfigurationDefinition')
             ->willReturn($definition)
         ;
@@ -144,7 +144,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
         $proxy = new PhpFileOnlyProxyFixer($fixer);
 
         $fixer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('setWhitespacesConfig')
             ->with(self::identicalTo($config))
         ;
