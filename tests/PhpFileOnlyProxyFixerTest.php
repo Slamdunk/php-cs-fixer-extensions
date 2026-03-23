@@ -25,7 +25,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
 
         $proxy = new PhpFileOnlyProxyFixer($fixer);
 
-        $tokens = $this->createMock(Tokens::class);
+        $tokens = self::createStub(Tokens::class);
         $fixer
             ->expects($this->once())
             ->method('isCandidate')
@@ -126,7 +126,7 @@ final class PhpFileOnlyProxyFixerTest extends TestCase
 
         $proxy = new PhpFileOnlyProxyFixer($fixer);
 
-        $definition = $this->createMock(FixerConfigurationResolverInterface::class);
+        $definition = self::createStub(FixerConfigurationResolverInterface::class);
         $fixer
             ->expects($this->once())
             ->method('getConfigurationDefinition')

@@ -36,7 +36,7 @@ final class ConfigTest extends TestCase
         // RuleSet strips all disabled rules
         foreach ($configRules as $name => $value) {
             if ('@' === $name[0]) {
-                $defaultSetDefinitions[$name] = (new RuleSet(RuleSets::getSetDefinition($name)->getRules()))->getRules();
+                $defaultSetDefinitions[$name] = new RuleSet(RuleSets::getSetDefinition($name)->getRules())->getRules();
 
                 continue;
             }
@@ -102,13 +102,13 @@ final class ConfigTest extends TestCase
 
     public function testOverwrite(): void
     {
-        $rules = (new Config())->getRules();
+        $rules = new Config()->getRules();
         $rule  = 'global_namespace_import';
         self::assertTrue($rules[$rule]);
 
-        $newRules = (new Config([
+        $newRules = new Config([
             $rule => false,
-        ]))->getRules();
+        ])->getRules();
         self::assertFalse($newRules[$rule]);
     }
 }
