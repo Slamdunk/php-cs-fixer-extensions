@@ -9,12 +9,11 @@ use PhpCsFixer\Config as PhpCsFixerConfig;
 final class Config extends PhpCsFixerConfig
 {
     public const RULES = [
-        '@DoctrineAnnotation'                                => true,
         '@PhpCsFixer'                                        => true,
         '@PhpCsFixer:risky'                                  => true,
-        '@PHP8x0Migration:risky'                             => true,
-        '@PHP8x1Migration'                                   => true,
-        '@PHPUnit8x4Migration:risky'                         => true,
+        '@autoPHPMigration:risky'                            => true,
+        '@autoPHPMigration'                                  => true,
+        '@autoPHPUnitMigration:risky'                        => true,
         'Slam/final_abstract_public'                         => true,
         'Slam/final_internal_class'                          => true,
         'Slam/function_reference_space'                      => true,
@@ -45,6 +44,7 @@ final class Config extends PhpCsFixerConfig
         'no_superfluous_phpdoc_tags'                         => ['allow_mixed' => true],
         'not_operator_with_space'                            => false,
         'not_operator_with_successor_space'                  => true,
+        'ordered_attributes'                                 => true,
         'ordered_class_elements'                             => ['order' => ['use_trait', 'constant_public', 'constant_protected', 'constant_private', 'property', 'construct', 'destruct', 'magic', 'phpunit', 'method']],
         'ordered_interfaces'                                 => true,
         'php_unit_data_provider_static'                      => true,
