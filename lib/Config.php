@@ -88,7 +88,13 @@ final class Config extends PhpCsFixerConfig
 
         $rules = self::RULES;
         if (! empty($overriddenRules)) {
-            $rules = \array_merge($rules, $overriddenRules);
+            foreach ($overriddenRules as $rule => $value) {
+                if ($value === false) {
+                    unset($rules[$rule]);
+                } else {
+                    $rules[$rule] = $value;
+                }
+            }
         }
 
         $this->setRules($rules);
