@@ -104,12 +104,11 @@ final class ConfigTest extends TestCase
     {
         $rules = new Config()->getRules();
         $rule  = 'global_namespace_import';
-        self::assertArrayHasKey($rule, $rules);
         self::assertTrue($rules[$rule]);
 
         $newRules = new Config([
             $rule => false,
         ])->getRules();
-        self::assertArrayNotHasKey($rule, $newRules);
+        self::assertFalse($newRules[$rule]);
     }
 }
