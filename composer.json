@@ -17,7 +17,7 @@
     },
     "require-dev": {
         "phpstan/phpstan": "^2.2.16",
-        "phpstan/phpstan-phpunit": "^2.0.19",
+        "phpstan/phpstan-phpunit": "^2.0.21",
         "phpunit/phpunit": "^13.3.6"
     },
     "autoload": {
